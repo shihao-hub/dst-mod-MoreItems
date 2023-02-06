@@ -176,11 +176,13 @@ local custom_actions = {
 
             if act.doer and act.invobject and act.target then
                 if act.target:HasTag("mone_pheromonestone_infinite") then
-                    if rawget(env.GLOBAL, "Insight") then
-                        if act.doer.components.talker then
-                            act.doer.components.talker:Say("由于您开启了Insight模组，为了避免游戏崩溃，素石它失效了。")
+                    if not TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.insight_and_pheromonestone_permit then
+                        if rawget(env.GLOBAL, "Insight") then
+                            if act.doer.components.talker then
+                                act.doer.components.talker:Say("由于您开启了Insight模组，为了避免游戏崩溃，素石它失效了。")
+                            end
+                            return true; -- 不要 return false; return; 不然人物会说我做不到...
                         end
-                        return true; -- 不要 return false; return; 不然人物会说我做不到...
                     end
                     if exclude(act.target) then
                         if act.doer.components.talker then

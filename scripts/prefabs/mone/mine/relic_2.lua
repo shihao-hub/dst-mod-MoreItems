@@ -66,17 +66,17 @@ function fns._onclosefn(inst, data)
         local items_save_record = {};
         for _, p in pairs(inst.components.container.slots) do
             -- paris!!!!!!slots虽然是序列但是存在空洞
-            do
-                -- 验证一下 fueled or finiteuses or armor or perishable 组件的百分比
-                if p.mone_relic_2_percent then
-                    --print("p.mone_relic_2_percent: " .. tostring(p.mone_relic_2_percent));
-                    if p.mone_relic_2_percent <= 0.8 then
-                        inst.components.talker:Say("存在耐久度低于80%的物品，请勿钻小空子哦！我可是很聪明的！");
-                        inst.components.container:DropEverything();
-                        return ;
-                    end
-                end
-            end
+            --do
+            --    -- 验证一下 fueled or finiteuses or armor or perishable 组件的百分比
+            --    if p.mone_relic_2_percent then
+            --        --print("p.mone_relic_2_percent: " .. tostring(p.mone_relic_2_percent));
+            --        if p.mone_relic_2_percent <= 0.8 then
+            --            inst.components.talker:Say("存在耐久度低于80%的物品，请勿钻小空子哦！我可是很聪明的！");
+            --            inst.components.container:DropEverything();
+            --            return ;
+            --        end
+            --    end
+            --end
 
             if p:IsValid() and p.persists then
                 table.insert(items_save_record, (p:GetSaveRecord())); -- GetSaveRecord 有两个返回值。。。

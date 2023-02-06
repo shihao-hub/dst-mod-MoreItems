@@ -66,4 +66,5 @@ end
 --[[ 能力勋章 ]]
 do
     STRINGS.NAMES[("mone_buff_bw_attack"):upper()] = "惠灵顿风干牛排";
+    STRINGS.NAMES[("mone_buff_hhs_work"):upper()] = "蜜汁大肉棒";
 end

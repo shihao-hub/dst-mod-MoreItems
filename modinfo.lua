@@ -7,7 +7,7 @@
 local L = (locale == "zh" or locale == "zht" or locale == "zhr") and true or false;
 
 local __author = "心悦卿兮";
-local __version = "1.3.3";
+local __version = "2.0.0";
 
 local folder_name = folder_name or ""; -- 淘宝的云服务器卖家没有导入其他文件，所以那边modinfo.lua会导入失败。
 
@@ -219,16 +219,28 @@ configuration_options = {
         },
         default = true -- true 为 5x5
     },
+    config.addBlockLabel("素石"),
     {
-        name = "cane_gointo_mone_backpack",
-        label = "步行手杖可以放入装备袋",
-        hover = "没啥太大意义，就加个开关而已。\n如果你身上带太多装备袋，说不一定需要这个。",
+        name = "greenamulet_pheromonestone",
+        label = "󰀉 素石可以对建造护符使用",
+        hover = "虽然素石已经很过分了。但是对建造护符使用的话那就更过分了。",
+        options = {
+            option(config.OPEN, true, "轻易不要开，莫要衰减游戏寿命！"),
+            option(config.CLOSE, false, "轻易不要开，莫要衰减游戏寿命！"),
+        },
+        default = false
+    },
+    {
+        name = "insight_and_pheromonestone_permit",
+        label = "开启Insight后还是可以使用素石",
+        hover = "因为有玩家说他在开启Insight后，并不会出现问题。\n我也不是很确定，可能是Insight修复了这个bug了？",
         options = {
             option(config.OPEN, true),
             option(config.CLOSE, false),
         },
-        default = true
+        default = false
     },
+    config.addBlockLabel("装备袋"),
     {
         name = "mone_backpack_auto",
         label = "装备袋中的装备自动切换",
@@ -240,6 +252,17 @@ configuration_options = {
         default = true
     },
     {
+        name = "cane_gointo_mone_backpack",
+        label = "步行手杖可以放入装备袋",
+        hover = "没啥太大意义，就加个开关而已。\n如果你身上带太多装备袋，说不一定需要这个。",
+        options = {
+            option(config.OPEN, true),
+            option(config.CLOSE, false),
+        },
+        default = true
+    },
+    config.addBlockLabel("你的装备柜"),
+    {
         name = "mone_wardrobe_background",
         label = "你的装备柜格子有背景图片",
         hover = "",
@@ -249,16 +272,7 @@ configuration_options = {
         },
         default = true
     },
-    {
-        name = "greenamulet_pheromonestone",
-        label = "󰀉 素石可以对建造护符使用",
-        hover = "虽然素石已经很过分了。但是对建造护符使用的话那就更过分了。",
-        options = {
-            option(config.OPEN, true, "轻易不要开，莫要衰减游戏寿命！"),
-            option(config.CLOSE, false, "轻易不要开，莫要衰减游戏寿命！"),
-        },
-        default = false
-    },
+    config.addBlockLabel("旺达钟表盒"),
     {
         name = "mone_wanda_box_itemtestfn_extra1",
         label = "倒走表可以放入旺达钟表盒",
@@ -279,38 +293,7 @@ configuration_options = {
         },
         default = false
     },
-    --{
-    --    name = "mone_storage_bag_no_remove", -- 不干了，太麻烦
-    --    label = "保鲜袋耐久为0不消失",
-    --    hover = "耐久为0时物品会全掉落，然后失去保鲜效果。",
-    --    options = {
-    --        option(config.OPEN, true),
-    --        option(config.CLOSE, false),
-    --    },
-    --    default = false
-    --},
-    --{
-    --    name = "mone_city_lamp_reskin",
-    --    label = "路灯套皮",
-    --    hover = "就是路灯可以换蘑菇灯或者菌伞灯的皮肤",
-    --    options = {
-    --        option(config.CLOSE, 0),
-    --        option("蘑菇灯", 1),
-    --        option("菌伞灯", 2),
-    --    },
-    --    default = 0
-    --},
-    --{
-    --    name = "mone_waterchest_chartlet_change",
-    --    label = "海上箱子贴图更换",
-    --    hover = "",
-    --    options = {
-    --        option(config.OPEN, true),
-    --        option(config.CLOSE, false),
-    --    },
-    --    default = true
-    --},
-    config.addBlockLabel("物品优先进容器相关设置"),
+    config.addBlockLabel("物品优先进容器"),
     {
         name = "IGICF",
         label = "开关",
@@ -341,7 +324,7 @@ configuration_options = {
         },
         default = false
     },
-    config.addBlockLabel("升级版·雪球发射机相关设置"),
+    config.addBlockLabel("升级版·雪球发射机"),
     {
         name = "auto_sorter_mode",
         label = "模式",
@@ -365,6 +348,16 @@ configuration_options = {
         default = false
     },
     {
+        name = "auto_sorter_notags_extra",
+        label = "不熄灭火坑",
+        hover = "",
+        options = {
+            option(config.OPEN, true),
+            option(config.CLOSE, false),
+        },
+        default = true
+    },
+    {
         name = "auto_sorter_no_fuel",
         label = "󰀉 不消耗燃料",
         hover = "即：不会扣除燃料\n主要为了方便。",
@@ -385,7 +378,7 @@ configuration_options = {
             option("10s" or "", 10),
             option("20s" or "", 20),
         },
-        default = 5
+        default = 3
     },
     config.addBlockLabel(L and "取消某件物品及其相关内容" or "Cancel an item and its associated contents"),
     commonItems("__spear_poison", "󰀉 毒矛"),
@@ -398,7 +391,6 @@ configuration_options = {
     commonItems("__brainjelly", "󰀉 智慧帽"),
     commonItems("__gashat", "󰀉 梦魇的噩梦"),
     commonItems("__bathat", "󰀉 蝙蝠帽·测试版"),
-    commonItems("__bushhat", "升级版·灌木丛帽"),
     { name = "", label = "", hover = "", options = { { description = "", data = 0 } }, default = 0 },
     --commonItems("__backpack_piggyback", "装备袋和收纳袋", "暂时只能两个一起，因为这两个物品是写在一起的..."),
     commonItems("__backpack", "装备袋"),
@@ -418,19 +410,19 @@ configuration_options = {
     commonItems("__chiminea", "垃圾焚化炉"),
     commonItems("__arborist", "树木栽培家"),
     commonItems("__wardrobe", "你的装备柜"),
-    commonItems("__relic_2", "神秘的图腾"),
     commonItems("__moondial", "升级版·月晷"),
     commonItems("__firesuppressor", "升级版·雪球发射机"),
     { name = "", label = "", hover = "", options = { { description = "", data = 0 } }, default = 0 },
     commonItems("__poisonblam", "毒药膏"),
     commonItems("__pheromonestone", "󰀉 素石"),
     commonItems("__waterballoon", "󰀉 生命水球"),
+    --commonItems("__beef_bell", "升级版·牛铃"), -- 有点麻烦，不想写。
     { name = "", label = "", hover = "", options = { { description = "", data = 0 } }, default = 0 },
     commonItems("__mone_chicken_soup", "馊鸡汤"),
     commonItems("__mone_lifeinjector_vb", "强心素食堡", "请不要和其他也改变人物血量上限的模组一起使用\n不然肯定会出现奇怪的现象"),
+    commonItems("__mone_honey_ham_stick", "蜜汁大肉棒"),
     commonItems("__mone_beef_wellington", "󰀉 惠灵顿风干牛排"),
-
-    config.addBlockLabel(L and "作者的辅助功能" or "The author's auxiliary function"),
+    config.addBlockLabel("作者的辅助功能"),
     {
         name = "wathgrithr_vegetarian",
         label = "󰀉 女武神可吃素",
@@ -494,7 +486,7 @@ configuration_options = {
             option(config.OPEN, true),
             option(config.CLOSE, false),
         },
-        default = true
+        default = 1
     },
     {
         name = "todo",
@@ -506,6 +498,34 @@ configuration_options = {
         },
         default = true
     },
+    --[[    { name = "", label = "", hover = "", options = { { description = "", data = 0 } }, default = 0 },
+        {
+            name = "debug_switch",
+            label = "Switch",
+            hover = "以下的某一个或多个功能导致了专服三维锁定和掉帧的严重bug的出现",
+            options = {
+                option(config.OPEN, true), --"较简陋版本，有待完善"),
+                option(config.CLOSE, false), --"较简陋版本，有待完善"),
+            },
+            default = false
+        },
+        commonItems("__ponds", "池塘");
+        commonItems("__relic_2", "神秘的图腾"),
+        commonItems("__beebox_hermit", "老奶奶的蜂箱");
+        commonItems("__meatrack_hermit", "老奶奶的晾肉架");
+        commonItems("__bushhat", "升级版·灌木丛帽"),
+
+        {
+            name = "workable_meatrack_hermit_beebox_hermit",
+            label = "老奶奶的晾肉架和蜂箱可以被摧毁",
+            hover = "由于添加了这两件物品可以制作，如果你摆放歪了，不允许被摧毁的话似乎有点难受。",
+            options = {
+                option(config.OPEN, true),
+                option(config.CLOSE, false),
+            },
+            default = false
+        },]]
+
     --{
     --    name = "show_mod_folder_name", -- 服务端无意义。。。
     --    label = "folder_name",
@@ -518,9 +538,10 @@ configuration_options = {
     --},
 };
 
+-- 难搞
 --mod_dependencies = {
 --    {
---        ["workshop-"] = false;
+--        ["workshop-2926855182"] = false;
 --    }
 --}
 

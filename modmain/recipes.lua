@@ -51,7 +51,7 @@ RecipeTabs[key3] = {
 STRINGS.UI.CRAFTING_FILTERS[RecipeTabs[key3].filter_def.name] = "更多物品·三"
 AddRecipeFilter(RecipeTabs[key3].filter_def, RecipeTabs[key3].index)
 
--- 原版物品可制作
+-- 更多物品扩展包
 local key4 = "more_items4";
 RecipeTabs[key4] = {
     filter_def = {
@@ -61,7 +61,7 @@ RecipeTabs[key4] = {
     },
     index = nil
 }
-STRINGS.UI.CRAFTING_FILTERS[RecipeTabs[key4].filter_def.name] = "更多物品·四"
+STRINGS.UI.CRAFTING_FILTERS[RecipeTabs[key4].filter_def.name] = "更多物品·扩展包"
 AddRecipeFilter(RecipeTabs[key4].filter_def, RecipeTabs[key4].index)
 
 
@@ -103,9 +103,9 @@ Recipes[#Recipes + 1] = {
     CanMake = env.GetModConfigData("__harvester_staff") ~= false,
     name = "mone_harvester_staff",
     ingredients = BALANCE and {
-        Ingredient("twigs", 4), Ingredient("cutgrass", 4)
+        Ingredient("twigs", 3), Ingredient("cutgrass", 3), Ingredient("flint", 2)
     } or {
-        Ingredient("twigs", 2), Ingredient("cutgrass", 2)
+        Ingredient("twigs", 2), Ingredient("cutgrass", 2), Ingredient("flint", 1)
     },
     tech = TECH.NONE,
     config = {
@@ -129,9 +129,9 @@ Recipes[#Recipes + 1] = {
     CanMake = env.GetModConfigData("__harvester_staff") ~= false,
     name = "mone_harvester_staff_gold",
     ingredients = BALANCE and {
-        Ingredient("twigs", 8), Ingredient("cutgrass", 8), Ingredient("goldnugget", 3)
+        Ingredient("twigs", 6), Ingredient("cutgrass", 6), Ingredient("flint", 4), Ingredient("goldnugget", 2)
     } or {
-        Ingredient("twigs", 4), Ingredient("cutgrass", 4), Ingredient("goldnugget", 1)
+        Ingredient("twigs", 3), Ingredient("cutgrass", 3), Ingredient("flint", 2), Ingredient("goldnugget", 1)
     },
     tech = TECH.SCIENCE_TWO,
     config = {
@@ -570,29 +570,6 @@ Recipes[#Recipes + 1] = {
     }
 };
 
---[[ 以后加个火焰在图层上方 ]]
-Recipes_Locate["mone_relic_2"] = true;
-Recipes[#Recipes + 1] = {
-    CanMake = env.GetModConfigData("__relic_2") ~= false,
-    name = "mone_relic_2",
-    ingredients = {
-        Ingredient("redgem", 2), Ingredient("goldnugget", 10)
-    },
-    tech = TECH.SCIENCE_TWO,
-    config = {
-        placer = "mone_relic_2_placer",
-        min_spacing = 1,
-        nounlock = nil,
-        numtogive = nil,
-        builder_tag = nil,
-        atlas = "images/DLC0003/inventoryimages.xml",
-        image = "relic_2.tex"
-    },
-    filters = {
-        "MONE_MORE_ITEMS1"
-    }
-};
-
 Recipes_Locate["mone_walking_stick"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = env.GetModConfigData("__walking_stick") ~= false,
@@ -916,33 +893,32 @@ if not BALANCE then
     };
 end
 
-Recipes_Locate["mone_bushhat"] = true;
-Recipes[#Recipes + 1] = {
-    CanMake = env.GetModConfigData("__bushhat") ~= false,
-    name = "mone_bushhat",
-    ingredients = BALANCE and {
-        Ingredient("bushhat", 25) -- 一个大地图变异的大概39个，没变异的213、150个。。。
-    } or {
-        Ingredient("bushhat", 15)
-    },
-    tech = TECH.NONE,
-    config = {
-        placer = nil,
-        min_spacing = nil,
-        nounlock = nil,
-        numtogive = 1,
-        builder_tag = nil,
-        atlas = "images/inventoryimages.xml",
-        image = "bushhat.tex"
-    },
-    filters = {
-        "MONE_MORE_ITEMS2"
-    }
-};
+--Recipes_Locate["mone_beef_bell"] = true;
+--Recipes[#Recipes + 1] = {
+--    CanMake = env.GetModConfigData("__beef_bell") ~= false,
+--    name = "mone_beef_bell",
+--    ingredients = {
+--        Ingredient("goldnugget", 15), Ingredient("flint", 5)
+--    },
+--    tech = TECH.NONE,
+--    config = {
+--        placer = nil,
+--        min_spacing = nil,
+--        nounlock = nil,
+--        numtogive = 1,
+--        builder_tag = nil,
+--        atlas = "images/inventoryimages1.xml",
+--        image = "beef_bell.tex"
+--    },
+--    filters = {
+--        "MONE_MORE_ITEMS2"
+--    }
+--};
 
 ---------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
+
 Recipes_Locate["mone_chicken_soup"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = env.GetModConfigData("__mone_chicken_soup") ~= false,
@@ -991,6 +967,28 @@ Recipes[#Recipes + 1] = {
     }
 };
 
+Recipes_Locate["mone_honey_ham_stick"] = true;
+Recipes[#Recipes + 1] = {
+    CanMake = env.GetModConfigData("__mone_honey_ham_stick") ~= false,
+    name = "mone_honey_ham_stick",
+    ingredients = {
+        Ingredient("hambat", 1), Ingredient("honey", 10), Ingredient("green_cap", 3)
+    },
+    tech = TECH.NONE,
+    config = {
+        placer = nil,
+        min_spacing = nil,
+        nounlock = nil,
+        numtogive = 1,
+        builder_tag = nil,
+        atlas = "images/foodimages/bs_food_58.xml",
+        image = "bs_food_58.tex"
+    },
+    filters = {
+        "MONE_MORE_ITEMS3"
+    }
+};
+
 Recipes_Locate["mone_beef_wellington"] = true;
 Recipes[#Recipes + 1] = {
     CanMake = env.GetModConfigData("__mone_beef_wellington") ~= false,
@@ -1005,7 +1003,7 @@ Recipes[#Recipes + 1] = {
         placer = nil,
         min_spacing = nil,
         nounlock = nil,
-        numtogive = BALANCE and 5 or 3,
+        numtogive = BALANCE and 4 or 3,
         builder_tag = nil,
         atlas = "images/foodimages/mone_beef_wellington.xml",
         image = "mone_beef_wellington.tex"
@@ -1040,35 +1038,179 @@ Recipes[#Recipes + 1] = {
 ---------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
---Recipes_Locate["mone_beef_wellington"] = true;
---Recipes[#Recipes + 1] = {
---    CanMake = env.GetModConfigData("__mone_beef_wellington") ~= false,
---    name = "mone_beef_wellington",
---    ingredients = BALANCE and {
---        Ingredient("cookedmeat", 20), Ingredient("beefalowool", 25), Ingredient("horn", 2)
---    } or {
---        Ingredient("cookedmeat", 10), Ingredient("beefalowool", 15), Ingredient("horn", 1)
---    },
---    tech = TECH.NONE,
---    config = {
---        placer = nil,
---        min_spacing = nil,
---        nounlock = nil,
---        numtogive = BALANCE and 5 or 3,
---        builder_tag = nil,
---        atlas = "images/foodimages/mone_beef_wellington.xml",
---        image = "mone_beef_wellington.tex"
---    },
---    filters = {
---        "MONE_MORE_ITEMS4"
---    }
---};
-
 
 ---------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
+-- 此处这几个物品中的某一个或几个导致的三维锁定的严重bug的出现！！！
+if API.isDebug(env) and env.GetModConfigData("debug_switch") then
+    --[[ 以后加个火焰在图层上方 ]]
+    Recipes_Locate["mone_relic_2"] = true;
+    Recipes[#Recipes + 1] = {
+        CanMake = env.GetModConfigData("__relic_2") ~= false,
+        name = "mone_relic_2",
+        ingredients = {
+            Ingredient("redgem", 2), Ingredient("goldnugget", 10)
+        },
+        tech = TECH.SCIENCE_TWO,
+        config = {
+            placer = "mone_relic_2_placer",
+            min_spacing = 1,
+            nounlock = nil,
+            numtogive = nil,
+            builder_tag = nil,
+            atlas = "images/DLC0003/inventoryimages.xml",
+            image = "relic_2.tex"
+        },
+        filters = {
+            "MONE_MORE_ITEMS1"
+        }
+    };
 
+    Recipes_Locate["mone_bushhat"] = true;
+    Recipes[#Recipes + 1] = {
+        CanMake = env.GetModConfigData("__bushhat") ~= false,
+        name = "mone_bushhat",
+        ingredients = BALANCE and {
+            Ingredient("dug_berrybush", 25) -- 一个大地图变异的大概39个，没变异的213、150个。。。
+        } or {
+            Ingredient("dug_berrybush", 15)
+        },
+        tech = TECH.NONE,
+        config = {
+            placer = nil,
+            min_spacing = nil,
+            nounlock = nil,
+            numtogive = 1,
+            builder_tag = nil,
+            atlas = "images/inventoryimages.xml",
+            image = "bushhat.tex"
+        },
+        filters = {
+            "MONE_MORE_ITEMS2"
+        }
+    };
+
+    Recipes_Locate["pond"] = true; -- pond、pond_cave、pond_mos
+    Recipes[#Recipes + 1] = {
+        CanMake = env.GetModConfigData("__ponds") ~= false,
+        name = "pond",
+        ingredients = BALANCE and {
+            Ingredient("pondfish", 30)
+        } or {
+            Ingredient("pondfish", 15)
+        },
+        tech = TECH.NONE,
+        config = {
+            placer = "pond_placer",
+            min_spacing = 1.5,
+            nounlock = nil,
+            numtogive = nil,
+            builder_tag = nil,
+            atlas = "minimap/minimap_data.xml",
+            image = "pond.png"
+        },
+        filters = {
+            "MONE_MORE_ITEMS4"
+        }
+    };
+
+    Recipes_Locate["pond_cave"] = true; -- pond、pond_cave、pond_mos
+    Recipes[#Recipes + 1] = {
+        CanMake = env.GetModConfigData("__ponds") ~= false,
+        name = "pond_cave",
+        ingredients = BALANCE and {
+            Ingredient("pondeel", 30)
+        } or {
+            Ingredient("pondeel", 15)
+        },
+        tech = TECH.NONE,
+        config = {
+            placer = "pond_cave_placer",
+            min_spacing = 1.5,
+            nounlock = nil,
+            numtogive = nil,
+            builder_tag = nil,
+            atlas = "minimap/minimap_data.xml",
+            image = "pond_cave.png"
+        },
+        filters = {
+            "MONE_MORE_ITEMS4"
+        }
+    };
+
+    Recipes_Locate["pond_mos"] = true; -- pond、pond_cave、pond_mos
+    Recipes[#Recipes + 1] = {
+        CanMake = env.GetModConfigData("__ponds") ~= false,
+        name = "pond_mos",
+        ingredients = BALANCE and {
+            Ingredient("mosquito", 30)
+        } or {
+            Ingredient("pondfish", 15)
+        },
+        tech = TECH.NONE,
+        config = {
+            placer = "pond_mos_placer",
+            min_spacing = 1.5,
+            nounlock = nil,
+            numtogive = nil,
+            builder_tag = nil,
+            atlas = "minimap/minimap_data.xml",
+            image = "pond_mos.png"
+        },
+        filters = {
+            "MONE_MORE_ITEMS4"
+        }
+    };
+
+    Recipes_Locate["meatrack_hermit"] = true;
+    Recipes[#Recipes + 1] = {
+        CanMake = env.GetModConfigData("__meatrack_hermit") ~= false,
+        name = "meatrack_hermit",
+        ingredients = {
+            Ingredient("twigs", 3), Ingredient("charcoal", 2), Ingredient("rope", 3)
+        },
+        tech = TECH.NONE,
+        config = {
+            placer = "meatrack_hermit_placer",
+            min_spacing = 3.2,
+            nounlock = nil,
+            numtogive = nil,
+            builder_tag = nil,
+            atlas = "minimap/minimap_data.xml",
+            image = "meatrack_hermit.png"
+        },
+        filters = {
+            "MONE_MORE_ITEMS4"
+        }
+    };
+
+    Recipes_Locate["beebox_hermit"] = true;
+    Recipes[#Recipes + 1] = {
+        CanMake = env.GetModConfigData("__beebox_hermit") ~= false,
+        name = "beebox_hermit",
+        ingredients = {
+            Ingredient("boards", 2), Ingredient("honeycomb", 1), Ingredient("bee", 4)
+        },
+        tech = TECH.NONE,
+        config = {
+            placer = "beebox_hermit_placer",
+            min_spacing = 3.2,
+            nounlock = nil,
+            numtogive = nil,
+            builder_tag = nil,
+            atlas = "minimap/minimap_data.xml",
+            image = "beebox_hermitcrab.png"
+        },
+        filters = {
+            "MONE_MORE_ITEMS4"
+        }
+    };
+end
+
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
 -- 全部设置成不要科技
 if not TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.BALANCE then
     for _, v in pairs(Recipes) do

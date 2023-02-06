@@ -36,7 +36,7 @@ env.AddClassPostConstruct("widgets/hoverer", function(self)
         end
         if target and target.entity ~= nil then
             if target.prefab ~= nil then
-                str = str .. "\n" .. "代码:" .. target.prefab
+                str = str .. "\n" .. "代码: " .. target.prefab
             end
             if env.GetModConfigData("looktietu") ~= 1 then
                 local build = GetBuild(target)

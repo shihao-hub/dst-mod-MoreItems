@@ -82,8 +82,6 @@ local function commonfn(tags, anims)
 
     inst:AddComponent("inventoryitem")
 
-    inst:AddComponent("tradable")
-
     inst:AddComponent("equippable")
 
     return inst

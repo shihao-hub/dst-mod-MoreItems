@@ -35,7 +35,7 @@ end
 ---@param env env
 ---@return boolean
 function API.isDebug(env)
-    if not string.find(env.modname, "workshop") then
+    if env.GetModConfigData("debug") and not string.find(env.modname, "workshop") then
         return true;
     end
     return false;
@@ -530,8 +530,11 @@ function API.AutoSorter.beginTransfer(inst)
     local MUST_TAGS = { "_container" };
     local CANT_TAGS = {
         "INLIMBO", "NOCLICK", "knockbackdelayinteraction", "catchable", "mineactive",
-        inst.prefab, "stewer", "_inventoryitem", "mone_chiminea",
-        "mone_pets_container_tag" -- 我的宠物容器的标签
+        inst.prefab,
+        "stewer",
+        "_inventoryitem", "_health",
+        "mone_chiminea",
+        "pets_container_tag", -- 我的宠物容器的标签
     };
     if x and y and z then
         local ents = TheSim:FindEntities(x, y, z, DIST, MUST_TAGS, CANT_TAGS);

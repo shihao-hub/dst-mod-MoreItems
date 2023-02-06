@@ -14,15 +14,16 @@ end
 
 local API = require("chang_mone.dsts.API");
 
-TUNING.MONE_MORE_ITEMS_ON = true;
+TUNING.MORE_ITEMS_ON = true;
 
---TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.xxx
+--TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.insight_and_pheromonestone
 TUNING.MONE_TUNING = {
     AUTO_SORTER = {
         whetherIsFull = env.GetModConfigData("auto_sorter_mode");
         nFullInterval = env.GetModConfigData("auto_sorter_is_full");
         auto_sorter_light = env.GetModConfigData("auto_sorter_light");
         auto_sorter_no_fuel = env.GetModConfigData("auto_sorter_no_fuel");
+        auto_sorter_notags_extra = env.GetModConfigData("auto_sorter_notags_extra");
     };
     GET_MOD_CONFIG_DATA = {
         BALANCE = env.GetModConfigData("balance");
@@ -73,7 +74,7 @@ TUNING.MONE_TUNING = {
         nightspace_cape = env.GetModConfigData("__nightspace_cape");
         waterchest = env.GetModConfigData("__waterchest");
         mone_seedpouch = env.GetModConfigData("__mone_seedpouch");
-        bushhat = env.GetModConfigData("__bushhat");
+        --beef_bell = env.GetModConfigData("__beef_bell");
 
         chiminea = env.GetModConfigData("__chiminea");
         garlic_structure = env.GetModConfigData("__garlic_structure");
@@ -83,7 +84,6 @@ TUNING.MONE_TUNING = {
         firesuppressor = env.GetModConfigData("__firesuppressor");
         moondial = env.GetModConfigData("__moondial");
         wardrobe = env.GetModConfigData("__wardrobe");
-        relic_2 = env.GetModConfigData("__relic_2");
 
         poisonblam = env.GetModConfigData("__poisonblam");
         waterballoon = env.GetModConfigData("__waterballoon");
@@ -92,16 +92,51 @@ TUNING.MONE_TUNING = {
         mone_beef_wellington = env.GetModConfigData("__mone_beef_wellington");
         mone_chicken_soup = env.GetModConfigData("__mone_chicken_soup");
         mone_lifeinjector_vb = env.GetModConfigData("__mone_lifeinjector_vb");
+        mone_honey_ham_stick = env.GetModConfigData("__mone_honey_ham_stick");
+
 
         -- 为了我自己玩而写的辅助功能
         trap_auto_reset = env.GetModConfigData("trap_auto_reset");
         wathgrithr_vegetarian = env.GetModConfigData("wathgrithr_vegetarian");
         forced_attack_lightflier = env.GetModConfigData("forced_attack_lightflier");
         forced_attack_bound_beefalo = env.GetModConfigData("forced_attack_bound_beefalo");
+
+        insight_and_pheromonestone_permit = env.GetModConfigData("insight_and_pheromonestone_permit");
+
+        -- Debug
+        relic_2 = env.GetModConfigData("__relic_2");
+        bushhat = env.GetModConfigData("__bushhat");
+
+        ponds = env.GetModConfigData("__ponds");
+        meatrack_hermit = env.GetModConfigData("__meatrack_hermit");
+        beebox_hermit = env.GetModConfigData("__beebox_hermit");
+        workable_meatrack_hermit_beebox_hermit = env.GetModConfigData("workable_meatrack_hermit_beebox_hermit");
     };
 };
 
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
+
+-- 此处这几个物品中的某一个或几个导致的三维锁定的严重bug的出现！！！
+if not API.isDebug(env) then
+    config_data.relic_2 = false;
+    config_data.bushhat = false;
+
+    config_data.ponds = false;
+    config_data.meatrack_hermit = false;
+    config_data.beebox_hermit = false;
+    config_data.workable_meatrack_hermit_beebox_hermit = false;
+end
+
+-- 2023-02-05 已经独立为扩展包
+if API.isDebug(env) and not env.GetModConfigData("debug_switch") then
+    config_data.relic_2 = false;
+    config_data.bushhat = false;
+
+    config_data.ponds = false;
+    config_data.meatrack_hermit = false;
+    config_data.beebox_hermit = false;
+    config_data.workable_meatrack_hermit_beebox_hermit = false;
+end
 
 --[[ 模组兼容 ]]
 env.modimport("modmain/compatibility.lua");
@@ -121,11 +156,11 @@ env.PrefabFiles = {
     "mone/union/hats",
     "mone/union/foods",
     "mone/union/food_buffs",
+
+    "mone/union/placers"
 }
 
 env.Assets = {
-    Asset("ANIM", "anim/my_ui_cookpot_1x1.zip"),
-
     Asset("ANIM", "anim/my_chest_ui_4x4.zip"),
     Asset("ANIM", "anim/my_chest_ui_5x5.zip"),
     Asset("ANIM", "anim/my_chest_ui_6x6.zip"),
@@ -163,6 +198,10 @@ env.Assets = {
     Asset("ATLAS", "images/DLC0003/inventoryimages_2.xml"),
 }
 
+if config_data.relic_2 then
+    table.insert(env.Assets, Asset("ANIM", "anim/my_ui_cookpot_1x1.zip"));
+end
+
 
 --[[ require and import ]]
 do
@@ -177,6 +216,7 @@ do
     env.modimport("modmain/PostInit/containers_commonly.lua");
     env.modimport("modmain/PostInit/mone_lifeinjector_vb.lua");
     env.modimport("modmain/PostInit/bushhat.lua");
+    env.modimport("modmain/PostInit/kleis.lua");
 end
 
 --[[ prefabs ]]
@@ -279,6 +319,9 @@ do
     if config_data.wardrobe then
         table.insert(env.PrefabFiles, "mone/game/wardrobe");
     end
+    --if config_data.beef_bell then
+    --    table.insert(env.PrefabFiles, "mone/game/beef_bell");
+    --end
     if config_data.relic_2 then
         table.insert(env.PrefabFiles, "mone/mine/relic_2");
         table.insert(env.PrefabFiles, "mone/mine/relic_2_flame");
@@ -333,7 +376,7 @@ do
         env.modimport("modmain/AUXmods/trap_auto_reset.lua");
     end
 
-    if config_data.wathgrithr_vegetarian == 1 then
+    if config_data.wathgrithr_vegetarian ~= 0 then
         env.modimport("modmain/AUXmods/wathgrithr_vegetarian.lua");
     end
 end

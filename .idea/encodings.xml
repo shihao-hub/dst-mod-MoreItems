@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="GBK">
+    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/modinfo.lua" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/modmain/actions.lua" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/prefabs/mie/mine/relic_2.lua" charset="UTF-8" />
     <file url="PROJECT" charset="GBK" />
   </component>
 </project>

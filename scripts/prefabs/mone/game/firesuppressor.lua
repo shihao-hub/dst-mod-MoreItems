@@ -53,6 +53,22 @@ local function LaunchProjectile(inst, targetpos)
     local x, y, z = inst.Transform:GetWorldPosition()
 
     local projectile = SpawnPrefab("snowball")
+
+    -- 先用这种方式吧！但这功能实现了就行。
+    if TUNING.MONE_TUNING.AUTO_SORTER.auto_sorter_notags_extra then
+        local old_ignoretags;
+        if projectile.components.wateryprotection then
+            old_ignoretags = deepcopy(projectile.components.wateryprotection.ignoretags); -- 表是引用，所以我必须如此吧？
+            table.insert(projectile.components.wateryprotection.ignoretags, "campfire");
+        end
+
+        projectile:DoTaskInTime(5, function(projectile, data)
+            if projectile and projectile:IsValid() and type(old_ignoretags) == "table" then
+                projectile.components.wateryprotection.ignoretags = old_ignoretags;
+            end
+        end)
+    end
+
     projectile.Transform:SetPosition(x, y, z)
 
     --V2C: scale the launch speed based on distance
@@ -75,6 +91,8 @@ local function OnFindFire(inst, firePos)
     if inst:IsAsleep() then
         inst:DoTaskInTime(1 + math.random(), SpreadProtectionAtPoint, firePos)
     else
+        -- Question: 待解决问题：灌溉的时候也会探测到营火，所以灌溉在哪里的？
+
         inst:PushEvent("putoutfire", { firePos = firePos })
     end
 end
@@ -463,6 +481,130 @@ local function fn()
     inst.components.firedetector:SetOnBeginWarningFn(OnBeginWarning)
     inst.components.firedetector:SetOnUpdateWarningFn(OnUpdateWarning)
     inst.components.firedetector:SetOnEndWarningFn(OnEndWarning)
+
+    if TUNING.MONE_TUNING.AUTO_SORTER.auto_sorter_notags_extra then
+        -- Question: 修改上值，确确实实修改了 NOTAGS 的值，但是这居然是永久修改。
+        do
+            -- upvaluehelper
+            local upvaluehelper = require("chang_mone.dsts.upvaluehelper");
+            local success = false;
+            local old_Activate = inst.components.firedetector.Activate;
+            local function SetNOTAGS()
+                if not success then
+                    if old_Activate then
+                        local LookForFiresAndFirestarters = upvaluehelper.Get(old_Activate, "LookForFiresAndFirestarters");
+                        --print("--1: "..tostring(LookForFiresAndFirestarters));
+                        if type(LookForFiresAndFirestarters) == "function" then
+                            local NOTAGS = upvaluehelper.Get(LookForFiresAndFirestarters, "NOTAGS");
+                            --print("--2: "..tostring(NOTAGS));
+                            if type(NOTAGS) == "table" then
+                                table.insert(NOTAGS, "campfire");
+                                success = true;
+
+                                local msg = {};
+                                for _, v in ipairs(NOTAGS) do
+                                    table.insert(msg, v);
+                                end
+                                print(table.concat(msg, ","));
+                            end
+                        end
+                    end
+                end
+            end
+        end
+
+        function inst.components.firedetector:Activate(randomizedStartTime)
+            local build_in_vars_fns = {
+                Cancel = function(inst, self)
+                    if self.detectTask ~= nil then
+                        self.detectTask:Cancel()
+                        self.detectTask = nil
+                    end
+                    if self.emergencyShutdownTask ~= nil then
+                        self.emergencyShutdownTask:Cancel()
+                        self.emergencyShutdownTask = nil
+                        self.emergencyShutdownTime = nil
+                    end
+                    if self.emergencyWatched ~= nil then
+                        for k, v in pairs(self.emergencyWatched) do
+                            inst:RemoveEventCallback("onburnt", v.onburnt, k)
+                            inst:RemoveEventCallback("onremove", v.onremove, k)
+                        end
+                        self.emergencyWatched = nil
+                    end
+                    self.emergencyBurnt = nil
+                    self.emergencyLevel = 0
+                    self.emergency = false
+                    self.warningStartTime = nil
+                end,
+                LookForFiresAndFirestarters = function(inst, self, force)
+                    local build_in_vars_fns = {
+                        NOTAGS = { "FX", "NOCLICK", "DECOR", "INLIMBO", "burnt", "player", "monster" },
+                        NONEMERGENCYTAGS = { "witherable", "fire", "smolder" },
+                        NONEMERGENCY_FIREONLY_TAGS = { "fire", "smolder" },
+                        CheckTargetScore = function(target)
+                            if not target:IsValid() then
+                                return 0
+                            elseif target.components.burnable ~= nil then
+                                if target.components.burnable:IsBurning() then
+                                    return 10, true --Burning, highest priority so no need to keep testing others
+                                elseif target.components.burnable:IsSmoldering() then
+                                    return 9 --Smoldering
+                                end
+                            end
+                            if target.components.witherable == nil or target.components.witherable:IsProtected() then
+                                return 0
+                            elseif target.components.witherable:CanWither() then
+                                return 8 --Withering
+                            elseif target.components.witherable:CanRejuvenate() then
+                                return 7 --Withered but can be rejuvenated
+                            end
+                            return 0
+                        end,
+                        RegisterDetectedItem = function(inst, self, target)
+                            self.detectedItems[target] = inst:DoTaskInTime(2, function(inst, self, target)
+                                self.detectedItems[target] = nil
+                            end, self, target)
+                        end
+                    }
+
+                    table.insert(build_in_vars_fns.NOTAGS, "campfire");
+
+                    if not force and inst.sg ~= nil and inst.sg:HasStateTag("busy") then
+                        return
+                    end
+                    local x, y, z = inst.Transform:GetWorldPosition()
+                    local ents = TheSim:FindEntities(x, y, z, self.range, nil, build_in_vars_fns.NOTAGS, (self.fireOnly and build_in_vars_fns.NONEMERGENCY_FIREONLY_TAGS) or build_in_vars_fns.NONEMERGENCYTAGS)
+                    local target = nil
+                    local targetscore = 0
+                    for i, v in ipairs(ents) do
+                        if not self.detectedItems[v] then
+                            local score, force = build_in_vars_fns.CheckTargetScore(v)
+                            if force then
+                                target = v
+                                break
+                            elseif score > targetscore then
+                                targetscore = score
+                                target = v
+                            end
+                        end
+                    end
+                    if target ~= nil then
+                        build_in_vars_fns.RegisterDetectedItem(inst, self, target)
+                        if self.onfindfire ~= nil then
+                            self.onfindfire(inst, target:GetPosition())
+                        end
+                    end
+                end,
+                TURN_ON_DELAY = 13 * FRAMES
+            };
+
+            -- 直接从 firedetector.lua 文件中复制+重写。我服了，这么多局部函数和变量。
+            build_in_vars_fns.Cancel(self.inst, self);
+            self.detectTask = self.inst:DoPeriodicTask(self.detectPeriod, build_in_vars_fns.LookForFiresAndFirestarters, randomizedStartTime and build_in_vars_fns.TURN_ON_DELAY + math.random() * self.detectPeriod or build_in_vars_fns.TURN_ON_DELAY, self);
+        end
+    end
+
     inst:AddComponent("wateryprotection")
     inst.components.wateryprotection.extinguishheatpercent = TUNING.FIRESUPPRESSOR_EXTINGUISH_HEAT_PERCENT
     inst.components.wateryprotection.temperaturereduction = TUNING.FIRESUPPRESSOR_TEMP_REDUCTION

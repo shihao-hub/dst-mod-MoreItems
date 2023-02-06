@@ -28,6 +28,7 @@ local function fn()
     inst:AddTag("sharp")
     inst:AddTag("tool")
     inst:AddTag("weapon")
+    inst:AddTag("hammer")
 
     inst.entity:SetPristine()
 
@@ -62,13 +63,13 @@ local function fn()
     --inst.components.tool:SetAction(ACTIONS.DIG, 1)
 
     inst:AddComponent("finiteuses")
-    inst.components.finiteuses:SetMaxUses(108)
-    inst.components.finiteuses:SetUses(108)
+    inst.components.finiteuses:SetMaxUses(720)
+    inst.components.finiteuses:SetUses(720)
     inst.components.finiteuses:SetOnFinished(inst.Remove)
 
-    inst.components.finiteuses:SetConsumption(ACTIONS.CHOP, 0.6 / 3)
-    inst.components.finiteuses:SetConsumption(ACTIONS.MINE, 0.6 / 3)
-    inst.components.finiteuses:SetConsumption(ACTIONS.HAMMER, 0.3 / 3)
+    inst.components.finiteuses:SetConsumption(ACTIONS.CHOP, 1)
+    inst.components.finiteuses:SetConsumption(ACTIONS.MINE, 1)
+    inst.components.finiteuses:SetConsumption(ACTIONS.HAMMER, 1)
     --inst.components.finiteuses:SetConsumption(ACTIONS.DIG, 0.6)
 
     MakeHauntableLaunch(inst)

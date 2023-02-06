@@ -245,16 +245,51 @@ local prefabsInfo = {
         describe = "这东西真可怕",
         recipe_desc = "使有新鲜度的物品瞬间腐烂"
     },
-    ["mone_bushhat"] = {
-        names = "升级版·灌木丛帽",
-        describe = "掩耳盗铃？错！",
-        recipe_desc = "使用后，敌人会无视你的存在。\n但是只要发现你就会有消耗。使用红宝石可以修复。"
+    --["mone_bushhat"] = {
+    --    names = "升级版·灌木丛帽",
+    --    describe = "掩耳盗铃？错！",
+    --    recipe_desc = "使用后，敌人会无视你的存在。\n但是还是有些限制的。红宝石修复。"
+    --},
+    --["mone_relic_2"] = {
+    --    names = "神秘的图腾",
+    --    describe = "古老而又神秘的存在",
+    --    recipe_desc = "关闭图腾后，51%概率物品翻倍，49%概率直接消失。买定离手！"
+    --},
+    ["mone_honey_ham_stick"] = {
+        names = "蜜汁大肉棒",
+        describe = "",
+        recipe_desc = "吃甜食，真开心。\n半天内效率提高一倍，时间可累加"
     },
-    ["mone_relic_2"] = {
-        names = "神秘的图腾",
-        describe = "古老而又神秘的存在",
-        recipe_desc = "关闭图腾后，51%概率物品翻倍，49%概率直接消失。买定离手！"
-    },
+    --["mone_beef_bell"] = {
+    --    names = "升级版·牛铃",
+    --    describe = nil,
+    --    recipe_desc = "绑定后将不可解绑，牛死亡3天后，原属性重生"
+    --},
+    --["pond"] = {
+    --    names = nil,
+    --    describe = nil,
+    --    recipe_desc = "就是原版物品可以制作"
+    --},
+    --["pond_cave"] = {
+    --    names = nil,
+    --    describe = nil,
+    --    recipe_desc = "就是原版物品可以制作"
+    --},
+    --["pond_mos"] = {
+    --    names = nil,
+    --    describe = nil,
+    --    recipe_desc = "就是原版物品可以制作"
+    --},
+    --["meatrack_hermit"] = {
+    --    names = nil,
+    --    describe = nil,
+    --    recipe_desc = "就是原版物品可以制作"
+    --},
+    --["beebox_hermit"] = {
+    --    names = nil,
+    --    describe = nil,
+    --    recipe_desc = "就是原版物品可以制作"
+    --},
 
 }
 
@@ -273,17 +308,17 @@ for name, info in pairs(prefabsInfo) do
             local switch = {
                 ["names"] = function(n, c)
                     if c then
-                        STRINGS.NAMES[n:upper()] = c;
+                        STRINGS.NAMES[n:upper()] = STRINGS.NAMES[n:upper()] or c;
                     end
                 end,
                 ["describe"] = function(n, c)
                     if c then
-                        STRINGS.CHARACTERS.GENERIC.DESCRIBE[n:upper()] = c;
+                        STRINGS.CHARACTERS.GENERIC.DESCRIBE[n:upper()] = STRINGS.CHARACTERS.GENERIC.DESCRIBE[n:upper()] or c;
                     end
                 end,
                 ["recipe_desc"] = function(n, c)
                     if c then
-                        STRINGS.RECIPE_DESC[n:upper()] = c;
+                        STRINGS.RECIPE_DESC[n:upper()] = STRINGS.RECIPE_DESC[n:upper()] or c;
                     end
                 end
             };

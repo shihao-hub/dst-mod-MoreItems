@@ -3,9 +3,9 @@
 ---
 
 
-local __Tool = {};
+local Tool = {};
 
-function __Tool.printSeq(seq)
+function Tool.printSeq(seq)
     local msg = {};
     local tmp = {};
     local cnt = 0;
@@ -33,11 +33,11 @@ function __Tool.printSeq(seq)
     -- 逢 8 换行
     table.insert(msg, table.concat(tmp, ", ", 1, #tmp));
 
-    return "__Tool.printSeq:\n" .. table.concat(msg, ",\n", 1, #msg);
+    return "Tool.printSeq:\n" .. table.concat(msg, ",\n", 1, #msg);
 end
 
 ---@return string
-function __Tool.printTab(tab)
+function Tool.printTab(tab)
     local msg = {};
     for k, v in pairs(tab) do
         local str = "";
@@ -74,12 +74,12 @@ function __Tool.printTab(tab)
         table.insert(msg, str);
     end
 
-    return "__Tool.printTab:\n" .. table.concat(msg, ",\n", 1, #msg);
+    return "Tool.printTab:\n" .. table.concat(msg, ",\n", 1, #msg);
 end
 
 ---Role:即 { ... }
 ---Note:必须传入序列
-function __Tool.pack(...)
+function Tool.pack(...)
     local args = { ... };
 
     -- 添加项 args["n"] = 列表长度
@@ -96,4 +96,4 @@ function __Tool.pack(...)
 end
 
 
-return __Tool;
+return Tool;

@@ -55,7 +55,7 @@ foods["mone_chicken_soup"] = {
         Asset("ATLAS", "images/foodimages/mone_chicken_soup.xml")
     },
     tags = { "mone_chicken_soup", "non_preparedfood" },
-    animdata = { bank = "acb_chicken_soup", build = "mone_chicken_soup", animation = "idle" },
+    animdata = { bank = "mone_chicken_soup", build = "mone_chicken_soup", animation = "idle" },
     cs_fn = function(inst)
 
     end,
@@ -134,6 +134,51 @@ foods["mone_lifeinjector_vb"] = {
         inst.components.perishable:StartPerishing();
         inst.components.perishable.onperishreplacement = "lifeinjector";
 
+    end
+}
+
+foods["mone_honey_ham_stick"] = {
+    CanMake = config_data.mone_honey_ham_stick,
+    name = "mone_honey_ham_stick",
+    assets = {
+        Asset("ANIM", "anim/bs_food_58.zip"),
+        Asset("IMAGE", "images/foodimages/bs_food_58.tex"),
+        Asset("ATLAS", "images/foodimages/bs_food_58.xml")
+    },
+    tags = { "mone_honey_ham_stick", "non_preparedfood" },
+    animdata = { bank = "bs_food_58", build = "bs_food_58", animation = "idle" },
+    cs_fn = function(inst)
+
+    end,
+    client_fn = function(inst)
+
+    end,
+    server_fn = function(inst)
+        inst.components.inventoryitem.imagename = "bs_food_58";
+        inst.components.inventoryitem.atlasname = "images/foodimages/bs_food_58.xml";
+
+        inst.components.edible.hungervalue = 75;
+        inst.components.edible.sanityvalue = 75;
+        inst.components.edible.healthvalue = -15;
+        inst.components.edible.foodtype = FOODTYPE.MEAT;
+        inst.components.edible:SetOnEatenFn(function(inst, eater)
+            if eater.components.talker then
+                eater.components.talker:Say("蜜汁大肉棒真好吃，我感觉我充满的干劲！")
+            end
+            if eater.components.debuffable and eater.components.debuffable:IsEnabled() and
+                    not (eater.components.health and eater.components.health:IsDead()) and
+                    not eater:HasTag("playerghost") then
+                eater.mone_buff_hhs_work = { totaltime = TUNING.SEG_TIME * 8 } -- TEMP
+                eater.components.debuffable:AddDebuff("mone_buff_hhs_work", "mone_buff_hhs_work");
+            end
+        end)
+
+        inst.components.stackable.maxsize = TUNING.STACK_SIZE_LARGEITEM;
+
+        inst:AddComponent("perishable");
+        inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERSLOW / 8 * 3);
+        inst.components.perishable:StartPerishing();
+        inst.components.perishable.onperishreplacement = "spoiled_food";
     end
 }
 

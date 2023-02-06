@@ -62,6 +62,9 @@ params.mone_storage_bag = {
         if item.prefab == "heatrock" then
             return false;
         end
+        if item.prefab == "cutreeds" or item.prefab == "papyrus" then
+            return true;
+        end
         return isIcebox(container, item, slot) or isSaltbox(container, item, slot);
     end
 }

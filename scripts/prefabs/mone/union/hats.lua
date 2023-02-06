@@ -524,8 +524,8 @@ local function MakeHat(prefabname, assets, animstate, overridesymbol)
         --inst.components.fueled:SetFirstPeriod(TUNING.TURNON_FUELED_CONSUMPTION, TUNING.TURNON_FULL_FUELED_CONSUMPTION)
 
         inst:AddComponent("finiteuses");
-        inst.components.finiteuses:SetMaxUses(200);
-        inst.components.finiteuses:SetUses(200);
+        inst.components.finiteuses:SetMaxUses(100);
+        inst.components.finiteuses:SetUses(100);
 
         -- TEMPLATE!!!
         local old_onequipfn = inst.components.equippable.onequipfn;

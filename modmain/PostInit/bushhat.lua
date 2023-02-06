@@ -31,24 +31,28 @@ env.AddPrefabPostInitAny(function(inst)
     end
 
     -- 直接这样
+    -- FIXME:!!!!!!这种大范围修改物品内容的，要小心！居然有预制物中途移除了combat组件？？？
+    -- FIXME:还是说其他原因？反正要小心了！！！
     inst:DoPeriodicTask(1, function(inst)
-        local target = inst.components.combat.target;
-        --print(tostring(target));
-        if target and target:HasTag("mone_notarget") then
-            --print("√√√ 3: target:HasTag(\"mone_notarget\")");
-            if inst.components.health then
-                local maxhealth = inst.components.health.maxhealth;
-                if maxhealth <= 100 then
-                    consume(target, 1, 1);
-                elseif maxhealth <= 500 then
-                    consume(target, 2, 2);
-                elseif maxhealth <= 1000 then
-                    consume(target, 5, 5);
-                else
-                    consume(target, 10, 10);
+        if inst.components.combat then
+            local target = inst.components.combat.target;
+            --print(tostring(target));
+            if target and target:HasTag("mone_notarget") then
+                --print("√√√ 3: target:HasTag(\"mone_notarget\")");
+                if inst.components.health then
+                    local maxhealth = inst.components.health.maxhealth;
+                    if maxhealth <= 100 then
+                        consume(target, 1, 2);
+                    elseif maxhealth <= 500 then
+                        consume(target, 2, 4);
+                    elseif maxhealth <= 1000 then
+                        consume(target, 5, 10);
+                    else
+                        consume(target, 10, 20);
+                    end
                 end
+                inst.components.combat:SetTarget(nil);
             end
-            inst.components.combat:SetTarget(nil);
         end
     end);
 

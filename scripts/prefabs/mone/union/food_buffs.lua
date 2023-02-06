@@ -29,6 +29,34 @@ buffs["mone_buff_bw_attack"] = {
     end
 }
 
+buffs["mone_buff_hhs_work"] = {
+    CanMake = config_data.mone_honey_ham_stick,
+    name = "mone_buff_hhs_work",
+    timer = true, -- 有倒计时的 buff
+    start_fn = function(inst, target)
+        -- inst:buff,target:eater
+        if target.components.workmultiplier == nil then
+            target:AddComponent("workmultiplier")
+        end
+        target.components.workmultiplier:AddMultiplier(ACTIONS.CHOP, TUNING.BUFF_WORKEFFECTIVENESS_MODIFIER, inst)
+        target.components.workmultiplier:AddMultiplier(ACTIONS.MINE, TUNING.BUFF_WORKEFFECTIVENESS_MODIFIER, inst)
+        target.components.workmultiplier:AddMultiplier(ACTIONS.HAMMER, TUNING.BUFF_WORKEFFECTIVENESS_MODIFIER, inst)
+    end,
+    end_fn = function(inst, target)
+        if target.components.talker then
+            target.components.talker:Say("我失去了蜜汁大肉棒给我提供的力量");
+        end
+        if target.components.workmultiplier ~= nil then
+            target.components.workmultiplier:RemoveMultiplier(ACTIONS.CHOP, inst)
+            target.components.workmultiplier:RemoveMultiplier(ACTIONS.MINE, inst)
+            target.components.workmultiplier:RemoveMultiplier(ACTIONS.HAMMER, inst)
+        end
+    end,
+    refill_fn = function(buff, target)
+        -- DoNothing
+    end
+}
+
 local function MakeBuff(data)
     local function buffCountDown(inst, data)
         local fns = {};
@@ -130,6 +158,5 @@ for _, v in pairs(buffs) do
         table.insert(prefabs, MakeBuff(v));
     end
 end
-
 
 return unpack(prefabs);

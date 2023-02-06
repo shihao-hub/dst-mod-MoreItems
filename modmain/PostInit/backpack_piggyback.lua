@@ -242,6 +242,8 @@ if TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.mone_backpack_auto then
         -- 官方的监听事件在表中第一个呗？那把第一个换成我的呗？
         inst:DoTaskInTime(0, function(inst)
             -- 不建议这样写，但是暂时先能跑就行。
+            -- FIXME: 这个行为非常的危险！！！目前是因为官方确确实实第一个监听是这个内容，所以可以这样写！
+            -- 用 upvaluehelper 应该可以处理，以后再说吧！(2023-02-05)
             if inst.event_listeners then
                 if inst.event_listeners["itemranout"] and inst.event_listeners["itemranout"][inst] and inst.event_listeners["itemranout"][inst][1] then
                     inst.event_listeners["itemranout"][inst][1] = fns.OnItemRanOut;
