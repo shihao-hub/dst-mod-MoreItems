@@ -62,7 +62,7 @@ local function LaunchProjectile(inst, targetpos)
             table.insert(projectile.components.wateryprotection.ignoretags, "campfire");
         end
 
-        projectile:DoTaskInTime(5, function(projectile, data)
+        projectile:DoTaskInTime(10, function(projectile, data)
             if projectile and projectile:IsValid() and type(old_ignoretags) == "table" then
                 projectile.components.wateryprotection.ignoretags = old_ignoretags;
             end

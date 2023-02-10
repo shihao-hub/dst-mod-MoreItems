@@ -103,9 +103,9 @@ Recipes[#Recipes + 1] = {
     CanMake = env.GetModConfigData("__harvester_staff") ~= false,
     name = "mone_harvester_staff",
     ingredients = BALANCE and {
-        Ingredient("twigs", 3), Ingredient("cutgrass", 3), Ingredient("flint", 2)
+        Ingredient("twigs", 4), Ingredient("cutgrass", 4)--, Ingredient("flint", 2)
     } or {
-        Ingredient("twigs", 2), Ingredient("cutgrass", 2), Ingredient("flint", 1)
+        Ingredient("twigs", 2), Ingredient("cutgrass", 2)--, Ingredient("flint", 1)
     },
     tech = TECH.NONE,
     config = {
@@ -129,9 +129,9 @@ Recipes[#Recipes + 1] = {
     CanMake = env.GetModConfigData("__harvester_staff") ~= false,
     name = "mone_harvester_staff_gold",
     ingredients = BALANCE and {
-        Ingredient("twigs", 6), Ingredient("cutgrass", 6), Ingredient("flint", 4), Ingredient("goldnugget", 2)
+        Ingredient("twigs", 6), Ingredient("cutgrass", 6), Ingredient("goldnugget", 2)
     } or {
-        Ingredient("twigs", 3), Ingredient("cutgrass", 3), Ingredient("flint", 2), Ingredient("goldnugget", 1)
+        Ingredient("twigs", 3), Ingredient("cutgrass", 3), Ingredient("goldnugget", 1)
     },
     tech = TECH.SCIENCE_TWO,
     config = {
@@ -1120,9 +1120,9 @@ if API.isDebug(env) and env.GetModConfigData("debug_switch") then
         CanMake = env.GetModConfigData("__ponds") ~= false,
         name = "pond_cave",
         ingredients = BALANCE and {
-            Ingredient("pondeel", 30)
+            Ingredient("pondfish", 30)
         } or {
-            Ingredient("pondeel", 15)
+            Ingredient("pondfish", 15)
         },
         tech = TECH.NONE,
         config = {

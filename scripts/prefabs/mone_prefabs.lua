@@ -57,6 +57,7 @@ end
 
 --- ??? ERROR
 --[[
+-- 2023-02-10-17:04 这不就是 MakePlacer 的问题吗？现在倒是无所谓了。
 [00:02:44]: [string "scripts/components/playercontroller.lua"]:1260: attempt to index field 'placer' (a nil value)
 LUA ERROR stack traceback:
     scripts/components/playercontroller.lua:1260 in (method) StartBuildPlacementMode (Lua) <1247-1265>

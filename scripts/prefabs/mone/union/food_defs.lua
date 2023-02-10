@@ -31,9 +31,6 @@ foods["mone_beef_wellington"] = {
         inst.components.edible.healthvalue = 150;
         inst.components.edible.foodtype = FOODTYPE.MEAT;
         inst.components.edible:SetOnEatenFn(function(inst, eater)
-            if eater.components.talker then
-                eater.components.talker:Say("惠灵顿牛排真好吃，我感觉我充满了力量！")
-            end
             if eater.components.debuffable and eater.components.debuffable:IsEnabled() and
                     not (eater.components.health and eater.components.health:IsDead()) and
                     not eater:HasTag("playerghost") and
@@ -162,9 +159,6 @@ foods["mone_honey_ham_stick"] = {
         inst.components.edible.healthvalue = -15;
         inst.components.edible.foodtype = FOODTYPE.MEAT;
         inst.components.edible:SetOnEatenFn(function(inst, eater)
-            if eater.components.talker then
-                eater.components.talker:Say("蜜汁大肉棒真好吃，我感觉我充满的干劲！")
-            end
             if eater.components.debuffable and eater.components.debuffable:IsEnabled() and
                     not (eater.components.health and eater.components.health:IsDead()) and
                     not eater:HasTag("playerghost") then

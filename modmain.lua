@@ -116,7 +116,10 @@ TUNING.MONE_TUNING = {
 
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
 
--- 此处这几个物品中的某一个或几个导致的三维锁定的严重bug的出现！！！
+-- 此处这几个物品中的某一个或几个导致的部分专服/云服三维锁定的严重bug的出现！！！
+-- 2023-02-06 应该已经排除了 relic_2，会是 bushhat 吗？除了 bushhat 还有谁有可能呢？
+-- 我是真滴服了，怎么可能会出现三维锁定的情况啊。又没动人物的代码，而且这还是部分玩家会出现的情况。
+-- net 的问题？我这也没动 net 啊。还会掉帧？怎么掉帧的？我服了。
 if not API.isDebug(env) then
     config_data.relic_2 = false;
     config_data.bushhat = false;
@@ -183,6 +186,7 @@ env.Assets = {
     Asset("IMAGE", "images/uiimages/krampus_sack_bg.tex"),
     Asset("ATLAS", "images/uiimages/krampus_sack_bg.xml"),
 
+    -- 这样太大了，按道理来说应该用到什么导入什么。话说会不会导致三合一贴图出问题呢？
     Asset("IMAGE", "images/DLC0000/inventoryimages.tex"),
     Asset("ATLAS", "images/DLC0000/inventoryimages.xml"),
 

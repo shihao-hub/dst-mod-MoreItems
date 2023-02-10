@@ -3,7 +3,14 @@
   <component name="Encoding" defaultCharsetForPropertiesFiles="GBK">
     <file url="file://$PROJECT_DIR$/../MoreItems Expansion/modinfo.lua" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../MoreItems Expansion/modmain/actions.lua" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/components/mie_beef_bell_self.lua" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/hodgepodge/mie/container_ui.lua" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/prefabs/mie/game/bundle.lua" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/prefabs/mie/game/waterpump.lua" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/prefabs/mie/mine/icemaker.lua" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/prefabs/mie/mine/relic_2.lua" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modinfo.lua" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/modinfo_202302101007.lua" charset="UTF-8" />
     <file url="PROJECT" charset="GBK" />
   </component>
 </project>

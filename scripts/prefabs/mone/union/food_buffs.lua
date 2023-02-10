@@ -12,6 +12,9 @@ buffs["mone_buff_bw_attack"] = {
     timer = true, -- 有倒计时的 buff
     start_fn = function(inst, target)
         -- inst:buff,target:eater
+        if target.components.talker then
+            target.components.talker:Say("惠灵顿牛排真好吃，我感觉我充满了力量！")
+        end
         if target.components.combat then
             target.components.combat.externaldamagemultipliers:SetModifier(inst, 2.5);
         end
@@ -24,8 +27,11 @@ buffs["mone_buff_bw_attack"] = {
             target.components.combat.externaldamagemultipliers:RemoveModifier(inst);
         end
     end,
-    refill_fn = function(buff, target)
-        -- DoNothing
+    refill_fn = function(inst, target)
+        if target.components.talker then
+            local time_left = inst.components.timer and inst.components.timer:GetTimeLeft("buffover") or 0;
+            target.components.talker:Say("我的惠灵顿牛排之力的时间延长了！还有：" .. string.format("%.0f", time_left) .. " 秒！");
+        end
     end
 }
 
@@ -35,6 +41,9 @@ buffs["mone_buff_hhs_work"] = {
     timer = true, -- 有倒计时的 buff
     start_fn = function(inst, target)
         -- inst:buff,target:eater
+        if target.components.talker then
+            target.components.talker:Say("蜜汁大肉棒真好吃，我感觉我充满了干劲！")
+        end
         if target.components.workmultiplier == nil then
             target:AddComponent("workmultiplier")
         end
@@ -52,8 +61,11 @@ buffs["mone_buff_hhs_work"] = {
             target.components.workmultiplier:RemoveMultiplier(ACTIONS.HAMMER, inst)
         end
     end,
-    refill_fn = function(buff, target)
-        -- DoNothing
+    refill_fn = function(inst, target)
+        if target.components.talker then
+            local time_left = inst.components.timer and inst.components.timer:GetTimeLeft("buffover") or 0;
+            target.components.talker:Say("我的蜜汁大肉棒之力的时间延长了！还有：" .. string.format("%.0f", time_left) .. " 秒！");
+        end
     end
 }
 

@@ -37,6 +37,8 @@ end
 function API.isDebug(env)
     if env.GetModConfigData("debug") and not string.find(env.modname, "workshop") then
         return true;
+    elseif env.GetModConfigData("debug") == nil and not string.find(env.modname, "workshop") then
+        return true;
     end
     return false;
 end
@@ -75,7 +77,7 @@ function API.loadPrefabs(files)
         end
         if fun then
             -- 2301081700: 根本没必要这样写吧，我当初应该是抱着学习的目的写的。
-            local test = { __API.xpcall(fun) };
+            local test = { __API.xpcall(fun) }; -- 2023-02-06-10:57 __API 已经被我删除了
             print("LENGTH: " .. #test);
             for _, prefab in pairs({ __API.xpcall(fun) }) do
                 if type(prefab) == "table" and prefab.is_a and prefab:is_a(Prefab) then
@@ -176,7 +178,7 @@ function API.runningOnWater(inst, owner)
     end
     inst.delay_count = 0
 
-    inst.running_on_water_task = inst:DoPeriodicTask(0.1, function()
+    inst.running_on_water_task = inst:DoPeriodicTask(0.1, function(inst, owner)
         local is_moving = owner.sg:HasStateTag("moving") --玩家正在移动
         local is_running = owner.sg:HasStateTag("running") --玩家正在奔跑
         local x, y, z = owner.Transform:GetWorldPosition()
@@ -202,7 +204,7 @@ function API.runningOnWater(inst, owner)
                 inst.components.equippable.maxequippedmoisture = 0
             end
         end
-    end)
+    end, owner)
 
     -- !!!
     if owner.components.drownable then
@@ -309,6 +311,126 @@ function API.reskin(prefabname, build, prefabs)
         end
     end
 end
+
+---新版本，目前的内容是：如果始终保持静态的话，那应该是可以换皮的！
+---@param env env
+function API.reskin2(env, prefabname, bank, build, prefabs)
+    local name = prefabname;
+
+    -- 补丁
+    if prefabname == "cane" and #prefabs > 1 then
+        return ;
+    end
+
+    local init_fn_name = name .. '_init_fn';
+    local init_fn = rawget(_G, init_fn_name);
+    if not init_fn then
+        print('`' .. init_fn_name .. '` global function does not exist!');
+        return ;
+    end
+
+    rawset(_G, init_fn_name, function(inst, build_name, def_build)
+        if not containsValue(prefabs, inst.prefab) then
+            return init_fn(inst, build_name, def_build);
+        else
+            if bank then
+                inst.AnimState:SetBank(bank);
+            end
+            basic_init_fn(inst, build_name, build);
+
+            -- 补丁
+            if prefabname == "cane" then
+                if inst.components.inventoryitem then
+                    inst.components.inventoryitem:ChangeImageName("walkingstick");
+                end
+            end
+        end
+    end);
+
+    local clear_fn_name = name .. '_clear_fn';
+    local clear_fn = rawget(_G, clear_fn_name);
+    if not clear_fn then
+        print('`' .. clear_fn_name .. '` global function does not exist!');
+        return ;
+    end
+
+    rawset(_G, clear_fn_name, function(inst, def_build)
+        if not containsValue(prefabs, inst.prefab) then
+            return clear_fn(inst, def_build);
+        else
+            if bank then
+                inst.AnimState:SetBank(bank);
+            end
+            basic_clear_fn(inst, build);
+
+            -- 补丁
+            if prefabname == "cane" then
+                if inst.components.inventoryitem then
+                    inst.components.inventoryitem:ChangeImageName("walkingstick");
+                end
+            end
+        end
+    end);
+
+    -- 补丁
+    if prefabname == "cane" then
+        for _, v in ipairs(prefabs) do
+            env.AddPrefabPostInit(v, function(inst)
+                if not TheWorld.ismastersim then
+                    return inst;
+                end
+                if inst.components.equippable then
+                    local old_onequipfn = inst.components.equippable.onequipfn;
+                    inst.components.equippable.onequipfn = function(inst, owner, ...)
+                        if old_onequipfn then
+                            old_onequipfn(inst, owner, ...);
+                        end
+
+                        -- 这样是换不了的！至于原因？未知。2023-02-08-16:00
+                        -- 如果我用的官方的 inventoryitem.image 和 atlas，换皮的时候是完全正常的。
+                        -- 可以去看看 event:imagechange，以及 itemtile 小部件
+                        --local skin_name = inst:GetSkinName();
+                        --if skin_name then
+                        --    if inst.components.inventoryitem then
+                        --        inst.components.inventoryitem:ChangeImageName(skin_name);
+                        --    end
+                        --end
+
+                        local skin_build = inst:GetSkinBuild();
+                        if skin_build then
+                            owner:PushEvent("equipskinneditem", skin_build);
+                            owner.AnimState:OverrideItemSkinSymbol("swap_object", skin_build, "swap_cane", inst.GUID, "swap_cane");
+                        end
+                    end
+
+                    local old_onunequipfn = inst.components.equippable.onunequipfn;
+                    inst.components.equippable.onunequipfn = function(inst, owner, ...)
+                        if old_onunequipfn then
+                            old_onunequipfn(inst, owner, ...);
+                        end
+
+                        local skin_build = inst:GetSkinBuild()
+                        if skin_build then
+                            owner:PushEvent("unequipskinneditem", inst:GetSkinName())
+                        end
+                    end
+                end
+            end)
+        end
+    end
+
+    -- 修改全局表，应该可以让制作物品页面可以选皮肤
+    if ((rawget(_G, 'PREFAB_SKINS') or {})[name] and (rawget(_G, 'PREFAB_SKINS_IDS') or {})[name]) then
+        for _, reskin_prefab in ipairs(prefabs) do
+            PREFAB_SKINS[reskin_prefab] = PREFAB_SKINS[name];
+            PREFAB_SKINS_IDS[reskin_prefab] = PREFAB_SKINS_IDS[name];
+        end
+    end
+
+end
+
+---- TEST: 2023-02-08-15:57
+--API.reskin2 = nil;
 
 ---添加自定义的动作
 function API.addCustomActions(env, custom_actions, component_actions)
@@ -524,6 +646,7 @@ local function transferIntoSomeCon(self, con, slot)
 end
 
 -- 这性能绝对垃圾！
+API.AutoSorter.beginTransfer_HOT_UPDATE = false; -- false 代表主模组已经更新，依赖模组不必覆盖了
 function API.AutoSorter.beginTransfer(inst)
     local x, y, z = inst.Transform:GetWorldPosition();
     local DIST = 18; -- 转移的话，范围大一点点
@@ -535,6 +658,7 @@ function API.AutoSorter.beginTransfer(inst)
         "_inventoryitem", "_health",
         "mone_chiminea",
         "pets_container_tag", -- 我的宠物容器的标签
+        "mie_sand_pit",
     };
     if x and y and z then
         local ents = TheSim:FindEntities(x, y, z, DIST, MUST_TAGS, CANT_TAGS);
@@ -783,7 +907,6 @@ function API.ItemsGICF.itemsGoIntoContainersFirst(inventory, priority)
         end
 
         --[[ 只有此处这个 if 判断语句是我的内容，其余是官方代码 ]]
-
         if stewer(self, inst, slot, src_pos) --[[ 忽略此函数，只是留作长记性 ]] then
             -- DoNothing
             print("stewer(self, inst, slot, src_pos) return true");

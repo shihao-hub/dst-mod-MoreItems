@@ -11,6 +11,7 @@
 		params.cookpot.itemtestfn = function() ... end					--因为返回值是表 可以直接操作 否则需要使用Set
 	end
 ]]--
+
 local visit = {}    --保存已经访问的 防止有嵌套
 local visitnum = 0
 local function TryToClose(name, value, level)

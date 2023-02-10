@@ -59,3 +59,14 @@ API.reskin("seedpouch", "seedpouch", {
 --        "mone_city_lamp"
 --    });
 --end
+
+
+-- 不行，如果只是单纯的显示贴图倒是没啥问题。但是如果后面播放动画，只是这样简单处理是不行的！
+--API.reskin2(env, "mushroom_light2", "mushroom_light2", "mushroom_light2", {
+--    "mone_city_lamp"
+--});
+
+-- ok
+--API.reskin2(env, "cane", "cane", "swap_cane", {
+--    "mone_walking_stick"
+--});
