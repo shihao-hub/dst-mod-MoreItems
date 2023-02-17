@@ -170,7 +170,58 @@ foods["mone_honey_ham_stick"] = {
         inst.components.stackable.maxsize = TUNING.STACK_SIZE_LARGEITEM;
 
         inst:AddComponent("perishable");
-        inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERSLOW / 8 * 3);
+        inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERSLOW / 8 * 3 * 2);
+        inst.components.perishable:StartPerishing();
+        inst.components.perishable.onperishreplacement = "spoiled_food";
+    end
+}
+
+foods["mone_guacamole"] = {
+    CanMake = config_data.mone_guacamole,
+    name = "mone_guacamole",
+    assets = {
+        Asset("ANIM", "anim/cook_pot_food.zip"),
+        Asset("INV_IMAGE", "guacamole"),
+    },
+    tags = { "mone_guacamole", "non_preparedfood" },
+    animdata = { bank = "cook_pot_food", build = "cook_pot_food", animation = "idle" },
+    cs_fn = function(inst)
+        inst.AnimState:OverrideSymbol("swap_food", "cook_pot_food", "guacamole")
+    end,
+    client_fn = function(inst)
+
+    end,
+    server_fn = function(inst)
+        inst.components.inventoryitem.imagename = "guacamole";
+        inst.components.inventoryitem.atlasname = "images/inventoryimages.xml";
+
+        inst.components.edible.hungervalue = 37.5;
+        inst.components.edible.sanityvalue = 0;
+        inst.components.edible.healthvalue = 20;
+        inst.components.edible.foodtype = FOODTYPE.MEAT;
+        inst.components.edible:SetOnEatenFn(function(inst, eater)
+            if eater.components.timer == nil then
+                eater:AddComponent("timer");
+            end
+            local TIME = 240; -- 未来拓展：防沙尘暴？
+            if eater.components.talker then
+                eater.components.talker:Say("我获得了："..tostring(TIME).." 秒的夜视能力！");
+            end
+            if not eater.components.timer:TimerExists("mone_guacamole_timer") then
+                eater.components.timer:StartTimer("mone_guacamole_timer", TIME);
+                eater.mone_guacamole_nightvision:set(true);
+            else
+                -- 不可叠加！
+                eater.components.timer:StopTimer("mone_guacamole_timer");
+                eater.components.timer:StartTimer("mone_guacamole_timer", TIME);
+                eater.mone_guacamole_nightvision:set(true);
+            end
+        end)
+
+        inst.components.stackable.maxsize = TUNING.STACK_SIZE_LARGEITEM;
+
+        inst:AddComponent("perishable");
+        inst.components.perishable:SetPerishTime(TUNING.PERISH_FAST); -- 6 天
         inst.components.perishable:StartPerishing();
         inst.components.perishable.onperishreplacement = "spoiled_food";
     end

@@ -4,7 +4,7 @@
 
 local API = require("chang_mone.dsts.API");
 
--- ��ͨ���ӡ����۱��䡢���䡢�κйرպ��Զ�����
+-- 普通箱子、龙鳞宝箱、冰箱、盐盒关闭后自动整理
 for _, p in ipairs({
     "treasurechest","dragonflychest","icebox","saltbox",
     "mone_treasurechest","mone_dragonflychest","mone_icebox","mone_saltbox",

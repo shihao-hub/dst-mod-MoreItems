@@ -6,6 +6,8 @@
       <module fileurl="file://$PROJECT_DIR$/MoreItems.iml" filepath="$PROJECT_DIR$/MoreItems.iml" />
       <module fileurl="file://$PROJECT_DIR$/../MoreItems Expansion/MoreItems Expansion.iml" filepath="$PROJECT_DIR$/../MoreItems Expansion/MoreItems Expansion.iml" />
       <module fileurl="file://$PROJECT_DIR$/../PetsEnhancement/PetsEnhancement.iml" filepath="$PROJECT_DIR$/../PetsEnhancement/PetsEnhancement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Reskin/Reskin.iml" filepath="$PROJECT_DIR$/../Reskin/Reskin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../huge_box/huge_box.iml" filepath="$PROJECT_DIR$/../huge_box/huge_box.iml" />
       <module fileurl="file://E:/ProgrammingProjects/IDEAProjects/zzz_scripts_230104/zzz_scripts_230104.iml" filepath="E:/ProgrammingProjects/IDEAProjects/zzz_scripts_230104/zzz_scripts_230104.iml" />
     </modules>
   </component>

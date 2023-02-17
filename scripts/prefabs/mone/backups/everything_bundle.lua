@@ -3,7 +3,7 @@
 ---
 
 
--- ÓĞ´ıÓÅ»¯
+-- æœ‰å¾…ä¼˜åŒ–
 
 do
     return nil;
@@ -38,7 +38,7 @@ local function fn1()
 
     inst:AddComponent("inventoryitem")
 
-    --²¹³ä£¬ÈÃ¿â´æÀ¸µÃÒÔÏÔÊ¾
+    --è¡¥å……ï¼Œè®©åº“å­˜æ å¾—ä»¥æ˜¾ç¤º
     inst.components.inventoryitem.imagename = "bundlewrap"
     inst.components.inventoryitem.atlasname = "images/inventoryimages.xml"
 
@@ -64,24 +64,24 @@ local function fn2()
 
     inst:AddTag("acb_pack_everything_full")
 
-    --ÌìÌå±¦ÖéµÄÁ½¸ö±êÇ©
+    --å¤©ä½“å®ç çš„ä¸¤ä¸ªæ ‡ç­¾
     -- inst:AddTag("irreplaceable")
     -- inst:AddTag("nonpotatable")
 
-    --²¹³äÅĞ¶Ï±êÇ©
+    --è¡¥å……åˆ¤æ–­æ ‡ç­¾
     inst:AddTag("bundle")
     inst:AddTag("nobundling")
 
-    --¸öÈËÅĞ¶Ï±êÇ©
+    --ä¸ªäººåˆ¤æ–­æ ‡ç­¾
     inst:AddTag("nonpackable")
 
-    --Ö÷¿Í»ú½»»¥
+    --ä¸»å®¢æœºäº¤äº’
     inst._name = net_string(inst.GUID, "acb_pack_everything_full._name")
     inst.displaynamefn = function(inst)
         if #inst._name:value() > 0 then
-            return "±»´ò°üµÄ " .. inst._name:value()
+            return "è¢«æ‰“åŒ…çš„ " .. inst._name:value()
         else
-            return "Î´Öª´ò°üÎï"
+            return "æœªçŸ¥æ‰“åŒ…ç‰©"
         end
     end
 
@@ -95,18 +95,18 @@ local function fn2()
 
     inst:AddComponent("inventoryitem")
 
-    --´ò°ü´ø inst.UpdateInventoryImage = UpdateInventoryImage Éæ¼°
+    --æ‰“åŒ…å¸¦ inst.UpdateInventoryImage = UpdateInventoryImage æ¶‰åŠ
     inst.components.inventoryitem:ChangeImageName("bundle_large")
 
     inst:AddComponent("deployable")
     inst.components.deployable.ondeploy = function(inst, pt, deployer)
         if inst.components.acb_pack_everything then
-            inst.components.acb_pack_everything:Release(pt) --ÊÍ·Å
+            inst.components.acb_pack_everything:Release(pt) --é‡Šæ”¾
 
             inst:Remove()
 
             if deployer and deployer.components.inventory then
-                --ÊÍ·Åºó£¬½«´ò°ü´ø»¹»ØÀ´
+                --é‡Šæ”¾åï¼Œå°†æ‰“åŒ…å¸¦è¿˜å›æ¥
                 local acb_pack_everything = SpawnPrefab("acb_pack_everything")
                 if acb_pack_everything then
                     deployer.components.inventory:GiveItem(acb_pack_everything)

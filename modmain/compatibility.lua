@@ -9,17 +9,22 @@ do
     ---@type table<string,table[]>
     local t = {
         ["mone_backpack"] = comm,
+        ["mone_candybag"] = comm,
         ["mone_piggyback"] = comm,
         ["mone_piggybag"] = comm,
+
         ["mone_firesuppressor"] = comm,
+
         ["mone_treasurechest"] = comm,
         ["mone_dragonfly_chest"] = comm,
         ["mone_icebox"] = comm,
         ["mone_saltbox"] = comm,
-        ["mone_wardrobe"] = comm,
 
+        ["mone_wardrobe"] = comm,
         ["mone_arborist"] = comm,
+
         ["mone_nightspace_cape"] = comm,
+
         ["mone_seasack"] = comm,
         ["mone_storage_bag"] = comm,
         ["mone_waterchest"] = comm,

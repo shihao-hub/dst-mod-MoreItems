@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/25 4:09
 ---
 
---[[ 毒药膏是目标直接腐烂 ]]
+--[[ 姣掕嵂鑶忔槸鐩爣鐩存帴鑵愮儌 ]]
 env.AddPrefabPostInitAny(function(inst)
     if not TheWorld.ismastersim then
         return inst;

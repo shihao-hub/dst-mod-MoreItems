@@ -4,10 +4,11 @@
 
 local API = require("chang_mone.dsts.API");
 
---[[ ¼æÈİ×ÔÓÃµÄ±¾µØ mod£¬Ìí¼Ó mone_portable_container ±êÇ©]]
+--[[ å…¼å®¹è‡ªç”¨çš„æœ¬åœ° modï¼Œæ·»åŠ  mone_portable_container æ ‡ç­¾]]
 do
     for _, p in ipairs({
-        "mone_backpack", "mone_storage_bag", "mone_piggybag", "mone_piggyback"
+        "mone_backpack", "mone_storage_bag", "mone_piggybag", "mone_piggyback",
+        "mone_candybag"
     }) do
         env.AddPrefabPostInit(p, function(inst)
             inst:AddTag("mone_portable_container");
@@ -15,11 +16,13 @@ do
     end
 end
 
--- ×¢ÒâÕâÁ½¸ö³£Êı·Ç³£ÖØÒª
+-- æ³¨æ„è¿™ä¸¤ä¸ªå¸¸æ•°éå¸¸é‡è¦
 TUNING.MONE_TUNING.IGICF_FLAG_NAME = "mone_priority_container_flag";
 TUNING.MONE_TUNING.IGICF_TAG = "mone_item_go_into_container_first_tag";
 
---[[ ÎïÆ·ÓÅÏÈ½øÈİÆ÷ ]]
+
+-- 2023-02-16-14:42ï¼šè¿™éƒ¨åˆ†å†…å®¹ï¼Œæˆ‘è§‰å¾—æˆ‘æ˜¯æœ‰å¿…è¦é‡å†™ä¸€ä¸‹çš„ã€‚
+--[[ ç‰©å“ä¼˜å…ˆè¿›å®¹å™¨ ]]
 do
     if TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.IGICF then
         env.AddPrefabPostInitAny(function(inst)
@@ -27,7 +30,7 @@ do
                 return inst;
             end
 
-            -- ¼ÇµÃ¸øÖ¸¶¨µÄÄÇ¸öÔ¤ÖÆÎïÌí¼ÓÕâ¸ö±êÇ©
+            -- è®°å¾—ç»™æŒ‡å®šçš„é‚£ä¸ªé¢„åˆ¶ç‰©æ·»åŠ è¿™ä¸ªæ ‡ç­¾
             if inst:HasTag(TUNING.MONE_TUNING.IGICF_TAG) and inst.components.container then
                 local old_onopenfn = inst.components.container.onopenfn;
                 inst.components.container.onopenfn = function(inst, data)
@@ -63,17 +66,18 @@ do
             end
         end)
 
-        ---Ö®Ç°¾ÍÓĞ¸öĞ¡ÎÊÌâ£¬ÎÒÓÃ ¡°Ö»Îª½â¾öÕâ¸öÎÊÌâµÄ·½·¨ÔİÊ±½â¾öÁË¡±£¬ÓĞ´ıÓÅ»¯
+        ---ä¹‹å‰å°±æœ‰ä¸ªå°é—®é¢˜ï¼Œæˆ‘ç”¨ â€œåªä¸ºè§£å†³è¿™ä¸ªé—®é¢˜çš„æ–¹æ³•æš‚æ—¶è§£å†³äº†â€ï¼Œæœ‰å¾…ä¼˜åŒ–
         env.AddComponentPostInit("inventory", function(self)
             local priority = {
                 --["mone_waterchest_inv"] = -1,
                 --["mone_piggyback"] = 0,
-                ["mone_wathgrithr_box"] = 0.5,
+                ["mone_wathgrithr_box"] = 99999,
                 ["mone_backpack"] = 1,
                 ["mone_storage_bag"] = 2,
                 ["mone_piggybag"] = 3,
                 ["mone_seedpouch"] = 4,
-                ["mone_wanda_box"] = 5,
+                ["mone_candybag"] = 5,
+                ["mone_wanda_box"] = 99999,
             };
 
             if TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.IGICF_mone_piggyback then
@@ -84,7 +88,7 @@ do
                 priority["mone_waterchest_inv"] = -1;
             end
 
-            --[[ ¼æÈİÄÜÁ¦Ñ«ÕÂ ]]
+            --[[ å…¼å®¹èƒ½åŠ›å‹‹ç«  ]]
             if TUNING.FUNCTIONAL_MEDAL_IS_OPEN then
                 priority["medal_box"] = 999
             end
@@ -94,6 +98,7 @@ do
 
     end
 
+    -- 2023-02-16-09:01ï¼šæˆ‘åº”è¯¥ç›´æ¥ç”¨ for å¾ªç¯ç”Ÿæˆçš„ï¼
     local need_tag_prefabs = {
         "mone_waterchest_inv",
         "mone_piggyback",
@@ -102,10 +107,11 @@ do
         "mone_storage_bag",
         "mone_piggybag",
         "mone_seedpouch",
-        "mone_wanda_box"
+        "mone_wanda_box",
+        "mone_candybag",
     };
 
-    --[[ ¼æÈİÄÜÁ¦Ñ«ÕÂ ]]
+    --[[ å…¼å®¹èƒ½åŠ›å‹‹ç«  ]]
     if TUNING.FUNCTIONAL_MEDAL_IS_OPEN then
         table.insert(need_tag_prefabs, "medal_box");
     end
@@ -118,16 +124,17 @@ do
 end
 
 
---[[ ±»±ù¶³ºóÈİÆ÷»á±»¹Ø±Õ£¬ÉèÖÃÒ»ÏÂÖØĞÂ´ò¿ª ]]
+--[[ è¢«å†°å†»åå®¹å™¨ä¼šè¢«å…³é—­ï¼Œè®¾ç½®ä¸€ä¸‹é‡æ–°æ‰“å¼€ ]]
 do
     local function isMyContainers(inst)
         local cons = {
-            "mone_backpack",
-            "mone_piggyback",
-            "mone_storage_bag",
-            "mone_piggybag",
-            "mone_wathgrithr_box",
-            "mone_wanda_box",
+            "mone_candybag", -- ææ–™è¢‹
+            "mone_backpack", -- è£…å¤‡è¢‹
+            "mone_piggyback", -- æ”¶çº³è¢‹
+            "mone_storage_bag", -- ä¿é²œè¢‹
+            "mone_piggybag", -- çŒªçŒªè¢‹
+            "mone_wathgrithr_box", -- å¥³æ­¦ç¥æ­Œè°£ç›’
+            "mone_wanda_box", -- æ—ºè¾¾é’Ÿè¡¨ç›’
         };
         for _, v in ipairs(cons) do
             if inst.prefab == v then
@@ -139,7 +146,7 @@ do
     local function hideHook(self)
         local old_Hide = self.Hide
         function self:Hide()
-            --ÏÈ½«²»ÊÜÌØÊâĞ§¹û¶ø¹Ø±ÕµÄÈİÆ÷´æÆğÀ´
+            --å…ˆå°†ä¸å—ç‰¹æ®Šæ•ˆæœè€Œå…³é—­çš„å®¹å™¨å­˜èµ·æ¥
             local cons = {}
             for k, _ in pairs(self.opencontainers) do
                 if isMyContainers(k) then
@@ -167,7 +174,7 @@ do
     env.AddComponentPostInit("inventory", hideHook);
 end
 
---[[ ·ÀÖ¹ÎÒµÄÈİÆ÷ÔÚºÚ°µÖĞ×Ô¶¯¹Ø±Õ ]]
+--[[ é˜²æ­¢æˆ‘çš„å®¹å™¨åœ¨é»‘æš—ä¸­è‡ªåŠ¨å…³é—­ ]]
 do
     env.AddComponentPostInit("inventoryitem", function(self)
         local old_IsHeldBy = self.IsHeldBy
@@ -182,12 +189,19 @@ do
     end)
 end
 
---[[ ºï×Ó²»»áÍµ ]]
+--[[ çŒ´å­ä¸ä¼šå· ]]
 do
     for _, p in ipairs({
-        "mone_backpack", "mone_piggyback", "mone_nightspace_cape", "mone_seasack",
-        "mone_storage_bag", "mone_brainjelly", "mone_bathat",
-        "mone_piggybag", "mone_waterchest_inv"
+        "mone_candybag", -- ææ–™è¢‹
+        "mone_backpack", -- è£…å¤‡è¢‹
+        "mone_piggyback", -- æ”¶çº³è¢‹
+        "mone_nightspace_cape", -- æš—å½±æ–—ç¯·
+        "mone_seasack", -- ç§å­è¢‹
+        "mone_storage_bag", -- ä¿é²œè¢‹
+        "mone_brainjelly", -- æ™ºæ…§å¸½
+        "mone_bathat", -- è™è å¸½
+        "mone_piggybag", -- çŒªçŒªè¢‹
+        "mone_waterchest_inv" -- æµ·ä¸Šç®±å­
     }) do
         env.AddPrefabPostInit(p, function(inst)
             inst:AddTag("nosteal");

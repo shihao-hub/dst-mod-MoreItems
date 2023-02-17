@@ -28,7 +28,7 @@ local prefabs = {
 local DIST = 15;
 
 local function autofn(inst)
-    -- ÏÈÕâÑù£¡
+    -- å…ˆè¿™æ ·ï¼
     local function surroundHasPerson()
         local x, y, z = inst.Transform:GetWorldPosition();
         local DIST = DIST;
@@ -37,7 +37,7 @@ local function autofn(inst)
         end
         return false;
     end
-    -- 1 Ãë£¿ 3 Ãë£¿ 5 Ãë£¿ 10 Ãë£¿
+    -- 1 ç§’ï¼Ÿ 3 ç§’ï¼Ÿ 5 ç§’ï¼Ÿ 10 ç§’ï¼Ÿ
     inst:DoPeriodicTask(TUNING.MONE_TUNING.AUTO_SORTER.nFullInterval, function()
         if surroundHasPerson() then
             if not inst.components.container:IsFull() then
@@ -54,11 +54,11 @@ local function LaunchProjectile(inst, targetpos)
 
     local projectile = SpawnPrefab("snowball")
 
-    -- ÏÈÓÃÕâÖÖ·½Ê½°É£¡µ«Õâ¹¦ÄÜÊµÏÖÁË¾ÍĞĞ¡£
+    -- å…ˆç”¨è¿™ç§æ–¹å¼å§ï¼ä½†è¿™åŠŸèƒ½å®ç°äº†å°±è¡Œã€‚
     if TUNING.MONE_TUNING.AUTO_SORTER.auto_sorter_notags_extra then
         local old_ignoretags;
         if projectile.components.wateryprotection then
-            old_ignoretags = deepcopy(projectile.components.wateryprotection.ignoretags); -- ±íÊÇÒıÓÃ£¬ËùÒÔÎÒ±ØĞëÈç´Ë°É£¿
+            old_ignoretags = deepcopy(projectile.components.wateryprotection.ignoretags); -- è¡¨æ˜¯å¼•ç”¨ï¼Œæ‰€ä»¥æˆ‘å¿…é¡»å¦‚æ­¤å§ï¼Ÿ
             table.insert(projectile.components.wateryprotection.ignoretags, "campfire");
         end
 
@@ -91,7 +91,7 @@ local function OnFindFire(inst, firePos)
     if inst:IsAsleep() then
         inst:DoTaskInTime(1 + math.random(), SpreadProtectionAtPoint, firePos)
     else
-        -- Question: ´ı½â¾öÎÊÌâ£º¹à¸ÈµÄÊ±ºòÒ²»áÌ½²âµ½Óª»ğ£¬ËùÒÔ¹à¸ÈÔÚÄÄÀïµÄ£¿
+        -- Question: å¾…è§£å†³é—®é¢˜ï¼šçŒæº‰çš„æ—¶å€™ä¹Ÿä¼šæ¢æµ‹åˆ°è¥ç«ï¼Œæ‰€ä»¥çŒæº‰åœ¨å“ªé‡Œçš„ï¼Ÿ
 
         inst:PushEvent("putoutfire", { firePos = firePos })
     end
@@ -247,7 +247,7 @@ local function onhammered(inst, worker)
         inst.components.burnable:Extinguish()
     end
 
-    -- À©³ä
+    -- æ‰©å……
     if inst.components.container ~= nil then
         inst.components.container:DropEverything();
     end
@@ -422,7 +422,7 @@ local function fn()
     inst.components.machine.caninteractfn = CanInteract
     inst.components.machine.cooldowntime = 0.5
 
-    -- À©³ä
+    -- æ‰©å……
     inst:AddComponent("container");
     inst.components.container:WidgetSetup("mone_firesuppressor");
     inst.components.container.onopenfn = function(inst)
@@ -435,19 +435,19 @@ local function fn()
     end
 
 
-    -- È«×Ô¶¯
+    -- å…¨è‡ªåŠ¨
     if TUNING.MONE_TUNING.AUTO_SORTER.whetherIsFull == 2 then
         autofn(inst);
     end
 
-    -- Ò¹¼ä·¢¹â£¨°ó¶¨Ò»¸ö·¢¹âÊµÌå£©
+    -- å¤œé—´å‘å…‰ï¼ˆç»‘å®šä¸€ä¸ªå‘å…‰å®ä½“ï¼‰
     if TUNING.MONE_TUNING.AUTO_SORTER.auto_sorter_light then
         inst:DoTaskInTime(0.1, function(inst)
             inst._mone_light_fx = inst._mone_light_fx or SpawnPrefab("mone_light_fx");
-            -- ĞŞ¸ÄÌØĞ§µÄÕÕÃ÷·¶Î§ÒÔ¼°Ìí¼Ó±êÇ©
+            -- ä¿®æ”¹ç‰¹æ•ˆçš„ç…§æ˜èŒƒå›´ä»¥åŠæ·»åŠ æ ‡ç­¾
             do
                 inst._mone_light_fx.Light:SetRadius(DIST);
-                inst._mone_light_fx:AddTag("daylight"); -- ÈÃ×÷ÎïÔÚÒ¹¼äÒ²ÄÜÉú³¤
+                inst._mone_light_fx:AddTag("daylight"); -- è®©ä½œç‰©åœ¨å¤œé—´ä¹Ÿèƒ½ç”Ÿé•¿
             end
             inst._mone_light_fx._mone_firesuppressor = inst;
             inst._mone_light_fx.entity:SetParent(inst.entity);
@@ -464,7 +464,7 @@ local function fn()
     inst.components.fueled.bonusmult = 5
     inst.components.fueled.secondaryfueltype = FUELTYPE.CHEMICAL
 
-    -- ²»ÏûºÄÈ¼ÁÏ
+    -- ä¸æ¶ˆè€—ç‡ƒæ–™
     if TUNING.MONE_TUNING.AUTO_SORTER.auto_sorter_no_fuel then
         inst.components.fueled.StartConsuming = function(self)
             self:StopConsuming();
@@ -483,7 +483,7 @@ local function fn()
     inst.components.firedetector:SetOnEndWarningFn(OnEndWarning)
 
     if TUNING.MONE_TUNING.AUTO_SORTER.auto_sorter_notags_extra then
-        -- Question: ĞŞ¸ÄÉÏÖµ£¬È·È·ÊµÊµĞŞ¸ÄÁË NOTAGS µÄÖµ£¬µ«ÊÇÕâ¾ÓÈ»ÊÇÓÀ¾ÃĞŞ¸Ä¡£
+        -- Question: ä¿®æ”¹ä¸Šå€¼ï¼Œç¡®ç¡®å®å®ä¿®æ”¹äº† NOTAGS çš„å€¼ï¼Œä½†æ˜¯è¿™å±…ç„¶æ˜¯æ°¸ä¹…ä¿®æ”¹ã€‚
         do
             -- upvaluehelper
             local upvaluehelper = require("chang_mone.dsts.upvaluehelper");
@@ -599,7 +599,7 @@ local function fn()
                 TURN_ON_DELAY = 13 * FRAMES
             };
 
-            -- Ö±½Ó´Ó firedetector.lua ÎÄ¼şÖĞ¸´ÖÆ+ÖØĞ´¡£ÎÒ·şÁË£¬ÕâÃ´¶à¾Ö²¿º¯ÊıºÍ±äÁ¿¡£
+            -- ç›´æ¥ä» firedetector.lua æ–‡ä»¶ä¸­å¤åˆ¶+é‡å†™ã€‚æˆ‘æœäº†ï¼Œè¿™ä¹ˆå¤šå±€éƒ¨å‡½æ•°å’Œå˜é‡ã€‚
             build_in_vars_fns.Cancel(self.inst, self);
             self.detectTask = self.inst:DoPeriodicTask(self.detectPeriod, build_in_vars_fns.LookForFiresAndFirestarters, randomizedStartTime and build_in_vars_fns.TURN_ON_DELAY + math.random() * self.detectPeriod or build_in_vars_fns.TURN_ON_DELAY, self);
         end

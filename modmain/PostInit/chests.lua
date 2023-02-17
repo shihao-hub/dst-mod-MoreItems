@@ -2,10 +2,10 @@
 --- @author zsh in 2023/1/14 1:05
 ---
 
---[[ 本模组的箱子而已 ]]
+--[[ 鏈ā缁勭殑绠卞瓙鑰屽凡 ]]
 local chests = {
-    "mone_treasurechest", -- 箱子
-    "mone_dragonflychest", -- 龙鳞宝箱
+    "mone_treasurechest", -- 绠卞瓙
+    "mone_dragonflychest", -- 榫欓碁瀹濈
 };
 
 for _, che in ipairs(chests) do

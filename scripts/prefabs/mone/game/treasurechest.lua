@@ -355,16 +355,16 @@ local function sunken_master_postinit(inst)
     inst:ListenForEvent("on_submerge", sunken_OnSubmerge)
 end
 
--- Ïä×Ó
+-- ç®±å­
 return MakeChest("mone_treasurechest", "chest", "treasure_chest", false, nil, { "collapse_small" }),
 MakePlacer("mone_treasurechest_placer", "chest", "treasure_chest", "closed")
--- »ªÀöÏä×Ó
+-- åä¸½ç®±å­
 --MakeChest("mone_pandoraschest", "pandoras_chest", "pandoras_chest", true, pandora_master_postinit, { "pandorachest_reset" }),
 --MakePlacer("mone_pandoraschest_placer", "pandoras_chest", "pandoras_chest", "closed"),
--- ´óºÅ»ªÀöÏä×Ó
+-- å¤§å·åä¸½ç®±å­
 --[[MakeChest("mone_minotaurchest", "pandoras_chest_large", "pandoras_chest_large", false, minotuar_master_postinit, { "collapse_small" }),
 MakePlacer("mone_minotaurchest_placer", "pandoras_chest_large", "pandoras_chest_large", "closed")]]
--- ÏÔÑÛÏä×Ó
+-- æ˜¾çœ¼ç®±å­
 --MakeChest("mone_terrariumchest", "chest", "treasurechest_terrarium", false, terrarium_master_postinit, { "collapse_small", "terrariumchest_fx" }, { Asset("ANIM", "anim/treasurechest_terrarium.zip") }),
 --MakePlacer("mone_terrariumchest_placer", "chest", "treasurechest_terrarium", "closed")
 

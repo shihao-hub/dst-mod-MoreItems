@@ -54,15 +54,15 @@ end
 
 local function poisonattack(inst, attacker, target, projectile)
     local canAttack = function(v, attacker, target)
-        -- attacker ÊÇÎäÆ÷µÄÓµÓĞÕß£¬target ÊÇ¹¥»÷Ä¿±ê£¬v ÊÇ±»·¶Î§¹¥»÷µÄÄ¿±ê¡£
+        -- attacker æ˜¯æ­¦å™¨çš„æ‹¥æœ‰è€…ï¼Œtarget æ˜¯æ”»å‡»ç›®æ ‡ï¼Œv æ˜¯è¢«èŒƒå›´æ”»å‡»çš„ç›®æ ‡ã€‚
         if v and attacker and target then
-            --±»¼ìË÷ÕßºÍÄ¿±êÊÇÍ¬Àà£¨²»ĞèÒªÁË£¬¼Ó true È¡Ïû£©
+            --è¢«æ£€ç´¢è€…å’Œç›®æ ‡æ˜¯åŒç±»ï¼ˆä¸éœ€è¦äº†ï¼ŒåŠ  true å–æ¶ˆï¼‰
             if v.prefab and target.prefab and (v.prefab == target.prefab or true) then
-                -- ±»¼ìË÷Õß²»ÊÇ¹¥»÷Ä¿±ê ²»ÊÇÎäÆ÷µÄÓµÓĞÕß
+                -- è¢«æ£€ç´¢è€…ä¸æ˜¯æ”»å‡»ç›®æ ‡ ä¸æ˜¯æ­¦å™¨çš„æ‹¥æœ‰è€…
                 if v ~= target and v ~= attacker then
-                    --±»¼ìË÷ÕßÊÇÓĞĞ§Ä¿±ê
+                    --è¢«æ£€ç´¢è€…æ˜¯æœ‰æ•ˆç›®æ ‡
                     if attacker.components.combat and attacker.components.combat:IsValidTarget(v) then
-                        -- ±»¼ìË÷Õß²»ÊÇÄãµÄ×·ËæÕß
+                        -- è¢«æ£€ç´¢è€…ä¸æ˜¯ä½ çš„è¿½éšè€…
                         if attacker.components.leader and not attacker.components.leader:IsFollower(v) then
                             return true
                         end
@@ -75,7 +75,7 @@ local function poisonattack(inst, attacker, target, projectile)
 
     local x, y, z = target.Transform:GetWorldPosition();
     if x and y and z then
-        local DIST = 4 * 1.5
+        local DIST = 4 -- * 1.5
         local MUST_TAGS = { "_combat" }
         local CANT_TAGS = { "INLIMBO", "companion", "wall", "abigail", "shadowminion" }
         local ents = TheSim:FindEntities(x, y, z, DIST, MUST_TAGS, CANT_TAGS);
@@ -83,7 +83,7 @@ local function poisonattack(inst, attacker, target, projectile)
             if canAttack(v, attacker, target) then
                 attacker:PushEvent("onareaattackother", { target = v, weapon = inst, stimuli = nil })
                 v.components.combat:GetAttacked(attacker, 25, inst, nil)
-                -- Éú³ÉÌØĞ§
+                -- ç”Ÿæˆç‰¹æ•ˆ
                 --SpawnPrefab("nightsword_sharp_fx").Transform:SetPosition(v.Transform:GetWorldPosition());
             end
         end

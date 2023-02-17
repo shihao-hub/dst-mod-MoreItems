@@ -2,11 +2,11 @@
 --- @author zsh in 2023/1/9 2:07
 ---
 
---[[ ÓĞ´ıÖØĞ´ ]]
--- 1¡¢¾ø¶ÔÔ²ĞÎÖÖÖ²£¿£¡£¡£¡
--- 2¡¢·ÖÀàÄÚÍâÈ¦ÖÖÖ²£¿
--- 3¡¢¶à²ãÖÖÖ²£¿
--- 4¡¢ÖÜÎ§½ÏĞ¡È¦ÄÚÉèÖÃ³ÉÃ¤Çø£¡
+--[[ æœ‰å¾…é‡å†™ ]]
+-- 1ã€ç»å¯¹åœ†å½¢ç§æ¤ï¼Ÿï¼ï¼ï¼
+-- 2ã€åˆ†ç±»å†…å¤–åœˆç§æ¤ï¼Ÿ
+-- 3ã€å¤šå±‚ç§æ¤ï¼Ÿ
+-- 4ã€å‘¨å›´è¾ƒå°åœˆå†…è®¾ç½®æˆç›²åŒºï¼
 
 
 local TEXT = require("languages.mone.loc");
@@ -32,7 +32,7 @@ params.mone_arborist = {
                     SendRPCToServer(RPC.DoWidgetButtonAction, nil, inst, nil)
                 end
             end,
-            --°´Å¥ÁÁÆğ¹æÔò
+            --æŒ‰é’®äº®èµ·è§„åˆ™
             validfn = function(inst)
                 return inst.replica.container ~= nil and not inst.replica.container:IsEmpty()
             end
@@ -42,10 +42,10 @@ params.mone_arborist = {
 }
 
 local seeds = {
-    "pinecone", --ËÉ¹û
-    "acorn", --èëÀõ¹û
-    "twiggy_nut", --¶àÖ¦Ê÷Çò¹û
-    "marblebean" --´óÀíÊ¯¶¹
+    "pinecone", --æ¾æœ
+    "acorn", --æ¡¦æ —æœ
+    "twiggy_nut", --å¤šææ ‘çƒæœ
+    "marblebean" --å¤§ç†çŸ³è±†
 }
 
 function params.mone_arborist.itemtestfn(container, item, slot)
@@ -63,7 +63,7 @@ for y = 2, -1, -1 do
     end
 end
 
--- ±ØĞë¼ÓÕâ¸ö£¬±£Ö¤ MAXITEMSLOTS ×ã¹»´ó£¬¶øÇÒÇë²»ÒªÓÃ inst.replica.container:WidgetSetup(nil, widgetsetup); µÄĞ´·¨£¬ÎÊÌâÌ«¶à£¡
+-- å¿…é¡»åŠ è¿™ä¸ªï¼Œä¿è¯ MAXITEMSLOTS è¶³å¤Ÿå¤§ï¼Œè€Œä¸”è¯·ä¸è¦ç”¨ inst.replica.container:WidgetSetup(nil, widgetsetup); çš„å†™æ³•ï¼Œé—®é¢˜å¤ªå¤šï¼
 for k, v in pairs(params) do
     containers.MAXITEMSLOTS = math.max(containers.MAXITEMSLOTS, v.widget.slotpos ~= nil and #v.widget.slotpos or 0)
 end
@@ -104,7 +104,7 @@ local function onbuilt(inst)
     --inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sandcastle")
 end
 
--- TEMP: ÓĞ´ıÖØĞ´
+-- TEMP: æœ‰å¾…é‡å†™
 local function MyGetSpawnPoint(startPt, radius)
     local x, y, z = startPt:Get()
 
@@ -112,14 +112,14 @@ local function MyGetSpawnPoint(startPt, radius)
         return nil
     end
 
-    --Èç¹û½¨Öş×ø±ê²»ÔÚÂ½µØÉÏ£¬Ôò FindNearbyLand(...) ÕÒµ½¿¿½üµÄÂ½µØ×ø±êµã£¬Î´ÕÒµ½µÄ»°ÈÔÒÔµ±Ç°×ø±êµãÎªÆğÊ¼×ø±êµã
+    --å¦‚æœå»ºç­‘åæ ‡ä¸åœ¨é™†åœ°ä¸Šï¼Œåˆ™ FindNearbyLand(...) æ‰¾åˆ°é è¿‘çš„é™†åœ°åæ ‡ç‚¹ï¼Œæœªæ‰¾åˆ°çš„è¯ä»ä»¥å½“å‰åæ ‡ç‚¹ä¸ºèµ·å§‹åæ ‡ç‚¹
     if not TheWorld.Map:IsAboveGroundAtPoint(x, y, z, false) then
         startPt = FindNearbyLand(startPt) or startPt
     end
 
     local params = {}
 
-    -- local random_start_angle = math.random() * 2 * PI --Ëæ»ú½Ç¶È¡£±ğÓÃ¾Ö²¿±äÁ¿£¬ÄÇÑùËæ»ú²»¹»Ëæ»ú¡£·´ÕıÒªËæ»ú¡£Òª×ÔÈ»µã¡£
+    -- local random_start_angle = math.random() * 2 * PI --éšæœºè§’åº¦ã€‚åˆ«ç”¨å±€éƒ¨å˜é‡ï¼Œé‚£æ ·éšæœºä¸å¤Ÿéšæœºã€‚åæ­£è¦éšæœºã€‚è¦è‡ªç„¶ç‚¹ã€‚
 
     -- FindWalkableOffset(...)
     -- This function fans out a search from a starting position/direction and looks for a walkable
@@ -127,12 +127,12 @@ local function MyGetSpawnPoint(startPt, radius)
     -- start_angle is in radians
 
     -- print("--1")
-    --ÒÔ´«Èë²ÎÊı radius Îª°ë¾¶£¬Ëæ»úÒ»¸öÉÈĞÎ½Ç¶È/attempts£¬²éÕÒ¸ÃÉÈĞÎÇøÓò£¨»¡¶È ²»³¬¹ı PI£© µÚÒ»´ÎÕÒ
+    --ä»¥ä¼ å…¥å‚æ•° radius ä¸ºåŠå¾„ï¼Œéšæœºä¸€ä¸ªæ‰‡å½¢è§’åº¦/attemptsï¼ŒæŸ¥æ‰¾è¯¥æ‰‡å½¢åŒºåŸŸï¼ˆå¼§åº¦ ä¸è¶…è¿‡ PIï¼‰ ç¬¬ä¸€æ¬¡æ‰¾
     params[1] = {
         position = startPt,
         start_angle = math.random() * 2 * PI,
         radius = radius,
-        attempts = 12, --nilÔòÎª8
+        attempts = 12, --nilåˆ™ä¸º8
         check_los = true
     }
     local offset = FindWalkableOffset(
@@ -154,7 +154,7 @@ local function MyGetSpawnPoint(startPt, radius)
 
     -- TEMP
     if true then
-        --ÒÔÏÂ²¿·Ö»ù±¾Ã»ÓĞÖ´ĞĞ¹ı£¬ËùÒÔÏÈ²»Ö´ĞĞ¡£
+        --ä»¥ä¸‹éƒ¨åˆ†åŸºæœ¬æ²¡æœ‰æ‰§è¡Œè¿‡ï¼Œæ‰€ä»¥å…ˆä¸æ‰§è¡Œã€‚
         return nil
     end
 
@@ -164,7 +164,7 @@ local function MyGetSpawnPoint(startPt, radius)
     -- test_fn takes a parameter "offset" which is check_angle*radius.
 
     -- print("--11")
-    --Í¬ÑùÊÇËæ»úÒ»¸öÉÈĞÎ½Ç¶È£¬¼ìË÷¸ÃÇøÓò£¬Ö»²»¹ıĞèÒªÅĞ¶ÏÌõ¼ş£ºIsAboveGroundAtPoint(...)
+    --åŒæ ·æ˜¯éšæœºä¸€ä¸ªæ‰‡å½¢è§’åº¦ï¼Œæ£€ç´¢è¯¥åŒºåŸŸï¼Œåªä¸è¿‡éœ€è¦åˆ¤æ–­æ¡ä»¶ï¼šIsAboveGroundAtPoint(...)
     local max_search_number = 10 --old_value:10
     for i = 1, max_search_number do
         params[2] = {
@@ -192,7 +192,7 @@ local function MyGetSpawnPoint(startPt, radius)
     end
 
     -- print("--111")
-    --°ë¾¶ÒÔ¼õÁ¿1 µİ¼õÊ½¡¢ÉÈĞÎÊ½ ¼ìË÷ÖÜÎ§£¬ÕÒ³öÓĞĞ§Éú³Éµã
+    --åŠå¾„ä»¥å‡é‡1 é€’å‡å¼ã€æ‰‡å½¢å¼ æ£€ç´¢å‘¨å›´ï¼Œæ‰¾å‡ºæœ‰æ•ˆç”Ÿæˆç‚¹
     for r = radius, 0, -1 do
         params[3] = {
             position = startPt,
@@ -224,7 +224,7 @@ local function MyGetSpawnPoint(startPt, radius)
     return nil
 end
 
--- TEMP: ÓĞ´ıÖØĞ´
+-- TEMP: æœ‰å¾…é‡å†™
 local function MySpawnPrefab(inst, name, x, y, z)
     local spawnPrefab = SpawnPrefab(name)
 
@@ -248,9 +248,9 @@ local function MySpawnPrefab(inst, name, x, y, z)
 end
 
 local PeriodicTime = 1
-local max_radius = 15 --°ë¾¶
-local find_range = max_radius --Ò»¸ñµØÆ¤Îª 4
-local burnable_count = nil --¼ÆÊıÆ÷
+local max_radius = 15 --åŠå¾„
+local find_range = max_radius --ä¸€æ ¼åœ°çš®ä¸º 4
+local burnable_count = nil --è®¡æ•°å™¨
 
 
 local function CheckFire(inst)
@@ -264,7 +264,7 @@ local function CheckFire(inst)
             if v and v:HasTag("green_green_green_CheckFire") then
                 if v.components.burnable then
                     if v.components.burnable:IsSmoldering() then
-                        v.components.burnable:SmotherSmolder() --ÃÆÉÕ
+                        v.components.burnable:SmotherSmolder() --é—·çƒ§
                     end
                     if v.components.burnable:IsBurning() then
                         local max_interval = 3
@@ -281,9 +281,9 @@ local function CheckFire(inst)
                         end
 
                         if burnable_count * PeriodicTime >= max_interval then
-                            --math.floor(...)ÏòÏÂÈ¡Õû
+                            --math.floor(...)å‘ä¸‹å–æ•´
                             burnable_count = nil
-                            v.components.burnable:Extinguish() --Ãğ»ğ
+                            v.components.burnable:Extinguish() --ç­ç«
                         end
                     end
                 end
@@ -298,9 +298,9 @@ local function PlantTrees(inst)
     end
 
     -- TEMP
-    --¼ìË÷·¶Î§ÄÚµÄÎïÌå£¬Ãğ»ğ
+    --æ£€ç´¢èŒƒå›´å†…çš„ç‰©ä½“ï¼Œç­ç«
     --if TUNING.ACB_green_green_green_CheckFire then
-    --    CheckFire(inst) --ºóĞø¹Øµô
+    --    CheckFire(inst) --åç»­å…³æ‰
     --end
 
     local inside_seed = inst.components.container:FindItem(
@@ -319,7 +319,7 @@ local function PlantTrees(inst)
     end
 
     for radius = 1, max_radius do
-        local pt = MyGetSpawnPoint(inst:GetPosition(), radius) --»ñÈ¡ÖÖ×ÓÉú³Éµã£¬¹Ø¼üº¯Êı
+        local pt = MyGetSpawnPoint(inst:GetPosition(), radius) --è·å–ç§å­ç”Ÿæˆç‚¹ï¼Œå…³é”®å‡½æ•°
 
         if pt == nil then
             return
@@ -332,7 +332,7 @@ local function PlantTrees(inst)
                 if sapling then
                     sapling:StartGrowing()
 
-                    --·¢³öÒôĞ§
+                    --å‘å‡ºéŸ³æ•ˆ
                     inst.SoundEmitter:PlaySound("dontstarve/common/plant")
 
                     if inside_seed.components.stackable then
@@ -342,7 +342,7 @@ local function PlantTrees(inst)
                     end
                 end
 
-                break --ÖÜÆÚ¼ìË÷ÖÜÎ§£¬°ë¾¶Öğ²½Ôö¼Ó£¬ÕÒµ½ÓĞĞ§ÖÖ×ÓÉú³Éµã£¬Í¬Ê±ÈİÆ÷ÄÚ²¿ÖÖ×Ó¿ÉÒÔ²¿Êğ¡£Ìø³öÑ­»·¡£
+                break --å‘¨æœŸæ£€ç´¢å‘¨å›´ï¼ŒåŠå¾„é€æ­¥å¢åŠ ï¼Œæ‰¾åˆ°æœ‰æ•ˆç§å­ç”Ÿæˆç‚¹ï¼ŒåŒæ—¶å®¹å™¨å†…éƒ¨ç§å­å¯ä»¥éƒ¨ç½²ã€‚è·³å‡ºå¾ªç¯ã€‚
             end
         end
     end
@@ -369,7 +369,7 @@ local function func()
     inst.entity:AddMiniMapEntity()
     inst.MiniMapEntity:SetIcon("sand_castle.tex")
 
-    inst:SetPhysicsRadiusOverride(0.3) --? ÎŞĞ§£¿
+    inst:SetPhysicsRadiusOverride(0.3) --? æ— æ•ˆï¼Ÿ
 
     inst.Transform:SetScale(scale, scale, scale);
 
@@ -426,7 +426,7 @@ local function func()
     inst.components.workable:SetOnFinishCallback(onhammered)
     --inst.components.workable:SetOnWorkCallback(onhit)
 
-    --Ö»ÔÊĞí±»Íæ¼Ò´İ»Ù
+    --åªå…è®¸è¢«ç©å®¶æ‘§æ¯
     if inst.components.workable then
         local old_Destroy = inst.components.workable.Destroy
         function inst.components.workable:Destroy(destroyer)
@@ -452,7 +452,7 @@ local function func()
     if TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.arborist_light then
         inst:DoTaskInTime(0.1, function(inst)
             inst._mone_light_fx = inst._mone_light_fx or SpawnPrefab("mone_light_fx");
-            -- ĞŞ¸ÄÌØĞ§µÄÕÕÃ÷·¶Î§ºÍÇ¿¶È
+            -- ä¿®æ”¹ç‰¹æ•ˆçš„ç…§æ˜èŒƒå›´å’Œå¼ºåº¦
             do
                 inst._mone_light_fx.Light:SetRadius(15);
                 inst._mone_light_fx.Light:SetIntensity(0.4);
@@ -465,4 +465,5 @@ local function func()
     return inst
 end
 
-return Prefab("mone_arborist", func, assets), MakePlacer("mone_arborist_placer", "sand_castle", "sand_castle", "full", nil, nil, nil, scale)
+return Prefab("mone_arborist", func, assets),
+MakePlacer("mone_arborist_placer", "sand_castle", "sand_castle", "full", nil, nil, nil, scale)

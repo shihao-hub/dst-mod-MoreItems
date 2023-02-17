@@ -47,7 +47,7 @@ local function onhammered(inst)
     end
     inst.components.lootdropper:DropLoot()
 
-    -- wc£¬Ã»ÓĞÉèÖÃµôÂäËùÓĞÎïÆ·£¡£¡£¡
+    -- wcï¼Œæ²¡æœ‰è®¾ç½®æ‰è½æ‰€æœ‰ç‰©å“ï¼ï¼ï¼
     if inst.components.container then
         inst.components.container:DropEverything();
     end
@@ -134,7 +134,7 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst:SetPhysicsRadiusOverride(.5) -- 0.8 »áµ¼ÖÂÌí¼ÓÈ¼ÁÏ±»¿¨×¡¡£¡£¡£
+    inst:SetPhysicsRadiusOverride(.5) -- 0.8 ä¼šå¯¼è‡´æ·»åŠ ç‡ƒæ–™è¢«å¡ä½ã€‚ã€‚ã€‚
     MakeObstaclePhysics(inst, inst.physicsradiusoverride)
 
     inst:AddTag("structure")
@@ -170,7 +170,7 @@ local function fn()
     inst.components.workable:SetOnFinishCallback(onhammered)
     inst.components.workable:SetOnWorkCallback(onhit)
 
-    -- ²¹³ä£º
+    -- è¡¥å……ï¼š
     inst:AddComponent("container")
     inst.components.container:WidgetSetup("mone_wardrobe")
     inst.components.container.onopenfn = onopen

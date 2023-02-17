@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/21 12:02
 ---
 
--- ĞŞ¸´²»ÄÜÖ±½ÓÏûºÄÏä×ÓÀïµÄ²ÄÁÏÖÆ×÷ÎïÆ·µÄbug
+-- ä¿®å¤ä¸èƒ½ç›´æ¥æ¶ˆè€—ç®±å­é‡Œçš„ææ–™åˆ¶ä½œç‰©å“çš„bug
 
 local function getTabLen(t)
     local len = 0
@@ -17,7 +17,7 @@ local Inv = require "widgets/inventorybar";
 
 TUNING.MONE_TUNING.EXTRA_EQUIP_SLOTS_ON_TAG = "mone_extra_equip_slot_on_tag";
 
--- µ±Ê±ÎÒÊÇ±»ÆÈÕâÑùĞ´µÄ£¬ºÃÏñÒòÎª¸ñ×ÓÈİÁ¿ÎÊÌâ³öÏÖÁË¹ÊÕÏ¡£ºÃÏñÊÇºÍÆäËûÎå¸ñÒ»Æğ¿ªµÄÊ±ºòµÄ¹ÊÕÏ£¬
+-- å½“æ—¶æˆ‘æ˜¯è¢«è¿«è¿™æ ·å†™çš„ï¼Œå¥½åƒå› ä¸ºæ ¼å­å®¹é‡é—®é¢˜å‡ºç°äº†æ•…éšœã€‚å¥½åƒæ˜¯å’Œå…¶ä»–äº”æ ¼ä¸€èµ·å¼€çš„æ—¶å€™çš„æ•…éšœï¼Œ
 if slotsnum > 6 then
     return ;
 elseif slotsnum > 4 then
@@ -42,7 +42,7 @@ end
 
 print("MORE_ITEMS_EXTRA_EQUIP_SLOTS_ON");
 
--- Ìí¼Ó £¡
+-- æ·»åŠ  ï¼
 env.AddComponentPostInit("inventory", function(self, inst)
     local original_Equip = self.Equip
     self.Equip = function(self, item, old_to_active)
@@ -140,10 +140,10 @@ end)
 
 local backpacks = {}
 local amulets = {
-    -- Ô­°æ»¤·û
+    -- åŸç‰ˆæŠ¤ç¬¦
     "amulet", "blueamulet", "purpleamulet", "orangeamulet", "greenamulet", "yellowamulet",
-    -- ¼æÈİÆäËûÄ£×é£¨¸Ã²¿·ÖÓÉ 4/5/6¸ñ×°±¸À¸£¨ÊÊÅämod°æ£©Ä£×éÕûÀí£¬Ä£×é±àºÅ£º2798599672£©
-    "brooch1", --ÒÁÀÙÑÅ
+    -- å…¼å®¹å…¶ä»–æ¨¡ç»„ï¼ˆè¯¥éƒ¨åˆ†ç”± 4/5/6æ ¼è£…å¤‡æ ï¼ˆé€‚é…modç‰ˆï¼‰æ¨¡ç»„æ•´ç†ï¼Œæ¨¡ç»„ç¼–å·ï¼š2798599672ï¼‰
+    "brooch1", --ä¼Šè•¾é›…
     "brooch2",
     "brooch3",
     "brooch4",
@@ -154,25 +154,25 @@ local amulets = {
     "brooch9",
     "moon_brooch",
     "star_brooch",
-    "sora2amulet", --Ğ¡ñ·
+    "sora2amulet", --å°ç©¹
     "sorabowknot",
-    "luckamulet", --¾­¼ÃÑ§
-    "wharang_amulet", --Ç§Äêºü
-    "ndnr_opalpreciousamulet", --¸»¹óÏÕÖĞÇó
-    "terraprisma", -- ¹âÀâ½£
-    "aria_seaamulet", -- °¬Àöæ«
-    "kemomimi_new_xianglian", -- Ğ¡ºüÀê
+    "luckamulet", --ç»æµå­¦
+    "wharang_amulet", --åƒå¹´ç‹
+    "ndnr_opalpreciousamulet", --å¯Œè´µé™©ä¸­æ±‚
+    "terraprisma", -- å…‰æ£±å‰‘
+    "aria_seaamulet", -- è‰¾ä¸½å¨…
+    "kemomimi_new_xianglian", -- å°ç‹ç‹¸
     "kemomimi_bell",
     "kemomimi_utr_xl",
-    "philosopherstone", -- ÍĞÍĞÀò
-    "ov_amulet1", -- ºÍÆ½¸ë
+    "philosopherstone", -- æ‰˜æ‰˜è‰
+    "ov_amulet1", -- å’Œå¹³é¸½
     "ov_amulet2",
     "ov_bag2",
-    "klaus_amulet", -- ÓÀ²»Í×Ğ­
+    "klaus_amulet", -- æ°¸ä¸å¦¥å
     "ancient_amulet_red_demoneye",
     "oculet",
     "ancient_amulet_red",
-    "jinshudaikou", -- Ì©À­ÎïÆ·
+    "jinshudaikou", -- æ³°æ‹‰ç‰©å“
     "zaishengshouhuan",
     "ruchongweijin"
 }
@@ -185,74 +185,74 @@ local armors = {
     "armor_sanity", -- Night Armour
     "armorskeleton", -- Bone Armor
     "armorwood", -- Log Suit
-    "armor_medal_obsidian", -- ÄÜÁ¦Ñ«ÕÂ
-    "armor_blue_crystal", -- ÄÜÁ¦Ñ«ÕÂ
-    "golden_armor_mk", -- Éñ»°ÊéËµ
-    "yangjian_armor", -- Éñ»°ÊéËµ
-    "nz_damask", -- Éñ»°ÊéËµ
-    "armorsiving", -- Éñ»°ÊéËµ
-    "myth_iron_battlegear", -- Éñ»°ÊéËµ
-    "xe_bag", -- è¯¶ù
-    "icearmor", -- Óñ×Óyuki
-    "yuanzi_armor_lv1", -- ÄËÄ¾ˆ@×Ó
-    "yuanzi_armor_lv2", -- ÄËÄ¾ˆ@×Ó
-    "monvfu", -- ÒÁÀÙÄÈ
-    "red_fairyskirt", -- ÒÁÀÙÄÈ
-    "bule_fairyskirt", -- ÒÁÀÙÄÈ
-    "sora2armor", -- Ğ¡ñ·
-    "soraclothes", -- Ğ¡ñ·
-    "purgatory_armor", -- °¬Â¶É¯
-    "wharang_amulet_sack", -- Ç§Äêºü
-    "ndnr_armorobsidian", -- ¸»¹ó
-    "changchunjz", -- Õ½½¢ÉÙÅ®-³¤´ºµÄ½¢×°
-    "veneto_jz", -- Õ½½¢ÉÙÅ®-Î¬ÄÚÍĞµÄ½¢×°
-    "veneto_jzyf", -- Õ½½¢ÉÙÅ®-ºÀ»ªÒâÊ½½¢×°
-    "fubuki_jz", -- Õ½½¢ÉÙÅ®-´µÑ©µÄ½¢×°
-    "uniform_firemoths", -- Ï£¶ù-Öğ»ğÖ®¶êÖÆ·ş
-    "lijie_jz", --Õ½½¢ÉÙÅ®²¹¸ø°ü-ÀèÈûÁôµÄ½¢×°
-    "jianzhuang", --Õ½½¢ÉÙÅ®²¹¸ø°ü-Å·¸ùµÄ½¢×°
-    "fbk_jz", --Õ½½¢ÉÙÅ®²¹¸ø°ü-´µÑ©µÄ½¢×°
-    "lex_jz", --Õ½½¢ÉÙÅ®²¹¸ø°ü-ÁĞ¿ËĞÇ¶ØµÄ½¢×°
-    "yukikaze_jz", --Õ½½¢ÉÙÅ®²¹¸ø°ü-»ğÅÚÓãÀ×²¢Áª½¢×°
-    "kahiro_dress", --kahiroÑ§ÔºÅÛ
-    "bf_nightmarearmor", --¶ñÄ§»¨»¤¼×
-    "bf_rosearmor", --Ãµ¹å»¤¼×
-    "aria_armor_red", --°¬Àöæ«¡¤¿ËÀòË¿ËşÂ¶£¨RE£©
-    "aria_armor_blue", --°¬Àöæ«¡¤¿ËÀòË¿ËşÂ¶£¨RE£©
-    "aria_armor_green", --°¬Àöæ«¡¤¿ËÀòË¿ËşÂ¶£¨RE£©
-    "aria_armor_purple", --°¬Àöæ«¡¤¿ËÀòË¿ËşÂ¶£¨RE£©
-    "armorlimestone", --º£ÄÑÊ¯»ÒÑÒÌ××°
-    "armorcactus", --º£ÄÑÏÉÈËÕÆ»¤¼×
-    "armorobsidian", --º£ÄÑºÚê×Ê¯»¤¼×
-    "armorseashell", --º£ÄÑº£Ì×±´¿Ç
-    "suozi", --¸ü¶àÎäÆ÷
-    "bingxin", --¸ü¶àÎäÆ÷
-    "zhenfen", --¸ü¶àÎäÆ÷
-    "huomu", --¸ü¶àÎäÆ÷
-    "landun", --¸ü¶àÎäÆ÷
-    "riyan", --¸ü¶àÎäÆ÷
-    "kj", --¸ü¶àÎäÆ÷
-    "banjia", --¸ü¶àÎäÆ÷
-    "kemomiminewyifu", --Ğ¡ºüÀê
-    "featheredtunic", --ÈÛÂ¯
-    "forge_woodarmor", --ÈÛÂ¯
-    "jaggedarmor", --ÈÛÂ¯
-    "silkenarmor", --ÈÛÂ¯
-    "splintmail", --ÈÛÂ¯
-    "steadfastarmor", --ÈÛÂ¯
-    "armor_hpextraheavy", --ÈÛÂ¯
-    "armor_hpdamager", --ÈÛÂ¯
-    "armor_hprecharger", --ÈÛÂ¯
-    "armor_hppetmastery", --ÈÛÂ¯
-    "reedtunic", --ÈÛÂ¯
-    "ov_armor", --ºÍÆ½¸ë
-    "armor_glassmail", --²»Í×Ğ­
-    "feather_frock_fancy", --²»Í×Ğ­
-    "feather_frock", --²»Í×Ğ­
-    "xianrenzhangjia", --Ì©À­ÎïÆ·
-    "nanguahujia", --Ì©À­ÎïÆ·
-    "jinjia", --Ì©À­ÎïÆ·
-    "seele_twinsdress", --Ï£¶ù
+    "armor_medal_obsidian", -- èƒ½åŠ›å‹‹ç« 
+    "armor_blue_crystal", -- èƒ½åŠ›å‹‹ç« 
+    "golden_armor_mk", -- ç¥è¯ä¹¦è¯´
+    "yangjian_armor", -- ç¥è¯ä¹¦è¯´
+    "nz_damask", -- ç¥è¯ä¹¦è¯´
+    "armorsiving", -- ç¥è¯ä¹¦è¯´
+    "myth_iron_battlegear", -- ç¥è¯ä¹¦è¯´
+    "xe_bag", -- ç’‡å„¿
+    "icearmor", -- ç‰å­yuki
+    "yuanzi_armor_lv1", -- ä¹ƒæœ¨åœ’å­
+    "yuanzi_armor_lv2", -- ä¹ƒæœ¨åœ’å­
+    "monvfu", -- ä¼Šè•¾å¨œ
+    "red_fairyskirt", -- ä¼Šè•¾å¨œ
+    "bule_fairyskirt", -- ä¼Šè•¾å¨œ
+    "sora2armor", -- å°ç©¹
+    "soraclothes", -- å°ç©¹
+    "purgatory_armor", -- è‰¾éœ²è
+    "wharang_amulet_sack", -- åƒå¹´ç‹
+    "ndnr_armorobsidian", -- å¯Œè´µ
+    "changchunjz", -- æˆ˜èˆ°å°‘å¥³-é•¿æ˜¥çš„èˆ°è£…
+    "veneto_jz", -- æˆ˜èˆ°å°‘å¥³-ç»´å†…æ‰˜çš„èˆ°è£…
+    "veneto_jzyf", -- æˆ˜èˆ°å°‘å¥³-è±ªåæ„å¼èˆ°è£…
+    "fubuki_jz", -- æˆ˜èˆ°å°‘å¥³-å¹é›ªçš„èˆ°è£…
+    "uniform_firemoths", -- å¸Œå„¿-é€ç«ä¹‹è›¾åˆ¶æœ
+    "lijie_jz", --æˆ˜èˆ°å°‘å¥³è¡¥ç»™åŒ…-é»å¡ç•™çš„èˆ°è£…
+    "jianzhuang", --æˆ˜èˆ°å°‘å¥³è¡¥ç»™åŒ…-æ¬§æ ¹çš„èˆ°è£…
+    "fbk_jz", --æˆ˜èˆ°å°‘å¥³è¡¥ç»™åŒ…-å¹é›ªçš„èˆ°è£…
+    "lex_jz", --æˆ˜èˆ°å°‘å¥³è¡¥ç»™åŒ…-åˆ—å…‹æ˜Ÿæ•¦çš„èˆ°è£…
+    "yukikaze_jz", --æˆ˜èˆ°å°‘å¥³è¡¥ç»™åŒ…-ç«ç‚®é±¼é›·å¹¶è”èˆ°è£…
+    "kahiro_dress", --kahiroå­¦é™¢è¢
+    "bf_nightmarearmor", --æ¶é­”èŠ±æŠ¤ç”²
+    "bf_rosearmor", --ç«ç‘°æŠ¤ç”²
+    "aria_armor_red", --è‰¾ä¸½å¨…Â·å…‹è‰ä¸å¡”éœ²ï¼ˆREï¼‰
+    "aria_armor_blue", --è‰¾ä¸½å¨…Â·å…‹è‰ä¸å¡”éœ²ï¼ˆREï¼‰
+    "aria_armor_green", --è‰¾ä¸½å¨…Â·å…‹è‰ä¸å¡”éœ²ï¼ˆREï¼‰
+    "aria_armor_purple", --è‰¾ä¸½å¨…Â·å…‹è‰ä¸å¡”éœ²ï¼ˆREï¼‰
+    "armorlimestone", --æµ·éš¾çŸ³ç°å²©å¥—è£…
+    "armorcactus", --æµ·éš¾ä»™äººæŒæŠ¤ç”²
+    "armorobsidian", --æµ·éš¾é»‘æ›œçŸ³æŠ¤ç”²
+    "armorseashell", --æµ·éš¾æµ·å¥—è´å£³
+    "suozi", --æ›´å¤šæ­¦å™¨
+    "bingxin", --æ›´å¤šæ­¦å™¨
+    "zhenfen", --æ›´å¤šæ­¦å™¨
+    "huomu", --æ›´å¤šæ­¦å™¨
+    "landun", --æ›´å¤šæ­¦å™¨
+    "riyan", --æ›´å¤šæ­¦å™¨
+    "kj", --æ›´å¤šæ­¦å™¨
+    "banjia", --æ›´å¤šæ­¦å™¨
+    "kemomiminewyifu", --å°ç‹ç‹¸
+    "featheredtunic", --ç†”ç‚‰
+    "forge_woodarmor", --ç†”ç‚‰
+    "jaggedarmor", --ç†”ç‚‰
+    "silkenarmor", --ç†”ç‚‰
+    "splintmail", --ç†”ç‚‰
+    "steadfastarmor", --ç†”ç‚‰
+    "armor_hpextraheavy", --ç†”ç‚‰
+    "armor_hpdamager", --ç†”ç‚‰
+    "armor_hprecharger", --ç†”ç‚‰
+    "armor_hppetmastery", --ç†”ç‚‰
+    "reedtunic", --ç†”ç‚‰
+    "ov_armor", --å’Œå¹³é¸½
+    "armor_glassmail", --ä¸å¦¥å
+    "feather_frock_fancy", --ä¸å¦¥å
+    "feather_frock", --ä¸å¦¥å
+    "xianrenzhangjia", --æ³°æ‹‰ç‰©å“
+    "nanguahujia", --æ³°æ‹‰ç‰©å“
+    "jinjia", --æ³°æ‹‰ç‰©å“
+    "seele_twinsdress", --å¸Œå„¿
 
 
     -- Armors: from the mod "More Armor" (<https://steamcommunity.com/sharedfiles/filedetails/?id=1153998909>)
@@ -260,7 +260,7 @@ local armors = {
     "armor_stone", -- Stone Suit
 }
 
--- Ó¦¸Ã¿ÉÒÔ¼æÈİÆäËûÄ£×é
+-- åº”è¯¥å¯ä»¥å…¼å®¹å…¶ä»–æ¨¡ç»„
 local function isBackpack(inst)
     if inst:HasTag("backpack") and inst:HasTag("_equippable") and inst:HasTag("_container")
             and not (inst.components.weapon)
@@ -280,7 +280,7 @@ local function isBackpack(inst)
     end
 end
 
--- Ö»ÄÜ¾«È·¼æÈİÒ»ÏÂ
+-- åªèƒ½ç²¾ç¡®å…¼å®¹ä¸€ä¸‹
 local function isAmulet(inst)
     for _, v in ipairs(amulets) do
         if inst.prefab == v then

@@ -38,6 +38,11 @@ local prefabsInfo = {
         describe = "就你喜欢群殴？蜘蛛都给我死！",
         recipe_desc = "可以对目标周围造成1.5格范围伤害，固定为25点"
     },
+    ["mone_candybag"] = {
+        names = "材料袋",
+        describe = "携带材料！",
+        recipe_desc = "可随身携带、可以存放草、树枝、燧石、石头、金块、木头"
+    },
     ["mone_backpack"] = {
         names = "装备袋",
         describe = "解决你装备太多的烦恼！",
@@ -151,7 +156,7 @@ local prefabsInfo = {
     ["mone_halberd"] = {
         names = "多功能·戟",
         describe = "砍剁 劳作 毁灭",
-        recipe_desc = "斧头+镐头(2.5倍效果)+锤子"
+        recipe_desc = "斧头+镐头+锤子(2.5倍效果)"
     },
     ["mone_chiminea"] = {
         names = "垃圾焚化炉",
@@ -259,6 +264,11 @@ local prefabsInfo = {
         names = "蜜汁大肉棒",
         describe = "",
         recipe_desc = "吃甜食，真开心。\n半天内效率提高一倍，时间可累加"
+    },
+    ["mone_guacamole"] = {
+        names = "超级鳄梨酱",
+        describe = "",
+        recipe_desc = "夜视半天，时间不可叠加\n(一次制作二个)"
     },
     --["mone_beef_bell"] = {
     --    names = "升级版·牛铃",

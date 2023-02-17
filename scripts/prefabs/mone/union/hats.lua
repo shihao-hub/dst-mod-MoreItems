@@ -8,7 +8,7 @@ local function MakeHat(prefabname, assets, animstate, overridesymbol)
     local swap_data = { bank = animstate[1], anim = animstate[3] }
 
     local function _onequip(inst, owner)
-        -- ´Ëº¯ÊıÄÚÓĞºÍÆ¤·ôÓĞ¹ØµÄ¶«Î÷£¬²»ÖªµÀÔÚ¸ÉÂï£¬ÏÈÉ¾³ı¡£
+        -- æ­¤å‡½æ•°å†…æœ‰å’Œçš®è‚¤æœ‰å…³çš„ä¸œè¥¿ï¼Œä¸çŸ¥é“åœ¨å¹²å˜›ï¼Œå…ˆåˆ é™¤ã€‚
 
         owner.AnimState:OverrideSymbol("swap_hat", overridesymbol[1], overridesymbol[2])
 
@@ -186,7 +186,7 @@ local function MakeHat(prefabname, assets, animstate, overridesymbol)
             inst.mone_owner:RemoveTag("mone_brainjelly_const_temperature");
         end
 
-        -- »ØÀíÖÇ
+        -- å›ç†æ™º
         inst.components.equippable.dapperness = TUNING.DAPPERNESS_LARGE + TUNING.DAPPERNESS_MED_LARGE
 
         inst:AddComponent("fueled")
@@ -391,7 +391,7 @@ local function MakeHat(prefabname, assets, animstate, overridesymbol)
                 inst.mone_sanity_task = nil
             end
 
-            -- TEMP FRAMES--Ò»Ö¡
+            -- TEMP FRAMES--ä¸€å¸§
             inst.mone_sanity_task = inst:DoPeriodicTask(FRAMES, LowSanityHighArmor);
             --inst.mone_sanity_task = inst:DoPeriodicTask(0.33, LowSanityHighArmor, 0.33);
         end
@@ -443,7 +443,7 @@ local function MakeHat(prefabname, assets, animstate, overridesymbol)
                 old_onequipfn(inst, owner);
             end
             owner:AddTag("equip_mone_bandit");
-            inst.components.mone_bandithat:SetEquipStatus(true); -- ÆäÊµÉèÖÃÒ»¸ö±êÇ©¾ÍĞĞÁË£¬²»ĞèÒªÕâ¸ö
+            inst.components.mone_bandithat:SetEquipStatus(true); -- å…¶å®è®¾ç½®ä¸€ä¸ªæ ‡ç­¾å°±è¡Œäº†ï¼Œä¸éœ€è¦è¿™ä¸ª
             inst.mone_bandit_owner = owner;
         end
         local old_onunequipfn = inst.components.equippable.onunequipfn;
@@ -460,7 +460,7 @@ local function MakeHat(prefabname, assets, animstate, overridesymbol)
     end
 
     local function bushhat_stopusingbush(inst, data)
-        -- Õâ¸ö inst Îª owner £¡£¡£¡£¡£¡£¡
+        -- è¿™ä¸ª inst ä¸º owner ï¼ï¼ï¼ï¼ï¼ï¼
         local hat = inst.components.inventory ~= nil and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD) or nil
 
         if hat ~= nil and data.statename ~= "hide" then
@@ -489,7 +489,7 @@ local function MakeHat(prefabname, assets, animstate, overridesymbol)
         inst.entity:AddMiniMapEntity()
         inst.MiniMapEntity:SetIcon("bushhat.tex")
 
-        -- Òò´ËÊ±ÄÜ·¢³öÎ¢¹â
+        -- å› æ­¤æ—¶èƒ½å‘å‡ºå¾®å…‰
 
         inst:AddTag("hide")
 
@@ -520,7 +520,7 @@ local function MakeHat(prefabname, assets, animstate, overridesymbol)
         --inst.components.fueled:SetDepletedFn(function(inst)
         --
         --end)
-        ---- Õâ¸öº¯Êıµ½µ×É¶ÒâË¼£¿
+        ---- è¿™ä¸ªå‡½æ•°åˆ°åº•å•¥æ„æ€ï¼Ÿ
         --inst.components.fueled:SetFirstPeriod(TUNING.TURNON_FUELED_CONSUMPTION, TUNING.TURNON_FULL_FUELED_CONSUMPTION)
 
         inst:AddComponent("finiteuses");
@@ -551,7 +551,7 @@ local function MakeHat(prefabname, assets, animstate, overridesymbol)
 
             owner.mone_bushhat_prefab = nil;
 
-            -- !!!ÒÆ³ı¼àÌıÆ÷
+            -- !!!ç§»é™¤ç›‘å¬å™¨
             inst:RemoveEventCallback("newstate", bushhat_stopusingbush, owner);
         end
 
@@ -642,7 +642,7 @@ end
 --    Asset("ANIM", "anim/hat_shark_teeth.zip"),
 --}, { "hat_shark_teeth", "hat_shark_teeth", "anim" }, { "hat_shark_teeth", "swap_hat" }));
 
--- ¹¦ÄÜÎ´ÉúĞ§£¬ÒÔºóÔÙËµ°É¡£Ö÷ÒªÌùÍ¼Ò²²»Êæ·ş¡£
+-- åŠŸèƒ½æœªç”Ÿæ•ˆï¼Œä»¥åå†è¯´å§ã€‚ä¸»è¦è´´å›¾ä¹Ÿä¸èˆ’æœã€‚
 --table.insert(hats, MakeHat("mone_bandit", {
 --    Asset("ANIM", "anim/hat_bandit.zip"),
 --}, { "bandithat", "hat_bandit", "anim" }, { "hat_bandit", "swap_hat" }));

@@ -3,9 +3,10 @@
 ---
 
 
-local Tool = {};
+local _Tool = {};
 
-function Tool.printSeq(seq)
+-- FIXME: 待重构
+function _Tool.printSeq(seq)
     local msg = {};
     local tmp = {};
     local cnt = 0;
@@ -33,11 +34,12 @@ function Tool.printSeq(seq)
     -- 逢 8 换行
     table.insert(msg, table.concat(tmp, ", ", 1, #tmp));
 
-    return "Tool.printSeq:\n" .. table.concat(msg, ",\n", 1, #msg);
+    return "_Tool.printSeq:\n" .. table.concat(msg, ",\n", 1, #msg);
 end
 
+-- FIXME: 待重构
 ---@return string
-function Tool.printTab(tab)
+function _Tool.printTab(tab)
     local msg = {};
     for k, v in pairs(tab) do
         local str = "";
@@ -74,12 +76,13 @@ function Tool.printTab(tab)
         table.insert(msg, str);
     end
 
-    return "Tool.printTab:\n" .. table.concat(msg, ",\n", 1, #msg);
+    return "_Tool.printTab:\n" .. table.concat(msg, ",\n", 1, #msg);
 end
 
+-- FIXME:
 ---Role:即 { ... }
 ---Note:必须传入序列
-function Tool.pack(...)
+function _Tool.pack(...)
     local args = { ... };
 
     -- 添加项 args["n"] = 列表长度
@@ -96,4 +99,4 @@ function Tool.pack(...)
 end
 
 
-return Tool;
+return _Tool;

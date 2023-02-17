@@ -3,7 +3,7 @@
 ---
 
 --[[
-    ÓĞÈË·´À¡ÉíÉÏÓĞÕâ¸öÏä×Ó¾ÍÎŞ·¨²¿Êğ¸ûµØ»ú¡£¡£¡£Õâ£¿ÎÒÒ²Ã»Ğ´Ê²Ã´¶«Î÷°¡¡£
+    æœ‰äººåé¦ˆèº«ä¸Šæœ‰è¿™ä¸ªç®±å­å°±æ— æ³•éƒ¨ç½²è€•åœ°æœºã€‚ã€‚ã€‚è¿™ï¼Ÿæˆ‘ä¹Ÿæ²¡å†™ä»€ä¹ˆä¸œè¥¿å•Šã€‚
 ]]
 
 local name_structure = "mone_waterchest";
@@ -90,7 +90,7 @@ local function commonfn()
 
     inst.onhammered = onhammered;
 
-    ----¼æÈİÖÇÄÜĞ¡Ä¾ÅÆ
+    ----å…¼å®¹æ™ºèƒ½å°æœ¨ç‰Œ
     --if TUNING.SMART_SIGN_DRAW_ENABLE then
     --    SMART_SIGN_DRAW(inst);
     --end
@@ -142,7 +142,7 @@ local function structure()
     --if inst.components.workable then
     --    local old_Destroy = inst.components.workable.Destroy
     --    function inst.components.workable:Destroy(destroyer)
-    --        -- playercontroller: Íæ¼Ò
+    --        -- playercontroller: ç©å®¶
     --        if destroyer.components.playercontroller == nil then
     --            return
     --        end

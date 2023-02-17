@@ -5,37 +5,37 @@
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
 
 local data = {
-    --["ÖĞ¿ÕÊ÷×®"] = {
+    --["ä¸­ç©ºæ ‘æ¡©"] = {
     --    CanMake = config_data.catcoonden,
     --    fn = function()
     --        return "catcoonden_placer", "catcoon_den", "catcoon_den", "idle";
     --    end
     --},
-    --["¸ß½ÅÄñ³²Ñ¨"] = {
+    --["é«˜è„šé¸Ÿå·¢ç©´"] = {
     --    CanMake = config_data.tallbirdnest,
     --    fn = function()
     --        return "tallbirdnest_placer", "egg", "tallbird_egg", "eggnest";
     --    end
     --},
-    --["òÒòõ¹í³²Ñ¨"] = {
+    --["è›è“é¬¼å·¢ç©´"] = {
     --    CanMake = config_data.slurtlehole,
     --    fn = function()
     --        return "slurtlehole_placer", "slurtle_mound", "slurtle_mound", "idle";
     --    end
     --},
-    --["É±ÈË·ä³²Ñ¨"] = {
+    --["æ€äººèœ‚å·¢ç©´"] = {
     --    CanMake = config_data.wasphive,
     --    fn = function()
     --        return "wasphive_placer", "wasphive", "wasphive", "cocoon_small";
     --    end
     --},
-    --["·ä³²"] = {
+    --["èœ‚å·¢"] = {
     --    CanMake = config_data.beehive,
     --    fn = function()
     --        return "beehive_placer", "beehive", "beehive", "cocoon_small";
     --    end
     --},
-    --["ºï×Ó"] = {
+    --["çŒ´å­"] = {
     --    CanMake = config_data.monkeybarrel,
     --    fn = function()
     --        return "monkeybarrel_placer", "barrel", "monkey_barrel", "idle";
@@ -43,26 +43,26 @@ local data = {
     --},
 
 
-    ["³ØÌÁ1"] = {
+    ["æ± å¡˜1"] = {
         CanMake = config_data.ponds,
         fn = function()
             return "pond_placer", "marsh_tile", "marsh_tile", "idle", true;
         end
     },
-    ["³ØÌÁ2"] = {
+    ["æ± å¡˜2"] = {
         CanMake = config_data.ponds,
         fn = function()
-            return "pond_cave_placer", "marsh_tile", "marsh_tile", "idle_cave", true; -- µÚÎå¸ö±äÁ¿ÉèÖÃĞı×ª·½Ïò
+            return "pond_cave_placer", "marsh_tile", "marsh_tile", "idle_cave", true; -- ç¬¬äº”ä¸ªå˜é‡è®¾ç½®æ—‹è½¬æ–¹å‘
         end
     },
-    ["³ØÌÁ3"] = {
+    ["æ± å¡˜3"] = {
         CanMake = config_data.ponds,
         fn = function()
             return "pond_mos_placer", "marsh_tile", "marsh_tile", "idle_mos", true;
         end
     },
 
-    ["ÕÊÅñ¾í"] = {
+    ["å¸ç¯·å·"] = {
         CanMake = false,
         fn = function()
             return "pond_mos_placer", "marsh_tile", "marsh_tile", "idle_mos", true;
@@ -70,7 +70,7 @@ local data = {
     },
 
 
-    --["Ïã½¶Ê÷"] = {
+    --["é¦™è•‰æ ‘"] = {
     --    CanMake = config_data.cave_banana_tree,
     --    fn = function()
     --        return "cave_banana_tree_placer", "cave_banana_tree", "cave_banana_tree", "idle_loop";
@@ -78,13 +78,13 @@ local data = {
     --},
 
 
-    ["ÀÏÄÌÄÌµÄÁÀÈâ¼Ü"] = {
+    ["è€å¥¶å¥¶çš„æ™¾è‚‰æ¶"] = {
         CanMake = config_data.meatrack_hermit,
         fn = function()
             return "meatrack_hermit_placer", "meatrack_hermit", "meatrack_hermit", "idle_empty";
         end
     },
-    ["ÀÏÄÌÄÌµÄ·äÏä"] = {
+    ["è€å¥¶å¥¶çš„èœ‚ç®±"] = {
         CanMake = config_data.beebox_hermit,
         fn = function()
             return "beebox_hermit_placer", "bee_box_hermitcrab", "bee_box_hermitcrab", "idle";
@@ -92,37 +92,37 @@ local data = {
     },
 
 
-    --["´óÀíÊ¯Ê÷"] = {
+    --["å¤§ç†çŸ³æ ‘"] = {
     --    CanMake = config_data.marbletree,
     --    fn = function()
     --        return "marbletree_placer", "marble_trees", "marble_trees", "full_1";
     --    end
     --},
-    --["ºìÄ¢¹½"] = {
+    --["çº¢è˜‘è‡"] = {
     --    CanMake = config_data.red_mushroom,
     --    fn = function()
     --        return "red_mushroom_placer", "mushrooms", "mushrooms", "red";
     --    end
     --},
-    --["ÂÌÄ¢¹½"] = {
+    --["ç»¿è˜‘è‡"] = {
     --    CanMake = config_data.green_mushroom,
     --    fn = function()
     --        return "green_mushroom_placer", "mushrooms", "mushrooms", "green";
     --    end
     --},
-    --["À¶Ä¢¹½"] = {
+    --["è“è˜‘è‡"] = {
     --    CanMake = config_data.blue_mushroom,
     --    fn = function()
     --        return "blue_mushroom_placer", "mushrooms", "mushrooms", "blue";
     --    end
     --},
-    --["ºúÂÜ²·"] = {
+    --["èƒ¡èåœ"] = {
     --    CanMake = config_data.carrot_planted,
     --    fn = function()
     --        return "carrot_planted_placer", "carrot", "carrot", "planted";
     --    end
     --},
-    --["¶àÈâÖ²Îï"] = {
+    --["å¤šè‚‰æ¤ç‰©"] = {
     --    CanMake = config_data.succulent_plant,
     --    fn = function()
     --        return "succulent_plant_placer", "succulent", "succulent", "idle";

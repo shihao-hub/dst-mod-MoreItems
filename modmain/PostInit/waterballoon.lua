@@ -92,7 +92,7 @@ env.AddPrefabPostInit("mone_waterballoon", function(inst)
                         if stateFlag then
                             if trygrowth(v) then
                                 -- key point
-                                v.mone_waterballoon_tag = "not the first time" --¸øÓèÒ»¸ö±êÊ¶£¬ÈÃËû³ÉÎª¾Ş´ó×÷Îï
+                                v.mone_waterballoon_tag = "not the first time" --ç»™äºˆä¸€ä¸ªæ ‡è¯†ï¼Œè®©ä»–æˆä¸ºå·¨å¤§ä½œç‰©
                             end
                         end
                     end
@@ -130,7 +130,7 @@ env.AddPrefabPostInitAny(function(inst)
     end
 end)
 
--- ÏÖÔÚÓĞ¸öÎÊÌâ£¬´ßÊìº¯ÊıÉúĞ§µÄÊ±ºò±ØĞëÔÚ°×Ìì
+-- ç°åœ¨æœ‰ä¸ªé—®é¢˜ï¼Œå‚¬ç†Ÿå‡½æ•°ç”Ÿæ•ˆçš„æ—¶å€™å¿…é¡»åœ¨ç™½å¤©
 env.AddComponentPostInit("growable", function(self)
     self.inst:DoTaskInTime(0, function()
         if self.inst and self.inst.prefab and string.match(tostring(self.inst.prefab), "farm_plant_") then
@@ -160,18 +160,18 @@ end)
 
     target.force_oversized = true;
 
-    ¸øËüÊµÌåµÄ force_oversized ±äÁ¿¸³Óè true
+    ç»™å®ƒå®ä½“çš„ force_oversized å˜é‡èµ‹äºˆ true
 
-    È»ºóÔÙ´ßÊì£¬ ¾ÍÊÇ¾Ş´ó»¯
+    ç„¶åå†å‚¬ç†Ÿï¼Œ å°±æ˜¯å·¨å¤§åŒ–
 ]]
 
--- boss µôÂä
+-- boss æ‰è½
 if BALANCE then
     for _, p in ipairs({
-        "moose", -- ´º
-        "antlion", -- ÏÄ
-        "bearger", -- Çï
-        "deerclops", -- ¶¬
+        "moose", -- æ˜¥
+        "antlion", -- å¤
+        "bearger", -- ç§‹
+        "deerclops", -- å†¬
         "dragonfly"
     }) do
         env.AddPrefabPostInit(p, function(inst)

@@ -21,13 +21,13 @@ local assets = {
     Asset("ANIM", "anim/swap_goldenmachete.zip"),
 }
 
----²¥·ÅÒôĞ§ºÍÒÆ³ıÔ¤ÖÆÎï
+---æ’­æ”¾éŸ³æ•ˆå’Œç§»é™¤é¢„åˆ¶ç‰©
 local function onfinished(inst)
     inst.SoundEmitter:PlaySound("dontstarve/common/gem_shatter")
     inst:Remove()
 end
 
----Òş²ØºÍÏÔÊ¾¶¯»­
+---éšè—å’Œæ˜¾ç¤ºåŠ¨ç”»
 --local function onunequip(inst, owner)
 --    owner.AnimState:Hide("ARM_carry")
 --    owner.AnimState:Show("ARM_normal")
@@ -111,13 +111,13 @@ local function onequipCommonly(inst, owner, use)
 
     owner:AddTag("mone_fast_picker");
 
-    -- ±Õ°üµ½µ×¶ÔĞÔÄÜµÄÓ°Ïì´ó²»´óÄØ£¿ÎÒ²»¸Ã¿¼ÂÇÕâ¸ö¶«Î÷£¡
+    -- é—­åŒ…åˆ°åº•å¯¹æ€§èƒ½çš„å½±å“å¤§ä¸å¤§å‘¢ï¼Ÿæˆ‘ä¸è¯¥è€ƒè™‘è¿™ä¸ªä¸œè¥¿ï¼
     local function isExcludedPrefabs(data)
         if data and data.object then
             --print(tostring(data.object.prefab));
             for _, v in ipairs({ "carrot_planted", "succulent_plant", "cave_fern", "flower",
                                  "" }) do
-                -- ¶ñÄ§»¨?
+                -- æ¶é­”èŠ±?
                 if data.object.prefab == v then
                     return true;
                 end

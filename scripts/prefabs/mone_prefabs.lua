@@ -3,6 +3,7 @@
 ---
 
 
+-- æ­¤å¤„å·²å¼ƒç”¨ï¼Œå†…å®¹å·²ç»å®Œå…¨è¿‡æ—¶
 do
     return nil;
 end
@@ -57,7 +58,7 @@ end
 
 --- ??? ERROR
 --[[
--- 2023-02-10-17:04 Õâ²»¾ÍÊÇ MakePlacer µÄÎÊÌâÂğ£¿ÏÖÔÚµ¹ÊÇÎŞËùÎ½ÁË¡£
+-- 2023-02-10-17:04 è¿™ä¸å°±æ˜¯ MakePlacer çš„é—®é¢˜å—ï¼Ÿç°åœ¨å€’æ˜¯æ— æ‰€è°“äº†ã€‚
 [00:02:44]: [string "scripts/components/playercontroller.lua"]:1260: attempt to index field 'placer' (a nil value)
 LUA ERROR stack traceback:
     scripts/components/playercontroller.lua:1260 in (method) StartBuildPlacementMode (Lua) <1247-1265>

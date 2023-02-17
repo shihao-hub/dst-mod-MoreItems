@@ -16,7 +16,7 @@ local API = require("chang_mone.dsts.API");
 
 TUNING.MORE_ITEMS_ON = true;
 
---TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.insight_and_pheromonestone
+--TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.storage_bag
 TUNING.MONE_TUNING = {
     AUTO_SORTER = {
         whetherIsFull = env.GetModConfigData("auto_sorter_mode");
@@ -28,7 +28,7 @@ TUNING.MONE_TUNING = {
     GET_MOD_CONFIG_DATA = {
         BALANCE = env.GetModConfigData("balance");
 
-        -- ¸¨Öú¹¦ÄÜ
+        -- è¾…åŠ©åŠŸèƒ½
         container_removable = env.GetModConfigData("container_removable");
         chests_arrangement = env.GetModConfigData("chests_arrangement");
         current_date = env.GetModConfigData("current_date");
@@ -36,7 +36,7 @@ TUNING.MONE_TUNING = {
         backpacks_light = env.GetModConfigData("backpacks_light");
         arborist_light = env.GetModConfigData("arborist_light");
 
-        -- Ä£×é¹¦ÄÜÉèÖÃ
+        -- æ¨¡ç»„åŠŸèƒ½è®¾ç½®
         IGICF = env.GetModConfigData("IGICF");
         IGICF_mone_piggyback = env.GetModConfigData("IGICF_mone_piggyback");
         IGICF_waterchest_inv = env.GetModConfigData("IGICF_waterchest_inv");
@@ -45,13 +45,13 @@ TUNING.MONE_TUNING = {
         mone_backpack_auto = env.GetModConfigData("mone_backpack_auto");
         mone_wanda_box_itemtestfn_extra1 = env.GetModConfigData("mone_wanda_box_itemtestfn_extra1");
         mone_wanda_box_itemtestfn_extra2 = env.GetModConfigData("mone_wanda_box_itemtestfn_extra2");
-        cane_gointo_mone_backpack = env.GetModConfigData("cane_gointo_mone_backpack"); -- ¹¦ÄÜÒÑÉáÆú
+        cane_gointo_mone_backpack = env.GetModConfigData("cane_gointo_mone_backpack"); -- åŠŸèƒ½å·²èˆå¼ƒ
         --mone_city_lamp_reskin = env.GetModConfigData("mone_city_lamp_reskin");
         --mone_storage_bag_no_remove = env.GetModConfigData("mone_storage_bag_no_remove");
         greenamulet_pheromonestone = env.GetModConfigData("greenamulet_pheromonestone");
 
 
-        -- È¡ÏûÄ³¼şÎïÆ·¼°ÆäÏà¹ØÄÚÈİ
+        -- å–æ¶ˆæŸä»¶ç‰©å“åŠå…¶ç›¸å…³å†…å®¹
         walking_stick = env.GetModConfigData("__walking_stick");
         spear_poison = env.GetModConfigData("__spear_poison");
         harvester_staff = env.GetModConfigData("__harvester_staff");
@@ -66,6 +66,7 @@ TUNING.MONE_TUNING = {
         wathgrithr_box = env.GetModConfigData("__wathgrithr_box");
         wanda_box = env.GetModConfigData("__wanda_box");
         --backpack_piggyback = env.GetModConfigData("__backpack_piggyback");
+        candybag = env.GetModConfigData("__candybag");
         backpack = env.GetModConfigData("__backpack");
         piggyback = env.GetModConfigData("__piggyback");
         storage_bag = env.GetModConfigData("__storage_bag");
@@ -93,9 +94,10 @@ TUNING.MONE_TUNING = {
         mone_chicken_soup = env.GetModConfigData("__mone_chicken_soup");
         mone_lifeinjector_vb = env.GetModConfigData("__mone_lifeinjector_vb");
         mone_honey_ham_stick = env.GetModConfigData("__mone_honey_ham_stick");
+        mone_guacamole = env.GetModConfigData("__mone_guacamole");
 
 
-        -- ÎªÁËÎÒ×Ô¼ºÍæ¶øĞ´µÄ¸¨Öú¹¦ÄÜ
+        -- ä¸ºäº†æˆ‘è‡ªå·±ç©è€Œå†™çš„è¾…åŠ©åŠŸèƒ½
         trap_auto_reset = env.GetModConfigData("trap_auto_reset");
         wathgrithr_vegetarian = env.GetModConfigData("wathgrithr_vegetarian");
         forced_attack_lightflier = env.GetModConfigData("forced_attack_lightflier");
@@ -116,10 +118,17 @@ TUNING.MONE_TUNING = {
 
 local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
 
--- ´Ë´¦Õâ¼¸¸öÎïÆ·ÖĞµÄÄ³Ò»¸ö»ò¼¸¸öµ¼ÖÂµÄ²¿·Ö×¨·ş/ÔÆ·şÈıÎ¬Ëø¶¨µÄÑÏÖØbugµÄ³öÏÖ£¡£¡£¡
--- 2023-02-06 Ó¦¸ÃÒÑ¾­ÅÅ³ıÁË relic_2£¬»áÊÇ bushhat Âğ£¿³ıÁË bushhat »¹ÓĞË­ÓĞ¿ÉÄÜÄØ£¿
--- ÎÒÊÇÕæµÎ·şÁË£¬ÔõÃ´¿ÉÄÜ»á³öÏÖÈıÎ¬Ëø¶¨µÄÇé¿ö°¡¡£ÓÖÃ»¶¯ÈËÎïµÄ´úÂë£¬¶øÇÒÕâ»¹ÊÇ²¿·ÖÍæ¼Ò»á³öÏÖµÄÇé¿ö¡£
--- net µÄÎÊÌâ£¿ÎÒÕâÒ²Ã»¶¯ net °¡¡£»¹»áµôÖ¡£¿ÔõÃ´µôÖ¡µÄ£¿ÎÒ·şÁË¡£
+-- ä¸ªäººé€‚é… UI æ‹–æ‹½ç¼©æ”¾æ¨¡ç»„
+if API.isDebug(env) then
+    if config_data.container_removable == true then
+        config_data.container_removable = 1;
+    end
+end
+
+-- æ­¤å¤„è¿™å‡ ä¸ªç‰©å“ä¸­çš„æŸä¸€ä¸ªæˆ–å‡ ä¸ªå¯¼è‡´çš„éƒ¨åˆ†ä¸“æœ/äº‘æœä¸‰ç»´é”å®šçš„ä¸¥é‡bugçš„å‡ºç°ï¼ï¼ï¼
+-- 2023-02-06 åº”è¯¥å·²ç»æ’é™¤äº† relic_2ï¼Œä¼šæ˜¯ bushhat å—ï¼Ÿé™¤äº† bushhat è¿˜æœ‰è°æœ‰å¯èƒ½å‘¢ï¼Ÿ
+-- æˆ‘æ˜¯çœŸæ»´æœäº†ï¼Œæ€ä¹ˆå¯èƒ½ä¼šå‡ºç°ä¸‰ç»´é”å®šçš„æƒ…å†µå•Šã€‚åˆæ²¡åŠ¨äººç‰©çš„ä»£ç ï¼Œè€Œä¸”è¿™è¿˜æ˜¯éƒ¨åˆ†ç©å®¶ä¼šå‡ºç°çš„æƒ…å†µã€‚
+-- net çš„é—®é¢˜ï¼Ÿæˆ‘è¿™ä¹Ÿæ²¡åŠ¨ net å•Šã€‚è¿˜ä¼šæ‰å¸§ï¼Ÿæ€ä¹ˆæ‰å¸§çš„ï¼Ÿæˆ‘æœäº†ã€‚
 if not API.isDebug(env) then
     config_data.relic_2 = false;
     config_data.bushhat = false;
@@ -130,7 +139,7 @@ if not API.isDebug(env) then
     config_data.workable_meatrack_hermit_beebox_hermit = false;
 end
 
--- 2023-02-05 ÒÑ¾­¶ÀÁ¢ÎªÀ©Õ¹°ü
+-- 2023-02-05 å·²ç»ç‹¬ç«‹ä¸ºæ‰©å±•åŒ…
 if API.isDebug(env) and not env.GetModConfigData("debug_switch") then
     config_data.relic_2 = false;
     config_data.bushhat = false;
@@ -141,20 +150,20 @@ if API.isDebug(env) and not env.GetModConfigData("debug_switch") then
     config_data.workable_meatrack_hermit_beebox_hermit = false;
 end
 
---[[ Ä£×é¼æÈİ ]]
+--[[ æ¨¡ç»„å…¼å®¹ ]]
 env.modimport("modmain/compatibility.lua");
 
 --[[ PrefabFiles and Assets ]]
 env.PrefabFiles = {
     --"mone_prefabs"
 
-    --"mone/mine/halberd", -- ¶î£¬²ù×ÓÒ²ÓĞ¶¯»­¡£
+    --"mone/mine/halberd", -- é¢ï¼Œé“²å­ä¹Ÿæœ‰åŠ¨ç”»ã€‚
 
-    --"mone/mine/goggles/goggles", -- 1¡¢µØÃæ¶¯»­ÎÊÌâ 2¡¢Åå´÷ºóÌùÍ¼ÎÊÌâ 3¡¢÷úÊóÃ±Ğ§¹ûÉúĞ§Î´³É¹¦
+    --"mone/mine/goggles/goggles", -- 1ã€åœ°é¢åŠ¨ç”»é—®é¢˜ 2ã€ä½©æˆ´åè´´å›¾é—®é¢˜ 3ã€é¼¹é¼ å¸½æ•ˆæœç”Ÿæ•ˆæœªæˆåŠŸ
 
     "mone/union/fx/bathat_fx",
     "mone/union/fx/light_fx",
-    --"mone/union/fx/bundle_fx",-- ½¨¼Ò¶«Î÷°ÚÍáÁË£¬¾¿¾¹Ó¦¸ÃÔõÃ´´¦ÀíºÃÄØ£¿´ı¶¨...ÎÒ¸Ğ¾õ»¹ÊÇ²»´¦ÀíºÃ¡£¡£¡£Ö±½Ó c_give ²ÄÁÏÀ­µ¹¡£¹ş¹ş¡£
+    --"mone/union/fx/bundle_fx",-- å»ºå®¶ä¸œè¥¿æ‘†æ­ªäº†ï¼Œç©¶ç«Ÿåº”è¯¥æ€ä¹ˆå¤„ç†å¥½å‘¢ï¼Ÿå¾…å®š...æˆ‘æ„Ÿè§‰è¿˜æ˜¯ä¸å¤„ç†å¥½ã€‚ã€‚ã€‚ç›´æ¥ c_give ææ–™æ‹‰å€’ã€‚å“ˆå“ˆã€‚
 
     "mone/union/hats",
     "mone/union/foods",
@@ -186,7 +195,7 @@ env.Assets = {
     Asset("IMAGE", "images/uiimages/krampus_sack_bg.tex"),
     Asset("ATLAS", "images/uiimages/krampus_sack_bg.xml"),
 
-    -- ÕâÑùÌ«´óÁË£¬°´µÀÀíÀ´ËµÓ¦¸ÃÓÃµ½Ê²Ã´µ¼ÈëÊ²Ã´¡£»°Ëµ»á²»»áµ¼ÖÂÈıºÏÒ»ÌùÍ¼³öÎÊÌâÄØ£¿
+    -- è¿™æ ·å¤ªå¤§äº†ï¼ŒæŒ‰é“ç†æ¥è¯´åº”è¯¥ç”¨åˆ°ä»€ä¹ˆå¯¼å…¥ä»€ä¹ˆã€‚è¯è¯´ä¼šä¸ä¼šå¯¼è‡´ä¸‰åˆä¸€è´´å›¾å‡ºé—®é¢˜å‘¢ï¼Ÿ
     Asset("IMAGE", "images/DLC0000/inventoryimages.tex"),
     Asset("ATLAS", "images/DLC0000/inventoryimages.xml"),
 
@@ -238,7 +247,7 @@ do
         table.insert(env.PrefabFiles, "mone/mine/halberd");
     end
 
-    -- ¶¼ÔÚ hats.lua ÎÄ¼şÖĞ
+    -- éƒ½åœ¨ hats.lua æ–‡ä»¶ä¸­
     --if config_data.pith then
     --    table.insert(env.PrefabFiles, "mone/mine/pith");
     --end
@@ -271,8 +280,11 @@ do
             table.insert(env.PrefabFiles, "mone/game/piggyback");
         end
     end
+    if config_data.candybag then
+        table.insert(env.PrefabFiles, "mone/game/candybag");
+    end
     if config_data.storage_bag then
-        --env.modimport("modmain/AUXmods/find_best_container.lua"); -- ÎŞĞ§
+        --env.modimport("modmain/AUXmods/find_best_container.lua"); -- æ— æ•ˆ
         table.insert(env.PrefabFiles, "mone/mine/storage_bag");
     end
     if config_data.piggybag then
@@ -288,6 +300,7 @@ do
     end
     if config_data.waterchest then
         table.insert(env.PrefabFiles, "mone/mine/waterchest");
+        env.modimport("modmain/PostInit/waterchest.lua");
     end
     if config_data.mone_seedpouch then
         table.insert(env.PrefabFiles, "mone/game/seedpouch");
@@ -347,15 +360,24 @@ do
 end
 
 --[[ AUXmods ]]
--- ÎÒĞèÒªË¼¿¼Ò»¸öÎÊÌâ£¬AddPrefabPostInit ÀàËÆµÄº¯Êı£¬ÏÈ²»ËµÆäËûÄ£×é£¬¾ÍËµÎÒ×ÅÒ»¸öÄ£×é
--- ¼ÓÈëºóÖ´ĞĞµÄÒ»¸öÃ»ÓĞ hook£¬¶øÊÇÖ±½Ó¸²¸ÇµôÁË¡£ÄÇ¿Ï¶¨»á³öÎÊÌâ°É£¿
--- Òò´ËÎÒÈÏÎª AUXmods ²¿·ÖÓ¦¸ÃÒ²±ØĞë·ÅÔÚ modmain.lua Ä©Î²¼ÓÔØ£¿
--- ºÃÂé·³£¬ËùÓĞÎÒÈÏÎªÓ¦¸ÃÑø³ÉÒ»¸öÏ°¹ß¡£ÈÎºÎÇé¿öÏÂ£¬Ö»ÒªÊÇĞŞ¸ÄµÄº¯Êı£¬±ØĞëhook¡£¶àÉÙ»áºÃÒ»µã£¡
+-- æˆ‘éœ€è¦æ€è€ƒä¸€ä¸ªé—®é¢˜ï¼ŒAddPrefabPostInit ç±»ä¼¼çš„å‡½æ•°ï¼Œå…ˆä¸è¯´å…¶ä»–æ¨¡ç»„ï¼Œå°±è¯´æˆ‘ç€ä¸€ä¸ªæ¨¡ç»„
+-- åŠ å…¥åæ‰§è¡Œçš„ä¸€ä¸ªæ²¡æœ‰ hookï¼Œè€Œæ˜¯ç›´æ¥è¦†ç›–æ‰äº†ã€‚é‚£è‚¯å®šä¼šå‡ºé—®é¢˜å§ï¼Ÿ
+-- å› æ­¤æˆ‘è®¤ä¸º AUXmods éƒ¨åˆ†åº”è¯¥ä¹Ÿå¿…é¡»æ”¾åœ¨ modmain.lua æœ«å°¾åŠ è½½ï¼Ÿ
+-- å¥½éº»çƒ¦ï¼Œæ‰€æœ‰æˆ‘è®¤ä¸ºåº”è¯¥å…»æˆä¸€ä¸ªä¹ æƒ¯ã€‚ä»»ä½•æƒ…å†µä¸‹ï¼Œåªè¦æ˜¯ä¿®æ”¹çš„å‡½æ•°ï¼Œå¿…é¡»hookã€‚å¤šå°‘ä¼šå¥½ä¸€ç‚¹ï¼
 do
-    -- ´óÔÓ»â
+    -- å¤§æ‚çƒ©
     env.modimport("modmain/hodgepodge.lua");
 
-    -- true¡¢false¡¢1
+    -- æ”¾æ‰©å±•åŒ…é‡Œå§ï¼Ÿæ„Ÿæƒ³ï¼šè¿™æ¨¡ç»„ä¹Ÿæ²¡å•¥ï¼Œä½†æ˜¯è¶Šå†™è¶Šå¤šï¼Œæˆ‘æ„Ÿè§‰è¿™ä¸ªç»´æŠ¤èµ·æ¥æœ‰ç‚¹éº»çƒ¦äº‹å•Šã€‚
+    -- é«˜å†…èšã€ä½è€¦åˆï¼æˆ‘è¿™å…¶å®è¿˜æ˜¯æœ‰ç‚¹è€¦åˆçš„ï¼
+    -- å…³äºå„ç§é€‰é¡¹å¼€å…³è€¦åˆå¾ˆéš¾å—å•Šã€‚å…è®¸ç‰©å“å¯ä»¥æˆ–è€…ä¸å¯ä»¥åˆ¶ä½œå¾—å¥½å¥½è®¾è®¡ä¸€ä¸‹ï¼Œé¿å…ç‰µæ‰¯è¿‡å¤šå•Šï¼
+    if config_data.storage_bag then
+        TUNING.MONE_TUNING.FIND_BEST_CONTAINER_ON = true; -- ä¸ºäº†çƒ­æ›´æ–°
+        env.modimport("modmain/AUXmods/find_best_container.lua");
+        --env.modimport("modmain/AUXmods/find_best_container_202302152350.lua");
+    end
+
+    -- trueã€falseã€1
     if config_data.container_removable then
         env.modimport("modmain/AUXmods/container_removable.lua");
     end
@@ -391,6 +413,9 @@ do
         -- looktietu
         if env.GetModConfigData("looktietu") then
             env.modimport("modmain/AUXmods/looktietu.lua");
+        end
+        if env.GetModConfigData("position") then
+            env.modimport("modmain/AUXmods/position.lua");
         end
         -- show mod folder name
         --if env.GetModConfigData("show_mod_folder_name") then

@@ -15,6 +15,7 @@ local function auto(inst, pickupguy)
         local find_storage = false;
         --local find_piggyback = false;
         local find_wanda_box = false;
+        local find_candybag = false;
         for i = 1, numslots do
             local item = inst.components.container:GetItemInSlot(i)
             if not find_backpack and item and item.prefab == "mone_backpack" and item.components.container then
@@ -25,12 +26,16 @@ local function auto(inst, pickupguy)
                 find_storage = true;
                 item.components.container:Open(pickupguy);
             end
-            -- Ì«´óÁË£¬Ã»±ØÒª×Ô¶¯´ò¿ª¡£
+            if not find_candybag and item and item.prefab == "mone_candybag" and item.components.container then
+                find_candybag = true;
+                item.components.container:Open(pickupguy);
+            end
+            -- å¤ªå¤§äº†ï¼Œæ²¡å¿…è¦è‡ªåŠ¨æ‰“å¼€ã€‚
             --if not find_piggyback and item and item.prefab == "mone_piggyback" and item.components.container then
             --    find_piggyback = true;
             --    item.components.container:Open(pickupguy);
             --end
-            -- Ö»ÔÊĞí·ÅÔÚÉíÉÏ
+            -- åªå…è®¸æ”¾åœ¨èº«ä¸Š
             --if not find_wanda_box and item and item.prefab == "mone_wanda_box" and item.components.container then
             --    find_wanda_box = true;
             --    item.components.container:Open(pickupguy);
@@ -40,10 +45,10 @@ local function auto(inst, pickupguy)
 end
 
 local function onpickupfn(inst, pickupguy, src_pos)
-    --ÖØÔØÓÎÏ·Ê±£¬»áÖ´ĞĞ¸Ãº¯Êı
+    --é‡è½½æ¸¸æˆæ—¶ï¼Œä¼šæ‰§è¡Œè¯¥å‡½æ•°ï¼ˆæ³¨æ„ï¼Œè¿™ä¸ªå‰ææ˜¯æˆ‘å¿…é¡»é™åˆ¶åªèƒ½å¸¦åœ¨èº«ä¸Šï¼å› ä¸ºåœ¨å£è¢‹é‡Œæ‰ä¼šæ‰§è¡Œï¼ï¼‰
     if inst.components.container then
         inst.components.container:Open(pickupguy);
-        -- ÓÉÓÚÖØÔØÓÎÏ·Ê±£¬»áÖ´ĞĞÒ»ÏÂ´Ë´¦µÄº¯Êı¡£ËùÒÔ±éÀúÒ»ÏÂ£¬´ò¿ªµÚÒ»¸öÕÒµ½µÄÄ³Ğ©Ö¸¶¨ÈİÆ÷
+        -- ç”±äºé‡è½½æ¸¸æˆæ—¶ï¼Œä¼šæ‰§è¡Œä¸€ä¸‹æ­¤å¤„çš„å‡½æ•°ã€‚æ‰€ä»¥éå†ä¸€ä¸‹ï¼Œæ‰“å¼€ç¬¬ä¸€ä¸ªæ‰¾åˆ°çš„æŸäº›æŒ‡å®šå®¹å™¨
         auto(inst, pickupguy);
     end
 end

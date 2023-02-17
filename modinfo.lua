@@ -2,10 +2,6 @@
 --- @author zsh in 2023/2/10 10:07
 ---
 
----
---- @author zsh in 2023/2/6 11:03
----
-
 local L = (locale == "zh" or locale == "zht" or locale == "zhr") and true or false;
 
 local vars = {
@@ -76,7 +72,7 @@ local fns = {
 
 local __name = L and "更多物品" or "More Items";
 local __author = "心悦卿兮";
-local __version = "2.0.1";
+local __version = "2.0.2";
 local __server_filter_tags = { "更多物品", "More Items" };
 
 local start_time = "2023-01-08";
@@ -174,7 +170,7 @@ configuration_options = {
             option(vars.OPEN, true),
             option(vars.CLOSE, false),
         },
-        default = true
+        default = false -- 默认还是关闭吧！
     },
 
     fns.largeLabel("模组内容设置"),
@@ -196,7 +192,7 @@ configuration_options = {
             option("5x5", true),
             option("4x4", false),
         },
-        default = true -- true 为 5x5
+        default = false -- true 为 5x5 -- 我想改成默认值是 false，但是呢，这会不会出问题呢？老玩家的物品是不是都会掉落出来？
     },
 
     fns.largeLabel("素石-物品设置"),
@@ -372,18 +368,19 @@ configuration_options = {
     fns.common_item("__harvester_staff", "收割者的砍刀系列"),
     fns.blank(),
     fns.common_item("__pith", "小草帽"),
-    fns.common_item("__double_umbrella", "双层伞帽"),
     fns.common_item("__brainjelly", "智慧帽"),
+    fns.common_item("__double_umbrella", "双层伞帽"),
     fns.common_item("__gashat", "梦魇的噩梦"),
     fns.common_item("__bathat", "蝙蝠帽·测试版"),
     fns.blank(),
+    fns.common_item("__candybag", "材料袋"),
     fns.common_item("__backpack", "装备袋"),
     fns.common_item("__piggyback", "收纳袋"),
     fns.common_item("__piggybag", "猪猪袋"),
-    fns.common_item("__seasack", "海上麻袋"),
     fns.common_item("__storage_bag", "保鲜袋"),
-    fns.common_item("__wanda_box", "旺达钟表盒", "作者只玩女武神和旺达..."),
+    fns.common_item("__seasack", "海上麻袋"),
     fns.common_item("__waterchest", "海上箱子"),
+    fns.common_item("__wanda_box", "旺达钟表盒", "作者只玩女武神和旺达..."),
     fns.common_item("__nightspace_cape", "暗夜空间斗篷"),
     fns.common_item("__mone_seedpouch", "妈妈放心种子袋"),
     fns.common_item("__wathgrithr_box", "薇格弗德歌谣盒", "作者只玩女武神和旺达..."),
@@ -404,6 +401,7 @@ configuration_options = {
     fns.common_item("__mone_chicken_soup", "馊鸡汤"),
     fns.common_item("__mone_lifeinjector_vb", "强心素食堡", "请不要和其他也改变人物血量上限的模组一起使用\n不然肯定会出现奇怪的现象"),
     fns.common_item("__mone_honey_ham_stick", "蜜汁大肉棒"),
+    fns.common_item("__mone_guacamole", "超级鳄梨酱"),
     fns.common_item("__mone_beef_wellington", "惠灵顿风干牛排"),
 
     fns.largeLabel("作者的辅助功能"),
@@ -472,6 +470,16 @@ configuration_options = {
             option(vars.CLOSE, false),
         },
         default = 1
+    },
+    {
+        name = "position",
+        label = "position",
+        hover = "",
+        options = {
+            option(vars.OPEN, true),
+            option(vars.CLOSE, false),
+        },
+        default = false -- 说实话，没啥大用。
     },
     {
         name = "todo",

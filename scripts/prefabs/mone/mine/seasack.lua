@@ -47,7 +47,7 @@ local function fn()
     inst.entity:SetPristine()
 
     -- Question
-    -- ×Ü½á£º²»ÖªµÀ¾¿¾¹ÄÄÀïµÄÎÊÌâ£¬ÎÒ±ØĞëÒªÌí¼ÓÕâ¸öÄÚÈİ²Å²»»á³ö´í¡£°¥£¬Ã÷Ã÷ÓĞĞ©¹Ù·½¶¼Ã»Ìí¼Ó°¡¡£
+    -- æ€»ç»“ï¼šä¸çŸ¥é“ç©¶ç«Ÿå“ªé‡Œçš„é—®é¢˜ï¼Œæˆ‘å¿…é¡»è¦æ·»åŠ è¿™ä¸ªå†…å®¹æ‰ä¸ä¼šå‡ºé”™ã€‚å“ï¼Œæ˜æ˜æœ‰äº›å®˜æ–¹éƒ½æ²¡æ·»åŠ å•Šã€‚
     if not TheWorld.ismastersim then
         local old_OnEntityReplicated = inst.OnEntityReplicated
 
@@ -90,7 +90,7 @@ local function fn()
     inst.components.container.skipopensnd = true
 
     -- icehat
-    -- Ìí¼Ó¸öĞÂÏÊ¶È
+    -- æ·»åŠ ä¸ªæ–°é²œåº¦
     --inst:AddTag("show_spoilage")
     --inst:AddComponent("perishable")
     --inst.components.perishable:SetPerishTime(TUNING.PERISH_FASTISH)

@@ -166,7 +166,7 @@ local custom_actions = {
                 if not TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.greenamulet_pheromonestone then
                     table.insert(items, "greenamulet");
                 end
-                table.insert(items, "mone_bushhat");
+                table.insert(items, "mie_bushhat");
                 for _, v in ipairs(items) do
                     if target and target.prefab == v then
                         return true;

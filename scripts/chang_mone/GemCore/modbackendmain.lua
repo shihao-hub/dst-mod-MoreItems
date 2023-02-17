@@ -20,6 +20,8 @@ directory. If not, please refer to
 local _G = GLOBAL
 _G.global("WORLDGEN_MOD_POSTINIT")
 
+-- chang: klei mods.lua modimport 的环境都是 env. 而每个模块里是可以接着 setfenv 的
+-- chang 该模块向 env 里添加了 gemrun 函数
 modimport("gemscripts/gemrun")
 _G.gemrun = gemrun
 local MakeGemFunction, DeleteGemFunction = gemrun("gemfunctionmanager")
@@ -30,12 +32,15 @@ IsTheFrontEnd = false
 _G.IsTheFrontEnd = false
 
 gemrun("tools/fnhider")
+
+-- Question 这种命名不担心被覆盖吗？
 _G.UpvalueHacker = gemrun("tools/upvaluehacker")
 _G.LocalVariableHacker = gemrun("tools/localvariablehacker")
 _G.bit = gemrun("bit")
 _G.DebugPrint = gemrun("tools/misc").Global.DebugPrint
 _G.minitraceback = gemrun("tools/misc").Global.minitraceback
 
+-- Question 这些模块的环境都是 GLOBAL 啊....这真不怕被覆盖掉吗？
 gemrun("modconfigmanager")
 gemrun("stringutils")
 gemrun("tableutils")
@@ -92,9 +97,11 @@ function _G.ModManager:InitializeModMain(_modname, env, mainfile, ...)
         env.IsTheFrontEnd = false
     end
     if (mainfile == "modmain.lua" or mainfile == "modworldgenmainpostinit.lua") and _modname == modname then
-        MakeGemFunction("gemfunctionmanager", function(functionname, ...) return MakeGemFunction, DeleteGemFunction end)
+        MakeGemFunction("gemfunctionmanager", function(functionname, ...)
+            return MakeGemFunction, DeleteGemFunction
+        end)
     end
-    local rets = {_InitializeModMain(self, _modname, env, mainfile, ...)}
+    local rets = { _InitializeModMain(self, _modname, env, mainfile, ...) }
     if _G.rawget(_G, "WORLDGEN_MAIN") == 1 and mainfile == "modworldgenmain.lua" and #self.mods == #self.enabledmods then
         DoModsPostInit(self)
     end

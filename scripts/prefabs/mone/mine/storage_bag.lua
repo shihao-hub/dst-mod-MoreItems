@@ -52,39 +52,39 @@ params.mone_storage_bag = {
         },
         animbank = "ui_chest_2x2",
         animbuild = "ui_chest_2x2",
-        pos = Vector3(106, 85, 0), --Í·¿øÎ»ÖÃ
+        pos = Vector3(106, 85, 0), --å¤´ç›”ä½ç½®
         -- pos = Vector3(156, 85, 0),
         side_align_tip = 160
     },
     type = "hand_inv",
-    -- acceptsstacks = false --ÍØÕ¹ÏŞÖÆ£ºÖ»ÄÜ·ÅÔÚÉíÉÏ£¬È»ºóÉíÉÏÖ»ÄÜ´øÒ»¸ö¡£»¹ÊÇÏŞÖÆÒ»ÏÂ°É¡££¨ÏŞÖÆ³Éµ½Ò»¶¨Ê±¼äÏûÊ§£¬¹ş¹ş£©
+    -- acceptsstacks = false --æ‹“å±•é™åˆ¶ï¼šåªèƒ½æ”¾åœ¨èº«ä¸Šï¼Œç„¶åèº«ä¸Šåªèƒ½å¸¦ä¸€ä¸ªã€‚è¿˜æ˜¯é™åˆ¶ä¸€ä¸‹å§ã€‚ï¼ˆé™åˆ¶æˆåˆ°ä¸€å®šæ—¶é—´æ¶ˆå¤±ï¼Œå“ˆå“ˆï¼‰
     itemtestfn = function(container, item, slot)
         if item.prefab == "heatrock" then
             return false;
         end
-        if item.prefab == "cutreeds" or item.prefab == "papyrus" then
-            return true;
-        end
+        --if --[[item.prefab == "cutreeds" or]] item.prefab == "papyrus" then
+        --    return true;
+        --end
         return isIcebox(container, item, slot) or isSaltbox(container, item, slot);
     end
 }
 
--- ±ØĞë¼ÓÕâ¸ö£¬±£Ö¤ MAXITEMSLOTS ×ã¹»´ó£¬¶øÇÒÇë²»ÒªÓÃ inst.replica.container:WidgetSetup(nil, widgetsetup); µÄĞ´·¨£¬ÎÊÌâÌ«¶à£¡
+-- å¿…é¡»åŠ è¿™ä¸ªï¼Œä¿è¯ MAXITEMSLOTS è¶³å¤Ÿå¤§ï¼Œè€Œä¸”è¯·ä¸è¦ç”¨ inst.replica.container:WidgetSetup(nil, widgetsetup); çš„å†™æ³•ï¼Œé—®é¢˜å¤ªå¤šï¼
 for k, v in pairs(params) do
     containers.MAXITEMSLOTS = math.max(containers.MAXITEMSLOTS, v.widget.slotpos ~= nil and #v.widget.slotpos or 0)
 end
 
 
---µôÂä×Ô¶¯¹Ø±Õ
+--æ‰è½è‡ªåŠ¨å…³é—­
 local function ondropped(inst)
     if inst.components.container then
         inst.components.container:Close()
     end
 end
 
---¼ñÆğÊ±ÅĞ¶ÏÉíÉÏÊÇ·ñÒÑ¾­´æÔÚ
+--æ¡èµ·æ—¶åˆ¤æ–­èº«ä¸Šæ˜¯å¦å·²ç»å­˜åœ¨
 local function onpickupfn(inst, pickupguy, src_pos)
-    --ÖØÔØÓÎÏ·Ê±£¬»áÖ´ĞĞ¸Ãº¯Êı
+    --é‡è½½æ¸¸æˆæ—¶ï¼Œä¼šæ‰§è¡Œè¯¥å‡½æ•°
     if not (inst and inst.prefab and inst.components.container and pickupguy) then
         return
     end
@@ -92,10 +92,10 @@ local function onpickupfn(inst, pickupguy, src_pos)
     inst.components.container:Open(pickupguy)
 
     if true then
-        --ÒÔÏÂ´úÂëÔİÊ±ÎŞĞ§»¯
+        --ä»¥ä¸‹ä»£ç æš‚æ—¶æ— æ•ˆåŒ–
         return
     end
-    --¼ñÆğºó²ÅÉúĞ§£¬ËùÒÔ¶¯»­ÓĞµãÎ¥ºÍ¸Ğ
+    --æ¡èµ·åæ‰ç”Ÿæ•ˆï¼Œæ‰€ä»¥åŠ¨ç”»æœ‰ç‚¹è¿å’Œæ„Ÿ
     if pickupguy.components.inventory then
         local oneobject = pickupguy.components.inventory:FindItem(
                 function(v)
@@ -107,7 +107,7 @@ local function onpickupfn(inst, pickupguy, src_pos)
         )
         if oneobject then
             if pickupguy.components.talker then
-                pickupguy.components.talker:Say("ÎÒµÄÉíÉÏÒÑ¾­ÓĞÒ»¸öÁË£¬²»ÒªÌ°µÃÎŞÑáÅ¶~")
+                pickupguy.components.talker:Say("æˆ‘çš„èº«ä¸Šå·²ç»æœ‰ä¸€ä¸ªäº†ï¼Œä¸è¦è´ªå¾—æ— åŒå“¦~")
             end
             local interval = FRAMES or 0
             pickupguy:DoTaskInTime(
@@ -160,9 +160,9 @@ local function func()
     inst.AnimState:PlayAnimation("anim")
 
     --inst:AddTag("fridge")
-    -- Ö»ÒªÕâ¸ö±êÇ©ºÃÏñ¾Í¿ÉÒÔµ±±ùÏäÁË°É£¿»¹ÊÇÖ»ÊÇÖÆÀä£¬ÎŞ±£ÏÊ£¿
-    -- ÊÇµÄ¡£ÉèÖÃÁËpreserverÖ®ºó±ù¿é¶¼¿ªÊ¼¸¯ÀÃÁË¡£ÎŞËùÎ½ÁË£¬ÀÁµÃ´¦Àí¡£
-    -- ...¿´perishable×é¼şÀïÃæµÄUpdate¾Ö²¿º¯Êı¾ÍÖªµÀÁË¡£»¹ÓĞtemperature×é¼ş
+    -- åªè¦è¿™ä¸ªæ ‡ç­¾å¥½åƒå°±å¯ä»¥å½“å†°ç®±äº†å§ï¼Ÿè¿˜æ˜¯åªæ˜¯åˆ¶å†·ï¼Œæ— ä¿é²œï¼Ÿ
+    -- æ˜¯çš„ã€‚è®¾ç½®äº†preserverä¹‹åå†°å—éƒ½å¼€å§‹è…çƒ‚äº†ã€‚æ— æ‰€è°“äº†ï¼Œæ‡’å¾—å¤„ç†ã€‚
+    -- ...çœ‹perishableç»„ä»¶é‡Œé¢çš„Updateå±€éƒ¨å‡½æ•°å°±çŸ¥é“äº†ã€‚è¿˜æœ‰temperatureç»„ä»¶
     inst:AddTag("lowcool")
 
     inst.entity:SetPristine()
@@ -195,7 +195,7 @@ local function func()
 
     inst.components.inventoryitem:SetOnDroppedFn(ondropped)
     inst.components.inventoryitem:SetOnPickupFn(onpickupfn)
-    --inst.components.inventoryitem.canonlygoinpocket = true --ÊÇ·ñÖ»ÄÜ´øÔÚÉíÉÏ
+    --inst.components.inventoryitem.canonlygoinpocket = true --æ˜¯å¦åªèƒ½å¸¦åœ¨èº«ä¸Š
 
     inst:AddComponent("container")
     inst.components.container:WidgetSetup("mone_storage_bag");
@@ -220,15 +220,15 @@ local function func()
                 inst.components.container:DropEverything(inst:GetPosition()) --!!!
             end
         end
-        -- ²»¸ÉÁË£¬Ì«Âé·³
-        -- ÄÍ¾ÃÎª 0 ²»ÏûÊ§µ«Ê§È¥×÷ÓÃ
+        -- ä¸å¹²äº†ï¼Œå¤ªéº»çƒ¦
+        -- è€ä¹…ä¸º 0 ä¸æ¶ˆå¤±ä½†å¤±å»ä½œç”¨
         --if config_data.mone_storage_bag_no_remove then
         --    return ;
         --end
         inst:Remove()
     end
 
-    -- ²»¸ÉÁË£¬Ì«Âé·³
+    -- ä¸å¹²äº†ï¼Œå¤ªéº»çƒ¦
     --inst:ListenForEvent("percentusedchange", function(inst, data)
     --    local percent = data and data.percent;
     --    if percent then

@@ -2,15 +2,15 @@
 --- @author zsh in 2023/1/17 21:34
 ---
 
--- ÉèÖÃĞ¡ÍµµÄµôÂäÎï
+-- è®¾ç½®å°å·çš„æ‰è½ç‰©
 
 
 env.AddComponentPostInit("combat", function(self)
-    -- È¥³ı³¢ÊÔ¹¥»÷
+    -- å»é™¤å°è¯•æ”»å‡»
     local old_TryRetarget = self.TryRetarget;
     function self:TryRetarget(...)
         if self.inst.mone_bandit_near then
-            -- klei scripts/components/combat.lua TryRetarget º¯ÊıÔ´´úÂë
+            -- klei scripts/components/combat.lua TryRetarget å‡½æ•°æºä»£ç 
             if self.targetfn ~= nil
                     and not (self.inst.components.health ~= nil and
                     self.inst.components.health:IsDead())

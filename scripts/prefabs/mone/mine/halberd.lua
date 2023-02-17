@@ -59,7 +59,7 @@ local function fn()
     inst:AddComponent("tool")
     inst.components.tool:SetAction(ACTIONS.CHOP, 1 * 2.5)
     inst.components.tool:SetAction(ACTIONS.MINE, 1 * 2.5)
-    inst.components.tool:SetAction(ACTIONS.HAMMER)
+    inst.components.tool:SetAction(ACTIONS.HAMMER, 1 * 2.5)
     --inst.components.tool:SetAction(ACTIONS.DIG, 1)
 
     inst:AddComponent("finiteuses")

@@ -17,7 +17,7 @@ local LAMP_DIST_SQ = LAMP_DIST * LAMP_DIST
 local function UpdateAudio(inst)
     local player = ThePlayer
 
-    -- ¿ªÆô¶´Ñ¨ºó ThePlayer ²»´æÔÚ
+    -- å¼€å¯æ´ç©´å ThePlayer ä¸å­˜åœ¨
     if not ThePlayer then
         --print("UpdateAudio ThePlayer a nil value");
         return;
@@ -29,7 +29,7 @@ local function UpdateAudio(inst)
     --local clock = TheWorld and TheWorld.components and TheWorld.components["clock"];
 
     -- TEMP
-    -- ²¥·ÅÒôÀÖÄØ£¿
+    -- æ’­æ”¾éŸ³ä¹å‘¢ï¼Ÿ
     --if TheWorld.state.isdusk and lampIsNearby and not inst.SoundEmitter:PlayingSound("onsound") then
     --    inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/city_lamp/on_LP", "onsound")
     --elseif not lampIsNearby and inst.SoundEmitter:PlayingSound("onsound") then

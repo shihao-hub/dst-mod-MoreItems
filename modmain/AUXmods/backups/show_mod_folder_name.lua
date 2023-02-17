@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/25 22:50
 ---
 
---[[ À´Ô´ÒÑ¾­Î»ÖÃ£¬ÏÔÊ¾ folder_name...µ«ÊÇÕâ¸ã·şÎñ¶ËµÄÒ²Ã»ÒâÒå°¡¡£¡£¡£ ]]
+--[[ æ¥æºå·²ç»ä½ç½®ï¼Œæ˜¾ç¤º folder_name...ä½†æ˜¯è¿™ææœåŠ¡ç«¯çš„ä¹Ÿæ²¡æ„ä¹‰å•Šã€‚ã€‚ã€‚ ]]
 
 local template = GLOBAL.require('widgets/redux/templates')
 local ModListItem = template.ModListItem

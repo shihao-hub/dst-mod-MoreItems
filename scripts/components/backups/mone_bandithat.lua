@@ -22,34 +22,34 @@ function Bandit:GetEquipStatus()
     return self.equip_status;
 end
 
---[[ Ö÷¿Í»úÍ¨ÓÃ £¡£¡£¡·Ç³£ÖØÒªµÄĞ´·¨£¡£¡£¡×é¼şË¢ĞÂ£¡2023-01-17-22:26 ĞèÒªÕÒµ½Ô´´úÂëºÃºÃÔÄ¶Á£¡ ]]
+--[[ ä¸»å®¢æœºé€šç”¨ ï¼ï¼ï¼éå¸¸é‡è¦çš„å†™æ³•ï¼ï¼ï¼ç»„ä»¶åˆ·æ–°ï¼2023-01-17-22:26 éœ€è¦æ‰¾åˆ°æºä»£ç å¥½å¥½é˜…è¯»ï¼ ]]
 function Bandit:OnUpdate(dt)
-    -- dt ºÃÏñÊÇkleiÄ¬ÈÏµÄÊ±¼ä¼ä¸ô£¿
-    -- TEMP ??? ÎªÊ²Ã´Ã»ÓĞÉúĞ§£¿ 202301172256 ÔÙËµ°É£¬²»Ïë debug
+    -- dt å¥½åƒæ˜¯kleié»˜è®¤çš„æ—¶é—´é—´éš”ï¼Ÿ
+    -- TEMP ??? ä¸ºä»€ä¹ˆæ²¡æœ‰ç”Ÿæ•ˆï¼Ÿ 202301172256 å†è¯´å§ï¼Œä¸æƒ³ debug
     if self:GetEquipStatus() then
         local x, y, z = self.inst.Transform:GetWorldPosition();
         local DIST = 32;
         local MUST_TAGS = { "_combat", "_health" };
         local CANT_TAGS = { "INLIMBO", "player"--[[, "epic"]]};
         local ents = TheSim:FindEntities(x, y, z, DIST, MUST_TAGS, CANT_TAGS);
-        local current_items = {}; -- µ±Ç°²éÑ¯µ½µÄËùÓĞÂú×ãÌõ¼şµÄÔ¤ÖÆÎïÁĞ±í£¨ÁÙÊ±±äÁ¿/»º´æ£©£¬¼´µ±Ç°ÉúĞ§µÄÔ¤ÖÆÎïÁĞ±í
-        local items = self.items; -- ÕæÕıÉúĞ§µÄÔ¤ÖÆÎïÁĞ±í
+        local current_items = {}; -- å½“å‰æŸ¥è¯¢åˆ°çš„æ‰€æœ‰æ»¡è¶³æ¡ä»¶çš„é¢„åˆ¶ç‰©åˆ—è¡¨ï¼ˆä¸´æ—¶å˜é‡/ç¼“å­˜ï¼‰ï¼Œå³å½“å‰ç”Ÿæ•ˆçš„é¢„åˆ¶ç‰©åˆ—è¡¨
+        local items = self.items; -- çœŸæ­£ç”Ÿæ•ˆçš„é¢„åˆ¶ç‰©åˆ—è¡¨
         for _, p in ipairs(ents) do
             if p and current_items[p] == nil then
-                p.mone_bandit_near = true; -- Ìí¼Ó±êÇ©£¬È·¶¨¸ÃÉúÎïÔÚÅå´÷×ÅÅÔ±ß
+                p.mone_bandit_near = true; -- æ·»åŠ æ ‡ç­¾ï¼Œç¡®å®šè¯¥ç”Ÿç‰©åœ¨ä½©æˆ´ç€æ—è¾¹
                 current_items[p] = true;
                 self.items[p] = true;
             end
         end
-        -- ¸üĞÂÕæÕıÉúĞ§µÄÔ¤ÖÆÎïÁĞ±í
+        -- æ›´æ–°çœŸæ­£ç”Ÿæ•ˆçš„é¢„åˆ¶ç‰©åˆ—è¡¨
         for p, _ in pairs(self.items) do
-            -- p.components.combat:DropTarget() ÓÃÓÚ¶ªÊ§³ğºŞ
+            -- p.components.combat:DropTarget() ç”¨äºä¸¢å¤±ä»‡æ¨
             if p and current_items[p] == nil then
                 self.items[p] = nil;
                 p.mone_bandit_near = nil;
             end
         end
-        -- ¼òµ¥À´Ëµ£¬¾ÍÊÇ±È½ÏÉÏÒ»´ÎºÍµ±Ç°Õâ´Î£¬µÃµ½½»¼¯£¬»òÕßËµÊÇÈÃÆä²î¼¯Ê§Ğ§£¡d
+        -- ç®€å•æ¥è¯´ï¼Œå°±æ˜¯æ¯”è¾ƒä¸Šä¸€æ¬¡å’Œå½“å‰è¿™æ¬¡ï¼Œå¾—åˆ°äº¤é›†ï¼Œæˆ–è€…è¯´æ˜¯è®©å…¶å·®é›†å¤±æ•ˆï¼d
     end
 end
 

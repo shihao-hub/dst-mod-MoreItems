@@ -8,7 +8,7 @@ local assets = {
 
 -- TEMP
 local Despawn = function(inst, time)
-    -- ½¥ÒşÏûÊ§
+    -- æ¸éšæ¶ˆå¤±
     time = time or 1
     local progress = 1
     inst:DoPeriodicTask(0, function()

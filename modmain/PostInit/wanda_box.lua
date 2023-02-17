@@ -4,26 +4,26 @@
 
 
 local prefabs = {
-    "pocketwatch_revive", -- µÚ¶ş´Î»ú»á±í
-    "pocketwatch_heal", --²»ÀÏ±í
-    "pocketwatch_weapon", --¾¯¸æ±í ÎäÆ÷
-    --"pocketwatch_warp", --µ¹×ß±í£¨ÕâÈ·Êµ²»Ó¦¸ÃÔÊĞí·Å£©
-    "pocketwatch_dismantler", --ÖÓ±í½³¹¤¾ß
-    "pocketwatch_revive", --µÚ¶ş´Î»ú»á±í
+    "pocketwatch_revive", -- ç¬¬äºŒæ¬¡æœºä¼šè¡¨
+    "pocketwatch_heal", --ä¸è€è¡¨
+    "pocketwatch_weapon", --è­¦å‘Šè¡¨ æ­¦å™¨
+    --"pocketwatch_warp", --å€’èµ°è¡¨ï¼ˆè¿™ç¡®å®ä¸åº”è¯¥å…è®¸æ”¾ï¼‰
+    "pocketwatch_dismantler", --é’Ÿè¡¨åŒ å·¥å…·
+    "pocketwatch_revive", --ç¬¬äºŒæ¬¡æœºä¼šè¡¨
 
-    -- ÎÒ¾õµÃ²»Ó¦¸Ã¿ÉÒÔ·Å²ÄÁÏ£¬¾ÍÓ¦¸Ã´¿´âÒ»µã£¡
-    --"nightmarefuel", -- Ø¬ÃÎÈ¼ÁÏ
-    --"pocketwatch_parts", --Ê±¼äËéÆ¬
-    --"marble", -- ´óÀíÊ¯
+    -- æˆ‘è§‰å¾—ä¸åº”è¯¥å¯ä»¥æ”¾ææ–™ï¼Œå°±åº”è¯¥çº¯ç²¹ä¸€ç‚¹ï¼
+    --"nightmarefuel", -- å™©æ¢¦ç‡ƒæ–™
+    --"pocketwatch_parts", --æ—¶é—´ç¢ç‰‡
+    --"marble", -- å¤§ç†çŸ³
 
-    --"rope", -- ²İÉş
+    --"rope", -- è‰ç»³
 }
 if TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.mone_wanda_box_itemtestfn_extra1 then
-    table.insert(prefabs, "pocketwatch_warp"); -- µ¹×ß±í
+    table.insert(prefabs, "pocketwatch_warp"); -- å€’èµ°è¡¨
 end
 if TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.mone_wanda_box_itemtestfn_extra2 then
-    table.insert(prefabs, "pocketwatch_portal"); -- ÁÑ·ì±í
-    table.insert(prefabs, "pocketwatch_recall"); -- ËİÔ´±í
+    table.insert(prefabs, "pocketwatch_portal"); -- è£‚ç¼è¡¨
+    table.insert(prefabs, "pocketwatch_recall"); -- æº¯æºè¡¨
 end
 for _, p in ipairs(prefabs) do
     env.AddPrefabPostInit(p, function(inst)
@@ -39,8 +39,8 @@ env.AddPrefabPostInit("wanda", function(inst)
         return inst;
     end
     inst:ListenForEvent("death", function(inst)
-        -- ´Ë´¦ÏÈÖ´ĞĞ»¹ÊÇµôÂäËùÓĞÎïÆ·ÏÈÖ´ĞĞ£¿
-        -- ¼àÌıÉèÖÃÔÚinventory×é¼şµÄ¹¹Ôìº¯ÊıÖĞ¡£ËùÒÔ´Ë´¦Îªºó·¢£¿´í£¡´Ë´¦È·ÊµÖ´ĞĞÁËµÄ¡£¡£¡£²»È·¶¨¡£¡£¡£
+        -- æ­¤å¤„å…ˆæ‰§è¡Œè¿˜æ˜¯æ‰è½æ‰€æœ‰ç‰©å“å…ˆæ‰§è¡Œï¼Ÿ
+        -- ç›‘å¬è®¾ç½®åœ¨inventoryç»„ä»¶çš„æ„é€ å‡½æ•°ä¸­ã€‚æ‰€ä»¥æ­¤å¤„ä¸ºåå‘ï¼Ÿé”™ï¼æ­¤å¤„ç¡®å®æ‰§è¡Œäº†çš„ã€‚ã€‚ã€‚ä¸ç¡®å®šã€‚ã€‚ã€‚
         local inventory = inst.components.inventory;
         if inventory then
             local boxs = inventory:FindItems(function(item)
@@ -55,13 +55,13 @@ env.AddPrefabPostInit("wanda", function(inst)
                     end);
                     if pocketwatch_revive then
                         container:DropEverythingWithTag("mone_wanda_box_pocketwatch_revive");
-                        break ; -- Ö»ÕÒµ½µÚÒ»¸ö¾ÍÌø³öÑ­»·
+                        break ; -- åªæ‰¾åˆ°ç¬¬ä¸€ä¸ªå°±è·³å‡ºå¾ªç¯
                     end
                 end
             end
         end
 
-        -- ²éÕÒÖÜÎ§Ä¿±ê
+        -- æŸ¥æ‰¾å‘¨å›´ç›®æ ‡
         --local x, y, z = inst.Transform:GetWorldPosition();
         --local boxs = TheSim:FindEntities(x, y, z, 8, { "mone_wanda_box" }, nil) or {};
         --local pocketwatch_revive;
@@ -84,10 +84,10 @@ env.AddPlayerPostInit(function(inst)
     if not TheWorld.ismastersim then
         return inst;
     end
-    -- ²éÕÒ×°±¸´üÀïÓĞÃ»ÓĞÖØÉú»¤·û£¿ËãÁË£¬Ì«Âé·³¡£
+    -- æŸ¥æ‰¾è£…å¤‡è¢‹é‡Œæœ‰æ²¡æœ‰é‡ç”ŸæŠ¤ç¬¦ï¼Ÿç®—äº†ï¼Œå¤ªéº»çƒ¦ã€‚
     --inst:ListenForEvent("death", function(inst)
-    --    -- ´Ë´¦ÏÈÖ´ĞĞ»¹ÊÇµôÂäËùÓĞÎïÆ·ÏÈÖ´ĞĞ£¿
-    --    -- ¼àÌıÉèÖÃÔÚinventory×é¼şµÄ¹¹Ôìº¯ÊıÖĞ¡£ËùÒÔ´Ë´¦Îªºó·¢£¿´í£¡´Ë´¦È·ÊµÖ´ĞĞÁËµÄ¡£¡£¡£²»È·¶¨¡£¡£¡£
+    --    -- æ­¤å¤„å…ˆæ‰§è¡Œè¿˜æ˜¯æ‰è½æ‰€æœ‰ç‰©å“å…ˆæ‰§è¡Œï¼Ÿ
+    --    -- ç›‘å¬è®¾ç½®åœ¨inventoryç»„ä»¶çš„æ„é€ å‡½æ•°ä¸­ã€‚æ‰€ä»¥æ­¤å¤„ä¸ºåå‘ï¼Ÿé”™ï¼æ­¤å¤„ç¡®å®æ‰§è¡Œäº†çš„ã€‚ã€‚ã€‚ä¸ç¡®å®šã€‚ã€‚ã€‚
     --    local inventory = inst.components.inventory;
     --    if inventory then
     --        local boxs = inventory:FindItems(function(item)
@@ -102,7 +102,7 @@ env.AddPlayerPostInit(function(inst)
     --                end);
     --                if pocketwatch_revive then
     --                    container:DropEverythingWithTag("mone_wanda_box_pocketwatch_revive");
-    --                    break ; -- Ö»ÕÒµ½µÚÒ»¸ö¾ÍÌø³öÑ­»·
+    --                    break ; -- åªæ‰¾åˆ°ç¬¬ä¸€ä¸ªå°±è·³å‡ºå¾ªç¯
     --                end
     --            end
     --        end

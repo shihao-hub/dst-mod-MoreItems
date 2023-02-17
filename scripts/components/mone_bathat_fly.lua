@@ -8,7 +8,7 @@ local function SpawnFx(self, inst)
     self.isspawning = true
 
     inst:DoTaskInTime(0.1, function(inst)
-        -- Î´Ìí¼Ó·ÉĞĞ¶¯×÷ºÍ½µÂä¶¯×÷£¬ËùÒÔÃ»ÓĞ¶¯×÷Ê±¼ä¼ä¸ô¡£¡£¡£
+        -- æœªæ·»åŠ é£è¡ŒåŠ¨ä½œå’Œé™è½åŠ¨ä½œï¼Œæ‰€ä»¥æ²¡æœ‰åŠ¨ä½œæ—¶é—´é—´éš”ã€‚ã€‚ã€‚
         if inst.mone_bathat_cloud == nil then
             inst.mone_bathat_cloud = inst:SpawnChild("mone_bathat_fx")
         end
@@ -45,7 +45,7 @@ end
 local Flyer = Class(function(self, inst)
     self.inst = inst
 
-    self.height = 2 --ÉèÖÃ¸ß¶È£¨¸ß¶È2¿ÉÒÔÈÃ·äºóÕÙ»½µÄĞ¡ÃÛ·äÎŞ·¨¹¥»÷Äã£©
+    self.height = 2 --è®¾ç½®é«˜åº¦ï¼ˆé«˜åº¦2å¯ä»¥è®©èœ‚åå¬å”¤çš„å°èœœèœ‚æ— æ³•æ”»å‡»ä½ ï¼‰
 
     self.owner = nil
 
@@ -79,11 +79,11 @@ function Flyer:OnUpdate(dt)
 end
 
 local cancelActions = {
-    [ACTIONS.PICKUP] = true, --Ê°È¡
-    [ACTIONS.PICK] = true, --²É¼¯
-    [ACTIONS.SLEEPIN] = true, --Ë¯¾õ
-    --[ACTIONS.MYTH_ENTER_HOUSE or "MONE_PLACEHOLDER"] = true, --Ğ¡·¿×Ó
-    [ACTIONS.MOUNT] = true, --ÆïÅ£
+    [ACTIONS.PICKUP] = true, --æ‹¾å–
+    [ACTIONS.PICK] = true, --é‡‡é›†
+    [ACTIONS.SLEEPIN] = true, --ç¡è§‰
+    --[ACTIONS.MYTH_ENTER_HOUSE or "MONE_PLACEHOLDER"] = true, --å°æˆ¿å­
+    [ACTIONS.MOUNT] = true, --éª‘ç‰›
     [ACTIONS.MIGRATE] = true,
     [ACTIONS.HAUNT] = true,
     [ACTIONS.JUMPIN] = true,
@@ -127,12 +127,12 @@ function Flyer:Fly(doer, onload)
 
         SpawnFx(self, player);
 
-        -- Push ¶¯×÷¹ıÂËÆ÷ -- emm£¬Î´³É¹¦£¬ËãÁË£¡
+        -- Push åŠ¨ä½œè¿‡æ»¤å™¨ -- emmï¼ŒæœªæˆåŠŸï¼Œç®—äº†ï¼
         --if self.inst.components.playeractionpicker then
         --    self.inst.components.playeractionpicker:PushActionFilter(FlyActionFilter, 555);
         --end
 
-        --ÒÆ³ıÈËÎïÅö×²Ìå»ı
+        --ç§»é™¤äººç‰©ç¢°æ’ä½“ç§¯
         if player.Physics then
             RemovePhysicsColliders(player)
         end
@@ -167,7 +167,7 @@ function Flyer:Land(doer)
 
         RemoveFx(self, player)
 
-        -- Pop ¶¯×÷¹ıÂËÆ÷
+        -- Pop åŠ¨ä½œè¿‡æ»¤å™¨
         --if self.inst.components.playeractionpicker then
         --    self.inst.components.playeractionpicker:PopActionFilter(FlyActionFilter)
         --end

@@ -18,37 +18,43 @@ directory. If not, please refer to
 <https://raw.githubusercontent.com/Recex/Licenses/master/SharedSourceLicense/LICENSE.txt>
 ]]
 local env = env
-GLOBAL.setfenv(1, GLOBAL)
+GLOBAL.setfenv(1, GLOBAL) -- chang: Level 1 is the function calling `setfenv`.
+-- chang: 设置 GLOBAL 的目的和 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k); end }) 应该是一样的
+
 
 local gempackage = {
     loaders = {},
-    preload = {},
-    loaded = {},
+    preload = {}, -- 存储一些自定义的loader？ k-函数名 v-函数内容
+    loaded = {}, -- k-函数名 v-执行后的返回值列表
     reload = {}
 }
 
+-- 这里的步骤应该就是 Lua 的前置操作，好几张表
 table.insert(gempackage.loaders, function(functionname)
     if gempackage.preload[functionname] ~= nil then
-        return gempackage.preload[functionname]
+        -- 调用过 MakeGemFunction 才有可能进入此判断域
+        return gempackage.preload[functionname] -- chang 返回值为函数
     else
         return string.format("\n\tno field gempackage.preload['%s']", functionname)
     end
 end)
 
+
 table.insert(gempackage.loaders, function(functionname)
-    local filename = env.MODROOT.."gemscripts/"..functionname..".lua"
-    local result = kleiloadlua(filename)
+    local filename = env.MODROOT .. "gemscripts/" .. functionname .. ".lua"
+    local result = kleiloadlua(filename) -- chang: kleiloadlua
     if type(result) == "string" then
         error(string.format("error loading gemrun module '%s' from file '%s':\n\t%s", functionname, filename, result))
     elseif type(result) == "function" then
-        setfenv(result, _G)
+        setfenv(result, _G) -- `env.GLOBAL = _G` + `_G._G = _G` --> _G 其实就是 GLOBAL._G
     elseif result == nil then
-        return "\n\tno file '"..filename.."'"
+        return "\n\tno file '" .. filename .. "'"
     end
     return result
 end)
 
-function env.gemrun(functionname, ...)
+-- Question 这是在干嘛？就是把函数都执行一遍吗。感觉这就是 Lua 的执行步骤吧！
+function env.gemrun(functionname, ...) -- functionname应该是module_name 吧？
     if gempackage.loaded[functionname] then
         return unpack(gempackage.loaded[functionname])
     end
@@ -60,13 +66,13 @@ function env.gemrun(functionname, ...)
         end
         result = loader(functionname)
         if type(result) == "function" then
-            break
+            break -- chang 找到函数才会返回
         elseif type(result) == "string" then
-            errormessageaccumulator = errormessageaccumulator..result
+            errormessageaccumulator = errormessageaccumulator .. result
         end
         i = i + 1
     end
-    local modresult = {result(functionname, ...)}
+    local modresult = { result(functionname, ...) }
     if not gempackage.reload[functionname] then
         if modresult ~= nil then
             gempackage.loaded[functionname] = modresult
@@ -84,7 +90,8 @@ local function MakeGemFunction(functionname, preload, reload)
 end
 
 local function DeleteGemFunction(functionname)
-    gempackage.preload[functionname] = function() end
+    gempackage.preload[functionname] = function()
+    end
     gempackage.reload[functionname] = false
     gempackage.loaded[functionname] = nil
 end

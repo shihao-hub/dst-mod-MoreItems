@@ -12,8 +12,8 @@ for _, p in ipairs({ "bat", "vampirebat" }) do
             inst:DoPeriodicTask(3, function(inst)
                 local x, y, z = inst.Transform:GetWorldPosition();
                 local DIST = 12;
-                local MUST_TAGS = { "mone_garlic_structure" }; --查找标签
-                local CANT_TAGS = nil; --过滤标签
+                local MUST_TAGS = { "mone_garlic_structure" }; --鏌ユ壘鏍囩
+                local CANT_TAGS = nil; --杩囨护鏍囩
                 local ents = TheSim:FindEntities(x, y, z, DIST, MUST_TAGS, CANT_TAGS);
                 for _, ent in ipairs(ents) do
                     if ent and inst and inst.components and inst.components.health then

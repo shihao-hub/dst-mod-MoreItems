@@ -18,7 +18,7 @@ local function ondropped(inst)
 end
 
 local function onpickupfn(inst, pickupguy, src_pos)
-    --ÖØÔØÓÎÏ·Ê±£¬»áÖ´ĞĞ¸Ãº¯Êı
+    --é‡è½½æ¸¸æˆæ—¶ï¼Œä¼šæ‰§è¡Œè¯¥å‡½æ•°
     if not (inst and inst.prefab and inst.components.container and pickupguy) then
         return
     end
@@ -38,7 +38,7 @@ local function fn()
 
     inst.MiniMapEntity:SetIcon("mone_wathgrithr_box.tex")
 
-    inst.AnimState:SetBank("wathgrithr_box") -- ¶¯»­ÎÊÌâ¡£¡£µ¼ÖÂÆ®ÒİÏÖÏóµÈµÈ¡£
+    inst.AnimState:SetBank("wathgrithr_box") -- åŠ¨ç”»é—®é¢˜ã€‚ã€‚å¯¼è‡´é£˜é€¸ç°è±¡ç­‰ç­‰ã€‚
     inst.AnimState:SetBuild("wathgrithr_box")
     inst.AnimState:PlayAnimation("idle")
 
@@ -66,7 +66,7 @@ local function fn()
     inst.components.inventoryitem.imagename = "mone_wathgrithr_box"
     inst.components.inventoryitem.atlasname = "images/inventoryimages/mone_wathgrithr_box.xml"
     inst.components.inventoryitem:SetOnDroppedFn(ondropped);
-    --inst.components.inventoryitem:SetOnPickupFn(onpickupfn);
+    --inst.components.inventoryitem:SetOnPickupFn(onpickupfn); -- æ²¡å¿…è¦ï¼
 
     inst:AddComponent("container")
     inst.components.container:WidgetSetup("mone_wathgrithr_box");

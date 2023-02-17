@@ -123,7 +123,7 @@ local function MakeGoggle(prefabname, assets, animstate, overridesymbol)
     local function normal()
         local inst = simple();
 
-        -- ע�⣡
+        -- 注意！
         inst:AddTag("nightvision")
         inst:AddTag("mone_gogglesnormal_tag");
 

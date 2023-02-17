@@ -260,6 +260,8 @@ if TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.mone_backpack_auto then
     end)
 
     -- 模组，写得相当好的客户端模组。显然是可以适配成不止 HANDS 可以有 BODY、HEAD
+    -- 2023-02-10-17:10 但是我是真不想写客户端模组，还是写改变游戏内容的东西有趣。
+    -- 抽空好好学一下该部分吧！不然到时候报错了我咋修？
     do
         -- 自动换新武器
 

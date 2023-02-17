@@ -12,7 +12,7 @@ local prefabs = {};
 
 local RANGE = 8
 
----È÷Ë®
+---æ´’æ°´
 local function spawndrop(inst)
     local drop = SpawnPrefab("raindrop")
     local pt = Vector3(inst.Transform:GetWorldPosition())

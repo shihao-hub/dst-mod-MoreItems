@@ -16,7 +16,7 @@ local function ondropped(inst)
     end
 end
 
--- ÖØÔØÓÎÏ·Ê±£¬»áÖ´ĞĞ¸Ãº¯Êı
+-- é‡è½½æ¸¸æˆæ—¶ï¼Œä¼šæ‰§è¡Œè¯¥å‡½æ•°
 local function onpickupfn(inst, pickupguy, src_pos)
     if inst and inst.prefab and inst.components.container and pickupguy then
         inst.components.container:Open(pickupguy);
@@ -64,10 +64,10 @@ local function fn()
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.imagename = "mone_wanda_box"
     inst.components.inventoryitem.atlasname = "images/inventoryimages/mone_wanda_box.xml"
-    inst.components.inventoryitem.canonlygoinpocket = true; -- ±ØĞëÖ»ÄÜ·ÅÔÚ¿Ú´üÀï£¡£¡£¡
+    inst.components.inventoryitem.canonlygoinpocket = true; -- å¿…é¡»åªèƒ½æ”¾åœ¨å£è¢‹é‡Œï¼ï¼ï¼
     inst.components.inventoryitem:SetOnDroppedFn(ondropped);
-    inst.components.inventoryitem:SetOnPickupFn(onpickupfn); -- ÓĞµãÄÑÊÜ¡£
-    --inst:DoTaskInTime(0.1,function(inst) -- ¼Ó¸öÑÓ³Ù°É£¡È·Êµ¿ÉÒÔ¡£
+    inst.components.inventoryitem:SetOnPickupFn(onpickupfn); -- æœ‰ç‚¹éš¾å—ã€‚
+    --inst:DoTaskInTime(0.1,function(inst) -- åŠ ä¸ªå»¶è¿Ÿå§ï¼ç¡®å®å¯ä»¥ã€‚
     --    if inst.components.container then
     --        inst.components.container:Close();
     --    end

@@ -2,31 +2,31 @@
 --- @author zsh in 2023/1/12 18:42
 ---
 
---[[ 20230122 ²¹³äÏŞÖÆ£ºÒ»Ğ©ÎïÆ·²»ÔÊĞí±»ÎŞÄÍ¾Ã£¬ÄÚÈİĞ´ÔÚ actions.lua  ]]
+--[[ 20230122 è¡¥å……é™åˆ¶ï¼šä¸€äº›ç‰©å“ä¸å…è®¸è¢«æ— è€ä¹…ï¼Œå†…å®¹å†™åœ¨ actions.lua  ]]
 
--- ×°±¸½ø½×
+-- è£…å¤‡è¿›é˜¶
 env.AddPrefabPostInit("mone_pheromonestone", function(inst)
     if not TheWorld.ismastersim then
         return inst
     end
     if inst.components.mone_pheromonestone == nil then
-        inst:AddComponent("mone_pheromonestone"); -- ½ö½öÖ»ÊÇÓÃÓÚ¶¯×÷Ìí¼ÓµÄ×é¼ş
+        inst:AddComponent("mone_pheromonestone"); -- ä»…ä»…åªæ˜¯ç”¨äºåŠ¨ä½œæ·»åŠ çš„ç»„ä»¶
     end
 end)
 
 for _, com in ipairs({ "fueled", "finiteuses", "armor" }) do
     env.AddComponentPostInit(com, function(self)
-        self.inst:AddComponent("mone_pheromonestone_infinite"); -- ÓÃÓÚÊ¹×°±¸ÎŞÄÍ¾ÃµÄ×é¼ş
+        self.inst:AddComponent("mone_pheromonestone_infinite"); -- ç”¨äºä½¿è£…å¤‡æ— è€ä¹…çš„ç»„ä»¶
     end)
 end
 
--- ÎÒÒÑ¾­ÍüÁËÎÒÎªÊ²Ã´ÒªÕâÑùĞ´ÁË¡£¡£¡£ÎªÊ²Ã´Òª·Ö¿ª£¿£¨ÏëÆğÀ´ÁË£¬equippable×é¼ş¿ÉÄÜÔÙperishableÖ®ºóÌí¼Ó£¡£©
+-- æˆ‘å·²ç»å¿˜äº†æˆ‘ä¸ºä»€ä¹ˆè¦è¿™æ ·å†™äº†ã€‚ã€‚ã€‚ä¸ºä»€ä¹ˆè¦åˆ†å¼€ï¼Ÿï¼ˆæƒ³èµ·æ¥äº†ï¼Œequippableç»„ä»¶å¯èƒ½å†perishableä¹‹åæ·»åŠ ï¼ï¼‰
 env.AddComponentPostInit("perishable", function(self)
     self.inst:DoTaskInTime(0, function()
         if self.inst and self.inst.components.equippable then
-            self.inst:AddComponent("mone_pheromonestone_infinite"); -- ÓÃÓÚÊ¹×°±¸ÎŞÄÍ¾ÃµÄ×é¼ş
+            self.inst:AddComponent("mone_pheromonestone_infinite"); -- ç”¨äºä½¿è£…å¤‡æ— è€ä¹…çš„ç»„ä»¶
         end
     end)
 end)
 
--- 202301181035 ÏëÏŞÖÆÒ»ÏÂÌí¼Ó mone_pheromonestone_infinite ×é¼şµÄ¶¼ÊÇ equippable µÄ£¬ÏÈ²»¸ÄÁË¡£
+-- 202301181035 æƒ³é™åˆ¶ä¸€ä¸‹æ·»åŠ  mone_pheromonestone_infinite ç»„ä»¶çš„éƒ½æ˜¯ equippable çš„ï¼Œå…ˆä¸æ”¹äº†ã€‚

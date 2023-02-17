@@ -2,26 +2,26 @@
 --- @author zsh in 2023/1/24 16:45
 ---
 
---[[ ËùÓĞ±³°ü¶¼ÄÜ·¢¹â ]]
+--[[ æ‰€æœ‰èƒŒåŒ…éƒ½èƒ½å‘å…‰ ]]
 -- local prefabs = { "mone_lighth_fx" };
 
 for _, p in ipairs({
-    -- Ô­°æ
+    -- åŸç‰ˆ
     "backpack", "piggyback", "icepack", "spicepack", "seedpouch", "candybag", "krampus_sack",
-    -- ±¾Ä£×é
+    -- æœ¬æ¨¡ç»„
     "mone_seedpouch", "mone_seasack", "mone_nightspace_cape",
 }) do
     env.AddPrefabPostInit(p, function(inst)
         if not TheWorld.ismastersim then
             return inst;
         end
-        -- Ö±½Ó°ó¶¨ÊµÌå»¹ÊÇÉèÖÃ³É×°±¸Ê±·¢¹â£¬ÍÑÏÂ²»·¢¹âÄØ£¿
+        -- ç›´æ¥ç»‘å®šå®ä½“è¿˜æ˜¯è®¾ç½®æˆè£…å¤‡æ—¶å‘å…‰ï¼Œè„±ä¸‹ä¸å‘å…‰å‘¢ï¼Ÿ
         --inst:DoTaskInTime(0.1, function(inst)
         --    inst._mone_light_fx = inst._mone_light_fx or SpawnPrefab("mone_light_fx");
-        --    -- ĞŞ¸ÄÌØĞ§µÄÕÕÃ÷·¶Î§ºÍ·¢¹âÇ¿¶È
+        --    -- ä¿®æ”¹ç‰¹æ•ˆçš„ç…§æ˜èŒƒå›´å’Œå‘å…‰å¼ºåº¦
         --    do
         --        local fuelpercent = 1;
-        --        -- ÌáµÆ
+        --        -- æç¯
         --        inst._mone_light_fx.Light:SetIntensity(Lerp(.4, .6, fuelpercent))
         --        inst._mone_light_fx.Light:SetRadius(Lerp(3, 5, fuelpercent));
         --    end
@@ -39,10 +39,10 @@ for _, p in ipairs({
                 end
 
                 inst._mone_light_fx = inst._mone_light_fx or SpawnPrefab("mone_light_fx");
-                -- ĞŞ¸ÄÌØĞ§µÄÕÕÃ÷·¶Î§ºÍ·¢¹âÇ¿¶È
+                -- ä¿®æ”¹ç‰¹æ•ˆçš„ç…§æ˜èŒƒå›´å’Œå‘å…‰å¼ºåº¦
                 --do
                 --    local fuelpercent = 1;
-                --    -- ÌáµÆ
+                --    -- æç¯
                 --    inst._mone_light_fx.Light:SetIntensity(Lerp(.4, .6, fuelpercent))
                 --    inst._mone_light_fx.Light:SetRadius(Lerp(3, 5, fuelpercent));
                 --end

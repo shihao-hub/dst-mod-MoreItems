@@ -27,11 +27,11 @@ if config_data.mone_lifeinjector_vb then
         inst:AddComponent("mone_lifeinjector_vb")
 
         for _, v in ipairs({
-            -- ÅÅ³ı Íú´ï¡¢»úÆ÷ÈË¡¢Ğ¡ÓãÈË
+            -- æ’é™¤ æ—ºè¾¾ã€æœºå™¨äººã€å°é±¼äºº
             "wilson", "willow", "wolfgang", "wendy", "wickerbottom", "woodie", "wes", "waxwell",
             "wathgrithr", "webber", "winona", "warly", "wortox", "wormwood", "wonkey", "walter",
-            -- ¼Ó»Ø »úÆ÷ÈË
-            "wx78", --[["wurt","wanda",]] -- Íú´ïºÍĞ¡ÓãÈËÓĞµã²»ºÃ´¦Àí
+            -- åŠ å› æœºå™¨äºº
+            "wx78", --[["wurt","wanda",]] -- æ—ºè¾¾å’Œå°é±¼äººæœ‰ç‚¹ä¸å¥½å¤„ç†
             "jinx", -- https://steamcommunity.com/sharedfiles/filedetails/?id=479243762
         }) do
             if inst.prefab == v then

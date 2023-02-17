@@ -218,6 +218,7 @@ local function fn()
         return inst
     end
 
+    -- 2023-02-16-22:46：客机看不到说话的内容。。。。。。？
     inst:AddComponent("talker");
 
     --inst:AddComponent("inspectable")

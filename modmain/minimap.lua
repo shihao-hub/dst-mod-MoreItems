@@ -10,7 +10,7 @@ local minimap = {
     "minimap/mone_wathgrithr_box.xml",
     "minimap/mone_wanda_box.xml",
 
-    -- 这样不太好，之后在prefabs里直接用Asset("MINIMAP_IMAGE","picture_name")，但是这个图片记得导入！
+    -- 杩欐牱涓嶅お濂斤紝涔嬪悗鍦╬refabs閲岀洿鎺ョ敤Asset("MINIMAP_IMAGE","picture_name")锛屼絾鏄繖涓浘鐗囪寰楀鍏ワ紒
     "images/inventoryimages.xml",
     "images/inventoryimages2.xml",
     -- DLC0002

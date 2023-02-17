@@ -8,7 +8,7 @@ local API = {};
 -------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------
 
----ÅĞ¶ÏÄ³ÔªËØÊÇ·ñÊÇ±íÖĞµÄ¼ü
+---åˆ¤æ–­æŸå…ƒç´ æ˜¯å¦æ˜¯è¡¨ä¸­çš„é”®
 local function containsKey(t, e)
     for k, _ in pairs(t) do
         if k == e then
@@ -18,7 +18,7 @@ local function containsKey(t, e)
     return false;
 end
 
----ÅĞ¶ÏÄ³ÔªËØÊÇ·ñÊÇ±íÖĞµÄÖµ
+---åˆ¤æ–­æŸå…ƒç´ æ˜¯å¦æ˜¯è¡¨ä¸­çš„å€¼
 local function containsValue(t, e)
     for _, v in pairs(t) do
         if v == e then
@@ -35,9 +35,7 @@ end
 ---@param env env
 ---@return boolean
 function API.isDebug(env)
-    if env.GetModConfigData("debug") and not string.find(env.modname, "workshop") then
-        return true;
-    elseif env.GetModConfigData("debug") == nil and not string.find(env.modname, "workshop") then
+    if env.GetModConfigData("debug") ~= false and not string.find(env.modname, "workshop") then
         return true;
     end
     return false;
@@ -52,45 +50,36 @@ function API.hasBeenReleased(env)
     return false;
 end
 
--- FIXME: __API.xpcall ÓĞÎÊÌâ£¬ºÃÏñÊÇÀïÃæµÄ pack unpack µÄÎÊÌâ£¬1,2,3,nil,4 ÕâÑùµÄ»°£¬nil ºóÃæ¶¼ºöÂÔÁË£¿
--- FIXME: ÎÊÌâÊÇÖ»ÓĞµÚÒ»¸öÎÄ¼şµÄÎïÆ·µ¼Èë³É¹¦ÁË£¬ºóÃæµÄÎÄ¼ş¶¼×¢²áÊ§°Ü¡£
----@param files table
+-- FIXME: __API.xpcall æœ‰é—®é¢˜ï¼Œå¥½åƒæ˜¯é‡Œé¢çš„ pack unpack çš„é—®é¢˜ï¼Œ1,2,3,nil,4 è¿™æ ·çš„è¯ï¼Œnil åé¢éƒ½å¿½ç•¥äº†ï¼Ÿ
+-- FIXME: é—®é¢˜æ˜¯åªæœ‰ç¬¬ä¸€ä¸ªæ–‡ä»¶çš„ç‰©å“å¯¼å…¥æˆåŠŸäº†ï¼Œåé¢çš„æ–‡ä»¶éƒ½æ³¨å†Œå¤±è´¥ã€‚
+-- 2023-02-13-08:54ï¼šåˆšåˆšçœ‹äº†ä¸€ä¸‹ä»£ç ï¼Œå‘ç°æ˜¯è‡ªå·±å†™é”™äº†ã€‚ã€‚ã€‚ç°åœ¨åº”è¯¥æ˜¯å¯¹çš„äº†ï¼Œä½†æ˜¯å¥½åƒæ²¡å¿…è¦äº†ã€‚
+---@param files table[]
 function API.loadPrefabs(files)
-    do
-        return ;
-    end
-
     local prefabsList = {};
-
-    local cnt = 0;
+    local file_cnt, prefab_cnt = 0, 0;
     for _, filepath in ipairs(files) do
-        cnt = cnt + 1;
-        print("---" .. cnt);
+        file_cnt = file_cnt + 1;
         if not string.find(filepath, ".lua$") then
             filepath = filepath .. ".lua";
         end
-        -- ¼ÓÔØÎÄ¼ş£¬·µ»Ø¸ÃÎÄ¼ş´úÂë¹¹³ÉµÄÄäÃûº¯Êı
-        local fun, msg = loadfile(filepath);
-        if not fun then
-            print("ERROR!!!", msg);
-            return prefabsList;
-        end
-        if fun then
-            -- 2301081700: ¸ù±¾Ã»±ØÒªÕâÑùĞ´°É£¬ÎÒµ±³õÓ¦¸ÃÊÇ±§×ÅÑ§Ï°µÄÄ¿µÄĞ´µÄ¡£
-            local test = { __API.xpcall(fun) }; -- 2023-02-06-10:57 __API ÒÑ¾­±»ÎÒÉ¾³ıÁË
-            print("LENGTH: " .. #test);
-            for _, prefab in pairs({ __API.xpcall(fun) }) do
+        local f, msg = loadfile(filepath); -- åŠ è½½æ–‡ä»¶ï¼Œè¿”å›è¯¥æ–‡ä»¶ä»£ç æ„æˆçš„åŒ¿åå‡½æ•°
+        if not f then
+            print("ChangError: ", msg);
+        else
+            local res = { xpcall(f) };
+            table.remove(res, 1);
+            for _, prefab in pairs(res) do
                 if type(prefab) == "table" and prefab.is_a and prefab:is_a(Prefab) then
                     table.insert(prefabsList, prefab);
                 end
             end
-            return prefabsList;
         end
     end
-
+    print(string.format("%s%s%s%s%s", "æˆåŠŸå¯¼å…¥äº†ï¼š", file_cnt, " ä¸ªæ–‡ä»¶ï¼Œå…± ", prefab_cnt, " ä¸ªé¢„åˆ¶ç‰©ã€‚"));
+    return prefabsList;
 end
 
----°´Ô¤ÖÆÎïÃû×Ö×ÖµäĞòÕûÀíÈİÆ÷
+---æŒ‰é¢„åˆ¶ç‰©åå­—å­—å…¸åºæ•´ç†å®¹å™¨
 ---@type fun(inst:table):void
 ---@param inst table
 function API.arrangeContainer(inst)
@@ -103,47 +92,47 @@ function API.arrangeContainer(inst)
     local slots = container.slots;
     local keys = {};
 
-    -- pairs ÊÇËæ»úµÄ
+    -- pairs æ˜¯éšæœºçš„
     for k, _ in pairs(slots) do
         keys[#keys + 1] = k;
     end
     table.sort(keys);
 
-    -- ipairs ÊÇË³ĞòµÄ
+    -- ipairs æ˜¯é¡ºåºçš„
     for k, v in ipairs(keys) do
         if (k ~= v) then
-            -- ´æÔÚ¿Õ¶´
+            -- å­˜åœ¨ç©ºæ´
             local item = container:RemoveItemBySlot(v);
-            container:GiveItem(item, k); -- TODO:Èç¹û³¬¹ı¶ÑµşÉÏÏŞ»á·¢ÉúÊ²Ã´£¿ Answer: »áµôÂä
+            container:GiveItem(item, k); -- TODO:å¦‚æœè¶…è¿‡å †å ä¸Šé™ä¼šå‘ç”Ÿä»€ä¹ˆï¼Ÿ Answer: ä¼šæ‰è½
         end
     end
-    -- ´ËÊ±£¬slot ²»´æÔÚ¿Õ¶´
+    -- æ­¤æ—¶ï¼Œslot ä¸å­˜åœ¨ç©ºæ´
     slots = container.slots;
 
-    -- ¿Õ¶´´¦ÀíÍê±Ï£¬¸ù¾İÔ¤ÖÆÎïµÄÃû×Ö½øĞĞ×ÖµäĞò
+    -- ç©ºæ´å¤„ç†å®Œæ¯•ï¼Œæ ¹æ®é¢„åˆ¶ç‰©çš„åå­—è¿›è¡Œå­—å…¸åº
     table.sort(slots, function(entity1, entity2)
         local a, b = tostring(entity1.prefab), tostring(entity2.prefab);
 
-        --[[        -- Èç¹ûÔ¤ÖÆÎïÃû×ÖÄ©Î²´æÔÚÊı×Ö£¬ÇÒ³ıÄ©Î²Êı×ÖÍâ£¬ÏàµÈ£¬°´ĞòºÅ´óĞ¡ÅÅÁĞ
-                -- NOTE: Ã»±ØÒª£¬ÒòÎª×Ö·û´®¿ÉÒÔÅĞ¶Ï´óĞ¡
+        --[[        -- å¦‚æœé¢„åˆ¶ç‰©åå­—æœ«å°¾å­˜åœ¨æ•°å­—ï¼Œä¸”é™¤æœ«å°¾æ•°å­—å¤–ï¼Œç›¸ç­‰ï¼ŒæŒ‰åºå·å¤§å°æ’åˆ—
+                -- NOTE: æ²¡å¿…è¦ï¼Œå› ä¸ºå­—ç¬¦ä¸²å¯ä»¥åˆ¤æ–­å¤§å°
                 local prefix_name1,num1 = string.match(a, '(.-)(%d+)$');
                 local prefix_name2,num2 = string.match(b, '(.-)(%d+)$');
                 if (prefix_name1 == prefix_name2 and num1 and num2) then
                     return tonumber(num1) < tonumber(num2);
                 end]]
 
-        return a < b and true or false; -- ±ãÓÚ×Ô¼ºÀí½â
+        return a < b and true or false; -- ä¾¿äºè‡ªå·±ç†è§£
     end)
 
-    -- ´ËÊ±£¬slots ÒÑ¾­ÅÅĞòºÃÁË£¬¿ªÊ¼ÕûÀí
+    -- æ­¤æ—¶ï¼Œslots å·²ç»æ’åºå¥½äº†ï¼Œå¼€å§‹æ•´ç†
     for i, v in ipairs(slots) do
         local item = container:RemoveItemBySlot(i);
-        container:GiveItem(item); -- slot == nil£¬»á±éÀúÃ¿Ò»¸ö¸ñ×Ó°Ñ item Èû½øÈ¥£¬item == nil£¬·µ»Ø true
+        container:GiveItem(item); -- slot == nilï¼Œä¼šéå†æ¯ä¸€ä¸ªæ ¼å­æŠŠ item å¡è¿›å»ï¼Œitem == nilï¼Œè¿”å› true
     end
 
 end
 
----×ªÒÆÈİÆ÷ÄÚµÄÔ¤ÖÆÎï
+---è½¬ç§»å®¹å™¨å†…çš„é¢„åˆ¶ç‰©
 ---@param src table
 ---@param dest table
 function API.transferContainerAllItems(src, dest)
@@ -160,17 +149,17 @@ function API.transferContainerAllItems(src, dest)
 
 end
 
--- TODO: ·Ç¹Ì¶¨ÉËº¦µÄ AOE
+-- TODO: éå›ºå®šä¼¤å®³çš„ AOE
 function API.onattackAOE()
 
 end
 
--- TODO: ÎŞÊÓ»¤¼×µÄÉËº¦
+-- TODO: æ— è§†æŠ¤ç”²çš„ä¼¤å®³
 function API.onattackTrueDamage()
 
 end
 
----´«ÈëµÄ inst£¬owner ´ú±íÕâÊÇÔÚ OnEquip º¯ÊıÖĞµ÷ÓÃµÄ
+---ä¼ å…¥çš„ instï¼Œowner ä»£è¡¨è¿™æ˜¯åœ¨ OnEquip å‡½æ•°ä¸­è°ƒç”¨çš„
 function API.runningOnWater(inst, owner)
     if inst.running_on_water_task then
         inst.running_on_water_task:Cancel()
@@ -179,14 +168,14 @@ function API.runningOnWater(inst, owner)
     inst.delay_count = 0
 
     inst.running_on_water_task = inst:DoPeriodicTask(0.1, function(inst, owner)
-        local is_moving = owner.sg:HasStateTag("moving") --Íæ¼ÒÕıÔÚÒÆ¶¯
-        local is_running = owner.sg:HasStateTag("running") --Íæ¼ÒÕıÔÚ±¼ÅÜ
+        local is_moving = owner.sg:HasStateTag("moving") --ç©å®¶æ­£åœ¨ç§»åŠ¨
+        local is_running = owner.sg:HasStateTag("running") --ç©å®¶æ­£åœ¨å¥”è·‘
         local x, y, z = owner.Transform:GetWorldPosition()
 
-        -- Èç¹û²»ÊÇÔÚ»»ÈËÎï
+        -- å¦‚æœä¸æ˜¯åœ¨æ¢äººç‰©
         if x and y and z then
             if owner.components.drownable and owner.components.drownable:IsOverWater() then
-                -- Ôö¼Ó³±Êª¶È
+                -- å¢åŠ æ½®æ¹¿åº¦
                 inst.components.equippable.equippedmoisture = 1
                 inst.components.equippable.maxequippedmoisture = 80
 
@@ -197,14 +186,14 @@ function API.runningOnWater(inst, owner)
                         inst.delay_count = 0
                     end
                 end
-                -- ÏÂµØË²¼ä¾ÓÈ»Ã»ÓĞ drownable ×é¼ş
+                -- ä¸‹åœ°ç¬é—´å±…ç„¶æ²¡æœ‰ drownable ç»„ä»¶
             elseif owner.components.drownable and not owner.components.drownable:IsOverWater() then
-                -- È¡ÏûÔö¼Ó³±Êª¶È
+                -- å–æ¶ˆå¢åŠ æ½®æ¹¿åº¦
                 inst.components.equippable.equippedmoisture = 0
                 inst.components.equippable.maxequippedmoisture = 0
             end
         end
-    end, owner)
+    end, nil, owner)
 
     -- !!!
     if owner.components.drownable then
@@ -219,16 +208,16 @@ function API.runningOnWater(inst, owner)
 
             local x, y, z = owner.Transform:GetWorldPosition()
             if x and y and z then
-                --»»ÈËÎïÊ±£¬x,y,zÎªnil£¬ËùÒÔĞèÒªÅĞ¶ÏÒ»ÏÂ¡£
+                --æ¢äººç‰©æ—¶ï¼Œx,y,zä¸ºnilï¼Œæ‰€ä»¥éœ€è¦åˆ¤æ–­ä¸€ä¸‹ã€‚
                 owner.Physics:Teleport(owner.Transform:GetWorldPosition())
             end
         end
     end
 end
 
--- ÕâÊÇÔÚ onunequipfn º¯ÊıÖĞµ÷ÓÃµÄ
+-- è¿™æ˜¯åœ¨ onunequipfn å‡½æ•°ä¸­è°ƒç”¨çš„
 function API.runningOnWaterCancel(inst, owner)
-    -- È¡ÏûÔö¼Ó³±Êª¶È
+    -- å–æ¶ˆå¢åŠ æ½®æ¹¿åº¦
     inst.components.equippable.equippedmoisture = 0
     inst.components.equippable.maxequippedmoisture = 0
 
@@ -240,7 +229,7 @@ function API.runningOnWaterCancel(inst, owner)
         if owner.components.drownable.enabled == false then
             owner.components.drownable.enabled = true
             if not owner:HasTag("playerghost") then
-                --·ÇËÀÍö×´Ì¬
+                --éæ­»äº¡çŠ¶æ€
                 owner.Physics:ClearCollisionMask()
                 owner.Physics:CollidesWith(COLLISION.WORLD)
                 owner.Physics:CollidesWith(COLLISION.OBSTACLES)
@@ -256,10 +245,10 @@ function API.runningOnWaterCancel(inst, owner)
     end
 end
 
--- ËäÈ»»¹ÊÇÓĞ¿ÉÄÜ³öÏÖÈçÏÂÇé¿ö£º
--- AÄ£×éÌí¼Óa±êÇ©£¬È»ºóÖ´ĞĞÎÒµÄÌí¼Ó±êÇ©²¿·Ö´úÂë£¬ÎÒÄÜ¹»Ê¶±ğ³öÀ´´Ë±êÇ©ÊÇ·ñÊÇÎÒÌí¼ÓµÄ¡£É¾³ıµÄÊ±ºòÒ²ÄÜÅĞ¶Ï³öÀ´¡£
--- µ«ÊÇ¼ÓÈëÎÒÌí¼Ó±êÇ©ºó£¬AÄ£×éÒ²Ìí¼ÓÁË±êÇ©¡£È»ºóÎÒÒÆ³ı±êÇ©µÄÊ±ºòµÈÓÚ°ÑAÄ£×éµÄÏà¹Ø¹¦ÄÜÒ²ÒÆ³ıÁË¡£ÄÇ¿Ï¶¨¾Í³öÎÊÌâÁË¡£
--- ·´ÕıÔõÃ´ËµÄØ£¬Õâ¸ö·½·¨ÓĞÓÃµ«²»ÍêÈ«ÓĞÓÃ¡£¡£¡£µ«ÊÇÃ»ÓĞ¿É²»ĞĞ£¡
+-- è™½ç„¶è¿˜æ˜¯æœ‰å¯èƒ½å‡ºç°å¦‚ä¸‹æƒ…å†µï¼š
+-- Aæ¨¡ç»„æ·»åŠ aæ ‡ç­¾ï¼Œç„¶åæ‰§è¡Œæˆ‘çš„æ·»åŠ æ ‡ç­¾éƒ¨åˆ†ä»£ç ï¼Œæˆ‘èƒ½å¤Ÿè¯†åˆ«å‡ºæ¥æ­¤æ ‡ç­¾æ˜¯å¦æ˜¯æˆ‘æ·»åŠ çš„ã€‚åˆ é™¤çš„æ—¶å€™ä¹Ÿèƒ½åˆ¤æ–­å‡ºæ¥ã€‚
+-- ä½†æ˜¯åŠ å…¥æˆ‘æ·»åŠ æ ‡ç­¾åï¼ŒAæ¨¡ç»„ä¹Ÿæ·»åŠ äº†æ ‡ç­¾ã€‚ç„¶åæˆ‘ç§»é™¤æ ‡ç­¾çš„æ—¶å€™ç­‰äºæŠŠAæ¨¡ç»„çš„ç›¸å…³åŠŸèƒ½ä¹Ÿç§»é™¤äº†ã€‚é‚£è‚¯å®šå°±å‡ºé—®é¢˜äº†ã€‚
+-- åæ­£æ€ä¹ˆè¯´å‘¢ï¼Œè¿™ä¸ªæ–¹æ³•æœ‰ç”¨ä½†ä¸å®Œå…¨æœ‰ç”¨ã€‚ã€‚ã€‚ä½†æ˜¯æ²¡æœ‰å¯ä¸è¡Œï¼
 
 local tags = {};
 
@@ -282,11 +271,12 @@ function API.RemoveTag(inst, tag)
     end
 end
 
--- ÕâÊÇÇå½àÉ¨°ÑµÄÄÇ¸öº¯Êı°ÕÁË£¬±ØĞë±£Ö¤ build¡¢bank Ò»ÖÂ
--- Î´À´ TODO£º Í¬ÀàĞÍÎïÆ·¶¼¿ÉÒÔ»»Æ¤·ô£¬±ÈÈçµÆÀà£¬Æ¤·ô»¥»»¡£±³°üÀà£¬Æ¤·ô»¥»»¡£
----@param name string ÓÎÏ·ÄÚ¶ÔÓ¦µÄÄÇ¸öÔ¤ÖÆÎïµÄ´úÂëÃû
----@param build string ÄÇ¸ö¶ÔÓ¦µÄÔ¤ÖÆÎïµÄ build
----@param prefabs table[] ÓĞÄÄĞ©Ô¤ÖÆÎïÒª±»ĞŞ¸ÄÄØ£¿
+-- è¿™æ˜¯æ¸…æ´æ‰«æŠŠçš„é‚£ä¸ªå‡½æ•°ç½¢äº†ï¼Œå¿…é¡»ä¿è¯ buildã€bank ä¸€è‡´
+-- æœªæ¥ TODOï¼š åŒç±»å‹ç‰©å“éƒ½å¯ä»¥æ¢çš®è‚¤ï¼Œæ¯”å¦‚ç¯ç±»ï¼Œçš®è‚¤äº’æ¢ã€‚èƒŒåŒ…ç±»ï¼Œçš®è‚¤äº’æ¢ã€‚
+-- NOTE: æ„Ÿè§‰æ¢çš®è‚¤çš„å‡½æ•°ï¼Œæœ‰äº›ä¸èƒ½è¿™æ ·ç»Ÿä¸€æ¢ã€‚å› ä¸ºå‡½æ•°å„å¼‚ï¼ï¼ï¼ï¼ï¼ï¼æœ‰ç©ºé‡å†™ä¸€ä¸‹ï¼
+---@param name string æ¸¸æˆå†…å¯¹åº”çš„é‚£ä¸ªé¢„åˆ¶ç‰©çš„ä»£ç å
+---@param build string é‚£ä¸ªå¯¹åº”çš„é¢„åˆ¶ç‰©çš„ build
+---@param prefabs table[] æœ‰å“ªäº›é¢„åˆ¶ç‰©è¦è¢«ä¿®æ”¹å‘¢ï¼Ÿ
 function API.reskin(prefabname, build, prefabs)
     local name = prefabname;
     local fn_name = name .. '_clear_fn';
@@ -312,12 +302,12 @@ function API.reskin(prefabname, build, prefabs)
     end
 end
 
----ĞÂ°æ±¾£¬Ä¿Ç°µÄÄÚÈİÊÇ£ºÈç¹ûÊ¼ÖÕ±£³Ö¾²Ì¬µÄ»°£¬ÄÇÓ¦¸ÃÊÇ¿ÉÒÔ»»Æ¤µÄ£¡
+---æ–°ç‰ˆæœ¬ï¼Œç›®å‰çš„å†…å®¹æ˜¯ï¼šå¦‚æœå§‹ç»ˆä¿æŒé™æ€çš„è¯ï¼Œé‚£åº”è¯¥æ˜¯å¯ä»¥æ¢çš®çš„ï¼
 ---@param env env
 function API.reskin2(env, prefabname, bank, build, prefabs)
     local name = prefabname;
 
-    -- ²¹¶¡
+    -- è¡¥ä¸
     if prefabname == "cane" and #prefabs > 1 then
         return ;
     end
@@ -338,7 +328,7 @@ function API.reskin2(env, prefabname, bank, build, prefabs)
             end
             basic_init_fn(inst, build_name, build);
 
-            -- ²¹¶¡
+            -- è¡¥ä¸
             if prefabname == "cane" then
                 if inst.components.inventoryitem then
                     inst.components.inventoryitem:ChangeImageName("walkingstick");
@@ -363,7 +353,7 @@ function API.reskin2(env, prefabname, bank, build, prefabs)
             end
             basic_clear_fn(inst, build);
 
-            -- ²¹¶¡
+            -- è¡¥ä¸
             if prefabname == "cane" then
                 if inst.components.inventoryitem then
                     inst.components.inventoryitem:ChangeImageName("walkingstick");
@@ -372,7 +362,7 @@ function API.reskin2(env, prefabname, bank, build, prefabs)
         end
     end);
 
-    -- ²¹¶¡
+    -- è¡¥ä¸
     if prefabname == "cane" then
         for _, v in ipairs(prefabs) do
             env.AddPrefabPostInit(v, function(inst)
@@ -386,9 +376,9 @@ function API.reskin2(env, prefabname, bank, build, prefabs)
                             old_onequipfn(inst, owner, ...);
                         end
 
-                        -- ÕâÑùÊÇ»»²»ÁËµÄ£¡ÖÁÓÚÔ­Òò£¿Î´Öª¡£2023-02-08-16:00
-                        -- Èç¹ûÎÒÓÃµÄ¹Ù·½µÄ inventoryitem.image ºÍ atlas£¬»»Æ¤µÄÊ±ºòÊÇÍêÈ«Õı³£µÄ¡£
-                        -- ¿ÉÒÔÈ¥¿´¿´ event:imagechange£¬ÒÔ¼° itemtile Ğ¡²¿¼ş
+                        -- è¿™æ ·æ˜¯æ¢ä¸äº†çš„ï¼è‡³äºåŸå› ï¼ŸæœªçŸ¥ã€‚2023-02-08-16:00
+                        -- å¦‚æœæˆ‘ç”¨çš„å®˜æ–¹çš„ inventoryitem.image å’Œ atlasï¼Œæ¢çš®çš„æ—¶å€™æ˜¯å®Œå…¨æ­£å¸¸çš„ã€‚
+                        -- å¯ä»¥å»çœ‹çœ‹ event:imagechangeï¼Œä»¥åŠ itemtile å°éƒ¨ä»¶
                         --local skin_name = inst:GetSkinName();
                         --if skin_name then
                         --    if inst.components.inventoryitem then
@@ -419,7 +409,7 @@ function API.reskin2(env, prefabname, bank, build, prefabs)
         end
     end
 
-    -- ĞŞ¸ÄÈ«¾Ö±í£¬Ó¦¸Ã¿ÉÒÔÈÃÖÆ×÷ÎïÆ·Ò³Ãæ¿ÉÒÔÑ¡Æ¤·ô
+    -- ä¿®æ”¹å…¨å±€è¡¨ï¼Œåº”è¯¥å¯ä»¥è®©åˆ¶ä½œç‰©å“é¡µé¢å¯ä»¥é€‰çš®è‚¤
     if ((rawget(_G, 'PREFAB_SKINS') or {})[name] and (rawget(_G, 'PREFAB_SKINS_IDS') or {})[name]) then
         for _, reskin_prefab in ipairs(prefabs) do
             PREFAB_SKINS[reskin_prefab] = PREFAB_SKINS[name];
@@ -432,31 +422,31 @@ end
 ---- TEST: 2023-02-08-15:57
 --API.reskin2 = nil;
 
----Ìí¼Ó×Ô¶¨ÒåµÄ¶¯×÷
+---æ·»åŠ è‡ªå®šä¹‰çš„åŠ¨ä½œ
 function API.addCustomActions(env, custom_actions, component_actions)
     --[[
-    execute = nil|false|ÆäËû true,,
-    id = '', -- ¶¯×÷ id£¬ĞèÒªÈ«´óĞ´×ÖÄ¸
-    str = '', -- ÓÎÏ·ÄÚÏÔÊ¾µÄ¶¯×÷Ãû³Æ
+    execute = nil|false|å…¶ä»– true,,
+    id = '', -- åŠ¨ä½œ idï¼Œéœ€è¦å…¨å¤§å†™å­—æ¯
+    str = '', -- æ¸¸æˆå†…æ˜¾ç¤ºçš„åŠ¨ä½œåç§°
 
-    ---¶¯×÷´¥·¢Ê±Ö´ĞĞµÄº¯Êı£¬×¢ÒâÕâÊÇ server ¶Ë
+    ---åŠ¨ä½œè§¦å‘æ—¶æ‰§è¡Œçš„å‡½æ•°ï¼Œæ³¨æ„è¿™æ˜¯ server ç«¯
     fn = function(act) ... return ture|false|nil; end, ---@param act BufferedAction,
 
-    actiondata = {}, -- ĞèÒªÌí¼ÓµÄÒ»Ğ©¶¯×÷Ïà¹Ø²ÎÊı£¬±ÈÈç£ºÓÅÏÈ¼¶¡¢Ê©·Å¾àÀëµÈ
-    state = '', -- Òª°ó¶¨µÄ SG µÄ state
+    actiondata = {}, -- éœ€è¦æ·»åŠ çš„ä¸€äº›åŠ¨ä½œç›¸å…³å‚æ•°ï¼Œæ¯”å¦‚ï¼šä¼˜å…ˆçº§ã€æ–½æ”¾è·ç¦»ç­‰
+    state = '', -- è¦ç»‘å®šçš„ SG çš„ state
 ]]
     custom_actions = custom_actions or {};
 
-    --[[    actiontype = '', -- ³¡¾°£¬'SCENE'|'USEITEM'|'POINT'|'EQUIPPED'|'INVENTORY'|'ISVALID'
-        component = '', -- Ö¸µÄÊÇ inst µÄ component£¬²»Í¬³¡¾°ÏÂµÄ inst Ö¸´úµÄÄ¿±ê²»Í¬£¬×¢ÒâÒ»ÏÂ
+    --[[    actiontype = '', -- åœºæ™¯ï¼Œ'SCENE'|'USEITEM'|'POINT'|'EQUIPPED'|'INVENTORY'|'ISVALID'
+        component = '', -- æŒ‡çš„æ˜¯ inst çš„ componentï¼Œä¸åŒåœºæ™¯ä¸‹çš„ inst æŒ‡ä»£çš„ç›®æ ‡ä¸åŒï¼Œæ³¨æ„ä¸€ä¸‹
         tests = {
-            -- ÔÊĞí°ó¶¨¶à¸ö¶¯×÷£¬Èç¹ûÂú×ãÌõ¼ş¶¼»á²åÈë¶¯×÷ĞòÁĞÖĞ£¬¾ßÌå»áÖ´ĞĞÄÄÒ»¸ö¶¯×÷ÔòÓÉ¶¯×÷ÓÅÏÈ¼¶À´ÅĞ¶¨¡£
+            -- å…è®¸ç»‘å®šå¤šä¸ªåŠ¨ä½œï¼Œå¦‚æœæ»¡è¶³æ¡ä»¶éƒ½ä¼šæ’å…¥åŠ¨ä½œåºåˆ—ä¸­ï¼Œå…·ä½“ä¼šæ‰§è¡Œå“ªä¸€ä¸ªåŠ¨ä½œåˆ™ç”±åŠ¨ä½œä¼˜å…ˆçº§æ¥åˆ¤å®šã€‚
             {
-                execute = nil|false|ÆäËû true,
-                id = '', -- ¶¯×÷ id£¬Í¬ÉÏ
+                execute = nil|false|å…¶ä»– true,
+                id = '', -- åŠ¨ä½œ idï¼ŒåŒä¸Š
 
-                ---×¢ÒâÕâÊÇ client ¶Ë
-                testfn = function() ... return ture|false|nil; end; -- ²ÎÊı¸ù¾İ actiontype ¶ø²»Í¬£¡
+                ---æ³¨æ„è¿™æ˜¯ client ç«¯
+                testfn = function() ... return ture|false|nil; end; -- å‚æ•°æ ¹æ® actiontype è€Œä¸åŒï¼
             },
         }]]
 
@@ -466,7 +456,7 @@ function API.addCustomActions(env, custom_actions, component_actions)
         if (data.execute ~= false and data.id and data.str and data.fn and data.state) then
             data.id = string.upper(data.id);
 
-            -- Ìí¼Ó×Ô¶¨Òå¶¯×÷
+            -- æ·»åŠ è‡ªå®šä¹‰åŠ¨ä½œ
             env.AddAction(data.id, data.str, data.fn);
 
             if (type(data.actiondata) == 'table') then
@@ -475,7 +465,7 @@ function API.addCustomActions(env, custom_actions, component_actions)
                 end
             end
 
-            -- Ìí¼Ó¶¯×÷Çı¶¯ĞĞÎªÍ¼
+            -- æ·»åŠ åŠ¨ä½œé©±åŠ¨è¡Œä¸ºå›¾
             env.AddStategraphActionHandler("wilson", ActionHandler(ACTIONS[data.id], data.state));
             env.AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS[data.id], data.state));
         end
@@ -483,7 +473,7 @@ function API.addCustomActions(env, custom_actions, component_actions)
 
     for _, data in pairs(component_actions) do
         if (data.actiontype and data.component and data.tests) then
-            -- Ìí¼Ó¶¯×÷´¥·¢Æ÷£¨¶¯×÷ºÍ×é¼ş°ó¶¨£©
+            -- æ·»åŠ åŠ¨ä½œè§¦å‘å™¨ï¼ˆåŠ¨ä½œå’Œç»„ä»¶ç»‘å®šï¼‰
             env.AddComponentAction(data.actiontype, data.component, function(...)
                 data.tests = data.tests or {};
                 for _, v in pairs(data.tests) do
@@ -537,16 +527,16 @@ end
 
 API.AutoSorter = {};
 
--- TODO: Èç¹ûÖÜÎ§ÎïÆ·Ì«¶àÁË£¬Ã¿´ÎÓĞÒ»¶¨¸ÅÂÊ²»»á×ªÒÆÎïÆ·¡£Õâ×ÜÄÜ½øÒ»²½½µµÍĞÔÄÜÏûºÄÁË°É¡£
--- µ«ÊÇÎÒ¾õµÃ°É£¬Çë²»ÒªÓÃÎÒÕâÌ¨2018Äê³ö³§µÄ¾ÉµçÄÔ¶øÇÒÊÇÇá±¡±¾È¥ÆÀ¼ÛÆäËûµçÄÔ¡£
--- ÎÒ¾õµÃÃ»±ØÒª¡£Ê×ÏÈÄÇĞ©µçÄÔ¾ø¶Ônb£¬Æä´Î°ëµõ×ÓË®Æ½µÄÎÒÖ»ÄÜ×öµ½±íÃæµÄ´ÖÇ³ÓÅ»¯£¬¶øÇÒÒ²²»Ò»¶¨ÓÅ»¯µÃÈçºÎÄØ£¡
+-- TODO: å¦‚æœå‘¨å›´ç‰©å“å¤ªå¤šäº†ï¼Œæ¯æ¬¡æœ‰ä¸€å®šæ¦‚ç‡ä¸ä¼šè½¬ç§»ç‰©å“ã€‚è¿™æ€»èƒ½è¿›ä¸€æ­¥é™ä½æ€§èƒ½æ¶ˆè€—äº†å§ã€‚
+-- ä½†æ˜¯æˆ‘è§‰å¾—å§ï¼Œè¯·ä¸è¦ç”¨æˆ‘è¿™å°2018å¹´å‡ºå‚çš„æ—§ç”µè„‘è€Œä¸”æ˜¯è½»è–„æœ¬å»è¯„ä»·å…¶ä»–ç”µè„‘ã€‚
+-- æˆ‘è§‰å¾—æ²¡å¿…è¦ã€‚é¦–å…ˆé‚£äº›ç”µè„‘ç»å¯¹nbï¼Œå…¶æ¬¡åŠåŠå­æ°´å¹³çš„æˆ‘åªèƒ½åšåˆ°è¡¨é¢çš„ç²—æµ…ä¼˜åŒ–ï¼Œè€Œä¸”ä¹Ÿä¸ä¸€å®šä¼˜åŒ–å¾—å¦‚ä½•å‘¢ï¼
 local function entsNumberEstimate(ents)
     local n = #ents;
 
     return true;
 end
 
----@param con table ¼ìË÷µ½µÄÈİÆ÷
+---@param con table æ£€ç´¢åˆ°çš„å®¹å™¨
 local function genericFX(self, con)
     local selfFX = SpawnPrefab("sand_puff_large_front");
     local conFX = SpawnPrefab("sand_puff")
@@ -557,9 +547,9 @@ local function genericFX(self, con)
     selfFX.Transform:SetPosition(self.Transform:GetWorldPosition())
 end
 
----@param self table ÈİÆ÷×ÔÉí
----@param con table ¼ìË÷µ½µÄÈİÆ÷
----@param slot number Òª×ªÒÆµÄÎïÆ·ËùÔÚµÄ²Û
+---@param self table å®¹å™¨è‡ªèº«
+---@param con table æ£€ç´¢åˆ°çš„å®¹å™¨
+---@param slot number è¦è½¬ç§»çš„ç‰©å“æ‰€åœ¨çš„æ§½
 local function findSameObjectAndTransfer(self, con, slot)
     local item = self.components.container:GetItemInSlot(slot);
     local src_pos = self:GetPosition();
@@ -613,14 +603,14 @@ local function noFindObjectAndTransfer(self, con, slot)
     end
 end
 
--- TODO
--- Ğ¡Ä¾ÅÆÉÏµÄÌùÍ¼
+-- TODOï¼šä¼˜åŒ–ï¼Œä¼˜å…ˆæœç´¢å°æœ¨ç‰Œä¸Šçš„å›¾æ¡ˆï¼Œç„¶åè½¬ç§»ä¹‹ç±»çš„ã€‚å†è¯´å§ï¼
+-- å°æœ¨ç‰Œä¸Šçš„è´´å›¾
 local function findMinisignItem(self, con, slot)
     local item = self.components.container:GetItemInSlot(slot);
     local prefabname = item and item.prefab;
 end
 
--- ·ÇÍ¨ÓÃ
+-- éé€šç”¨
 local function transferIntoSomeCon(self, con, slot)
     --if findMinisignItem(self, con, slot) then
     --    return true;
@@ -645,11 +635,11 @@ local function transferIntoSomeCon(self, con, slot)
     return false;
 end
 
--- ÕâĞÔÄÜ¾ø¶ÔÀ¬»ø£¡
-API.AutoSorter.beginTransfer_HOT_UPDATE = false; -- false ´ú±íÖ÷Ä£×éÒÑ¾­¸üĞÂ£¬ÒÀÀµÄ£×é²»±Ø¸²¸ÇÁË
+-- è¿™æ€§èƒ½ç»å¯¹åƒåœ¾ï¼
+API.AutoSorter.beginTransfer_HOT_UPDATE = false; -- false ä»£è¡¨ä¸»æ¨¡ç»„å·²ç»æ›´æ–°ï¼Œä¾èµ–æ¨¡ç»„ä¸å¿…è¦†ç›–äº†
 function API.AutoSorter.beginTransfer(inst)
     local x, y, z = inst.Transform:GetWorldPosition();
-    local DIST = 18; -- ×ªÒÆµÄ»°£¬·¶Î§´óÒ»µãµã
+    local DIST = 18; -- è½¬ç§»çš„è¯ï¼ŒèŒƒå›´å¤§ä¸€ç‚¹ç‚¹
     local MUST_TAGS = { "_container" };
     local CANT_TAGS = {
         "INLIMBO", "NOCLICK", "knockbackdelayinteraction", "catchable", "mineactive",
@@ -657,13 +647,15 @@ function API.AutoSorter.beginTransfer(inst)
         "stewer",
         "_inventoryitem", "_health",
         "mone_chiminea",
-        "pets_container_tag", -- ÎÒµÄ³èÎïÈİÆ÷µÄ±êÇ©
+        "pets_container_tag", -- æˆ‘çš„å® ç‰©å®¹å™¨çš„æ ‡ç­¾
         "mie_sand_pit",
+        "mie_bundle_state1",
+        "mie_bundle_state2",
     };
     if x and y and z then
         local ents = TheSim:FindEntities(x, y, z, DIST, MUST_TAGS, CANT_TAGS);
 
-        -- ²¹³äÒ»¸öÖÖ×Ó´ü£¨Ö®ºóÏŞÖÆÔÚµØÉÏ£¿£©£¬ËùÒÔ FindEntities º¯Êıµ½µ×Õ¼²»Õ¼ÓÃĞÔÄÜ£¿
+        -- è¡¥å……ä¸€ä¸ªç§å­è¢‹ï¼ˆä¹‹åé™åˆ¶åœ¨åœ°ä¸Šï¼Ÿï¼‰ï¼Œæ‰€ä»¥ FindEntities å‡½æ•°åˆ°åº•å ä¸å ç”¨æ€§èƒ½ï¼Ÿ
         local excludes = TheSim:FindEntities(x, y, z, DIST, { "mone_seedpouch" }, nil--[[{ "INLIMBO", "NOCLICK" }]]);
         for _, v in ipairs(excludes) do
             if v then
@@ -672,7 +664,7 @@ function API.AutoSorter.beginTransfer(inst)
         end
 
         if entsNumberEstimate(ents) then
-            -- µÚÒ»´Î±éÀú£º×ªÒÆ½øÖ¸¶¨ÈİÆ÷
+            -- ç¬¬ä¸€æ¬¡éå†ï¼šè½¬ç§»è¿›æŒ‡å®šå®¹å™¨
             local slotsNum = inst.components.container:GetNumSlots();
             slotsNum = inst.components.container:GetNumSlots();
             for i = 1, slotsNum do
@@ -684,7 +676,7 @@ function API.AutoSorter.beginTransfer(inst)
                     end
                 end
             end
-            -- µÚ¶ş´Î±éÀú£º×ªÒÆÍ¬ÀàÎïÆ·
+            -- ç¬¬äºŒæ¬¡éå†ï¼šè½¬ç§»åŒç±»ç‰©å“
             slotsNum = inst.components.container:GetNumSlots();
             for i = 1, slotsNum do
                 for _, v in ipairs(ents) do
@@ -695,7 +687,7 @@ function API.AutoSorter.beginTransfer(inst)
                     end
                 end
             end
-            -- µÚÈı´Î±éÀú£º×ªÒÆÊ£ÓàÎïÆ·
+            -- ç¬¬ä¸‰æ¬¡éå†ï¼šè½¬ç§»å‰©ä½™ç‰©å“
             slotsNum = inst.components.container:GetNumSlots();
             for i = 1, slotsNum do
                 for _, v in ipairs(ents) do
@@ -708,31 +700,27 @@ function API.AutoSorter.beginTransfer(inst)
             end
         end
     end
-    -- ×ªÒÆ½áÊø£¬µôÂäËùÓĞÎïÆ·
-    --inst.components.container:DropEverything(); -- ±ğµôÂäÁË£¬²»ºÃ
+    -- è½¬ç§»ç»“æŸï¼Œæ‰è½æ‰€æœ‰ç‰©å“
+    --inst.components.container:DropEverything(); -- åˆ«æ‰è½äº†ï¼Œä¸å¥½
 end
 
 local function isExcludedSomething(inst)
-    -- °ÑÅ£°°ÊÕ×ßÁË£¿ËùÒÔ±ÀÀ£Âğ£¿ A:×ï¿ı»öÊ×¾ÍÊÇÕâ¸ö£¡¾ßÌåÔõÃ´µ¼ÖÂµÄÔÙËµ¡£·´Õı²»ÄÜÓĞÕâ¸ö¡£
-    -- ÅÅ³ı±êÇ©¼´¿É¡£¡£¡£
-    --if string.find(inst.prefab, "saddle") then
-    --    --print("saddle---------");
-    --    return true;
-    --end
+    -- æŠŠç‰›éæ”¶èµ°äº†ï¼Ÿæ‰€ä»¥å´©æºƒå—ï¼Ÿ A:ç½ªé­ç¥¸é¦–å°±æ˜¯è¿™ä¸ªï¼å…·ä½“æ€ä¹ˆå¯¼è‡´çš„å†è¯´ã€‚åæ­£ä¸èƒ½æœ‰è¿™ä¸ªã€‚ A:æ’é™¤æ ‡ç­¾å³å¯ã€‚ã€‚ã€‚
     local prefabslist = {
-        "terrarium", --ºĞÖĞÌ©À­
-        "glommerflower", --¸ñÂŞÄ·»¨
-        "chester_eyebone", --ÑÛ¹Ç
-        "hutch_fishbowl", --ĞÇ¿Õ
-        "beef_bell", --Æ¤¸¥Â¦Å£Áå
-        "heatrock", --Å¯Ê¯
-        "moonrockseed", --ÌìÌå±¦Öé
-        "fruitflyfruit", --ÓÑºÃ¹ûÓ¬¹û
-        "singingshell_octave3", --±´¿Ç
+        "terrarium", --ç›’ä¸­æ³°æ‹‰
+        "glommerflower", --æ ¼ç½—å§†èŠ±
+        "chester_eyebone", --çœ¼éª¨
+        "hutch_fishbowl", --æ˜Ÿç©º
+        "beef_bell", --çš®å¼—å¨„ç‰›é“ƒ
+        "heatrock", --æš–çŸ³
+        "moonrockseed", --å¤©ä½“å®ç 
+        "fruitflyfruit", --å‹å¥½æœè‡æœ
+        "singingshell_octave3", --è´å£³
         "singingshell_octave4",
         "singingshell_octave5",
-        "powcake", --Ö¥Ê¿µ°¸â£¨ºóĞøÓ¦¸ÃÌí¼ÓºÍÖíÈËÏİÚåÏà¹ØµÄ¶«Î÷£©
-        "farm_plow_item", --¸ûµØ»ú£¨Ô­°æ£©
+        "powcake", --èŠå£«è›‹ç³•ï¼ˆåç»­åº”è¯¥æ·»åŠ å’ŒçŒªäººé™·é˜±ç›¸å…³çš„ä¸œè¥¿ï¼‰
+        "farm_plow_item", --è€•åœ°æœºï¼ˆåŸç‰ˆï¼‰
+        "winter_food4", -- æ°¸è¿œçš„æ°´æœè›‹ç³•
     };
     for _, v in ipairs(prefabslist) do
         if inst.prefab == v then
@@ -750,7 +738,7 @@ end
 
 local function pickObjectOnFloorCommonly(inst, MUST_TAGS, CANT_TAGS)
     local x, y, z = inst.Transform:GetWorldPosition();
-    local src_pos = inst:GetPosition(); -- Question: ²»×ÔÈ»£¡
+    local src_pos = inst:GetPosition(); -- Question: ä¸è‡ªç„¶ï¼
     src_pos = nil;
     local DIST = 15;
     --local MUST_TAGS = MUST_TAGS;
@@ -807,23 +795,23 @@ API.ItemsGICF = {};
 ---@param inventory Inventory
 ---@param priority table<string,number>
 function API.ItemsGICF.itemsGoIntoContainersFirst(inventory, priority)
-    -- ³¢ÊÔ½â¾öÎïÆ·ÓÅÏÈ½øÈë¹ø¡£Ê§°Ü¡£Ì«Âé·³ÁË¡£¾ÍÎªÁËÕâÃ´Ò»¸öÎïÆ·¡£ÎÒÃ»±ØÒªÕâÑù×ö¡£
+    -- å°è¯•è§£å†³ç‰©å“ä¼˜å…ˆè¿›å…¥é”…ã€‚å¤±è´¥ã€‚å¤ªéº»çƒ¦äº†ã€‚å°±ä¸ºäº†è¿™ä¹ˆä¸€ä¸ªç‰©å“ã€‚æˆ‘æ²¡å¿…è¦è¿™æ ·åšã€‚
     local function stewer(self, inst, slot, src_pos)
         do
-            -- ÕâÒ²²»¶Ô£¬ÄÇÒ²²»¶Ô¡£ÎÒ²»ÏëÃ¿´Î¶¼ÖØÆô¼¢»ÄÈ»ºóÉÁÍËÁË¡£
-            -- print 2Ğ¡Ê±£¬¿ÉÄÜÖ»ÓĞ20·ÖÖÓÔÚĞ´´úÂë¡£¡£¡£
+            -- è¿™ä¹Ÿä¸å¯¹ï¼Œé‚£ä¹Ÿä¸å¯¹ã€‚æˆ‘ä¸æƒ³æ¯æ¬¡éƒ½é‡å¯é¥¥è’ç„¶åé—ªé€€äº†ã€‚
+            -- print 2å°æ—¶ï¼Œå¯èƒ½åªæœ‰20åˆ†é’Ÿåœ¨å†™ä»£ç ã€‚ã€‚ã€‚
             return false;
         end
 
-        -- ¹øºÍÏä×Ó´ò¿ªºÃÏñ²¢²»ÔÚ inventory.opencontainers ÀïÃæ£¬ÔÚÄÄÀïÄØ£¿
-        -- inventory_replica µ÷ÓÃ GetOpenContainers º¯Êı¼´¿É£¿ HUD !!!!!!
+        -- é”…å’Œç®±å­æ‰“å¼€å¥½åƒå¹¶ä¸åœ¨ inventory.opencontainers é‡Œé¢ï¼Œåœ¨å“ªé‡Œå‘¢ï¼Ÿ
+        -- inventory_replica è°ƒç”¨ GetOpenContainers å‡½æ•°å³å¯ï¼Ÿ HUD !!!!!!
 
         local player = self.inst;
 
-        -- ¾­¹ı²âÊÔ£¬·¢ÏÖÕâ¸öĞ´·¨²»Ì«¶Ô¾¢¡£¡£¡£ -- NOTE: ºÃÏñÔÚÇ°Ãæ±»Ö´ĞĞ¹ıÁË¡£¡£¡£¶î£¬¶Ô²»¶ÔÄØ£¿ËãÁË¡£ÔÙËµ°É¡£
-        -- ĞèÒª²Î¿¼ÆäËûmod£¬ËùÒÔËµ°¡£¬Ğ´modºÃÃ»ÒâË¼£¬²»²Î¿¼Òª»¨ºÃ¾Ã×Ô¼ºÈ¥¿´¡£²»²Î¿¼°É£¬Ì«»¨Ê±¼ä¡£Ñ§Ï°²ÅÊÇÖ÷ÒªµÄ¡£Ä£×éÊÇ´ÎÒªµÄ¡£
+        -- ç»è¿‡æµ‹è¯•ï¼Œå‘ç°è¿™ä¸ªå†™æ³•ä¸å¤ªå¯¹åŠ²ã€‚ã€‚ã€‚ -- NOTE: å¥½åƒåœ¨å‰é¢è¢«æ‰§è¡Œè¿‡äº†ã€‚ã€‚ã€‚é¢ï¼Œå¯¹ä¸å¯¹å‘¢ï¼Ÿç®—äº†ã€‚å†è¯´å§ã€‚
+        -- éœ€è¦å‚è€ƒå…¶ä»–modï¼Œæ‰€ä»¥è¯´å•Šï¼Œå†™modå¥½æ²¡æ„æ€ï¼Œä¸å‚è€ƒè¦èŠ±å¥½ä¹…è‡ªå·±å»çœ‹ã€‚ä¸å‚è€ƒå§ï¼Œå¤ªèŠ±æ—¶é—´ã€‚å­¦ä¹ æ‰æ˜¯ä¸»è¦çš„ã€‚æ¨¡ç»„æ˜¯æ¬¡è¦çš„ã€‚
 
-        --print("0:"..tostring(player.components.inventory_replica)); -- nil .....Ğ´´íÁË
+        --print("0:"..tostring(player.components.inventory_replica)); -- nil .....å†™é”™äº†
         --print("0:"..tostring(player.replica.inventory)); -- table
         local opencontainers = player and player.replica.inventory and player.replica.inventory:GetOpenContainers() or {};
         print("1:" .. tostring(#opencontainers));
@@ -841,7 +829,7 @@ function API.ItemsGICF.itemsGoIntoContainersFirst(inventory, priority)
 
     local old_GiveItem = inventory.GiveItem;
 
-    -- »°Ëµ£¬ÕâÀï(inventory)ÊÇÖ÷»ú´úÂë°É£¿ÎÒ»¹ÊÇÃ»¶®£¬¼¢»ÄÖ÷¿Í»ú½»»¥¡£Õâ¾ÍÊÇÀíÂÛØÑ·¦µÄÄÑ°ì¡£
+    -- è¯è¯´ï¼Œè¿™é‡Œ(inventory)æ˜¯ä¸»æœºä»£ç å§ï¼Ÿæˆ‘è¿˜æ˜¯æ²¡æ‡‚ï¼Œé¥¥è’ä¸»å®¢æœºäº¤äº’ã€‚è¿™å°±æ˜¯ç†è®ºåŒ®ä¹çš„éš¾åŠã€‚
     inventory.GiveItem = function(self, inst, slot, src_pos)
         if inst and (inst.components.inventoryitem == nil or not inst:IsValid()) then
             print("Warning: Can't give item because it's not an inventory item.")
@@ -906,8 +894,8 @@ function API.ItemsGICF.itemsGoIntoContainersFirst(inventory, priority)
                     and self:CanTakeItemInSlot(inst, slot)
         end
 
-        --[[ Ö»ÓĞ´Ë´¦Õâ¸ö if ÅĞ¶ÏÓï¾äÊÇÎÒµÄÄÚÈİ£¬ÆäÓàÊÇ¹Ù·½´úÂë ]]
-        if stewer(self, inst, slot, src_pos) --[[ ºöÂÔ´Ëº¯Êı£¬Ö»ÊÇÁô×÷³¤¼ÇĞÔ ]] then
+        --[[ åªæœ‰æ­¤å¤„è¿™ä¸ª if åˆ¤æ–­è¯­å¥æ˜¯æˆ‘çš„å†…å®¹ï¼Œå…¶ä½™æ˜¯å®˜æ–¹ä»£ç  ]]
+        if stewer(self, inst, slot, src_pos) --[[ å¿½ç•¥æ­¤å‡½æ•°ï¼Œåªæ˜¯ç•™ä½œé•¿è®°æ€§ ]] then
             -- DoNothing
             print("stewer(self, inst, slot, src_pos) return true");
             return true;
@@ -941,12 +929,14 @@ function API.ItemsGICF.itemsGoIntoContainersFirst(inventory, priority)
                 local container = c and c.components.container;
                 if container and container:IsOpen() then
                     if container:GiveItem(inst, nil, src_pos) then
-                        -- tips: self.inst ÊÇÈËÎï£¬PushEvent ¿ÉÒÔ·¢³öÉùÒô
+                        -- tips: self.inst æ˜¯äººç‰©ï¼ŒPushEvent å¯ä»¥å‘å‡ºå£°éŸ³
                         -- self.inst:PushEvent("gotnewitem", { item = inst, slot = slot })
 
+                        -- 2023-02-16-22:44ï¼šå®¢æœºæ²¡å£°éŸ³ã€‚ã€‚ã€‚æ— è¯­ã€‚ä¸ºä»€ä¹ˆï¼Ÿ
                         if TheFocalPoint and TheFocalPoint.SoundEmitter then
                             TheFocalPoint.SoundEmitter:PlaySound("dontstarve/HUD/collect_resource");
                         end
+
                         return true;
                     end
                 end
@@ -956,8 +946,9 @@ function API.ItemsGICF.itemsGoIntoContainersFirst(inventory, priority)
     end
 end
 
--- 2023-01-27 ÓĞ¿ÕµÄ»°ÓÅ»¯Ò»ÏÂ£¡£¡£¡
-function API.ItemsGICF.itemsGoIntoContainersFirst2(inventory, priority)
+-- 2023-01-27 æœ‰ç©ºçš„è¯ä¼˜åŒ–ä¸€ä¸‹ï¼ï¼ï¼
+-- 2023-02-16ï¼šåŒåå‡½æ•°è¦†ç›–ä¸€ä¸‹ï¼è¿™ä¸æ˜¯ä¼˜åŒ–ï¼Œè¿™ç®—æ˜¯è¶…å°ä¿®æ”¹ã€‚æˆ‘è‡ªå·±å…ˆç©ç©æµ‹è¯•æµ‹è¯•å§ï¼
+function API.ItemsGICF.itemsGoIntoContainersFirst(inventory, priority)
     local old_GiveItem = inventory.GiveItem;
 
     inventory.GiveItem = function(self, inst, slot, src_pos)
@@ -991,43 +982,43 @@ function API.ItemsGICF.itemsGoIntoContainersFirst2(inventory, priority)
             return
         end
 
-        local can_use_suggested_slot = false
+        -- è¿™éƒ¨åˆ†ä»£ç æ˜¯å®˜æ–¹ä¼˜åŒ–è¿‡çš„ä»£ç ï¼Œprevslotå’Œprevcontainer!!!
+        --[[        local can_use_suggested_slot = false
 
-        if not slot and inst.prevslot and not inst.prevcontainer then
-            slot = inst.prevslot
-        end
-
-        if not slot and inst.prevslot and inst.prevcontainer then
-            if inst.prevcontainer.inst:IsValid() and inst.prevcontainer:IsOpenedBy(self.inst) then
-                local item = inst.prevcontainer:GetItemInSlot(inst.prevslot)
-                if item == nil then
-                    if inst.prevcontainer:GiveItem(inst, inst.prevslot) then
-                        return true
-                    end
-                elseif item.prefab == inst.prefab and item.skinname == inst.skinname and
-                        item.components.stackable ~= nil and
-                        inst.prevcontainer:AcceptsStacks() and
-                        inst.prevcontainer:CanTakeItemInSlot(inst, inst.prevslot) and
-                        item.components.stackable:Put(inst) == nil then
-                    return true
+                if not slot and inst.prevslot and not inst.prevcontainer then
+                    slot = inst.prevslot
                 end
-            end
-            inst.prevcontainer = nil
-            inst.prevslot = nil
-            slot = nil
-        end
 
-        if slot then
-            local olditem = self:GetItemInSlot(slot)
-            can_use_suggested_slot = slot ~= nil
-                    and slot <= self.maxslots
-                    and (olditem == nil or (olditem and olditem.components.stackable and olditem.prefab == inst.prefab and olditem.skinname == inst.skinname))
-                    and self:CanTakeItemInSlot(inst, slot)
-        end
+                if not slot and inst.prevslot and inst.prevcontainer then
+                    if inst.prevcontainer.inst:IsValid() and inst.prevcontainer:IsOpenedBy(self.inst) then
+                        local item = inst.prevcontainer:GetItemInSlot(inst.prevslot)
+                        if item == nil then
+                            if inst.prevcontainer:GiveItem(inst, inst.prevslot) then
+                                return true
+                            end
+                        elseif item.prefab == inst.prefab and item.skinname == inst.skinname and
+                                item.components.stackable ~= nil and
+                                inst.prevcontainer:AcceptsStacks() and
+                                inst.prevcontainer:CanTakeItemInSlot(inst, inst.prevslot) and
+                                item.components.stackable:Put(inst) == nil then
+                            return true
+                        end
+                    end
+                    inst.prevcontainer = nil
+                    inst.prevslot = nil
+                    slot = nil
+                end
 
-        --[[ Ö»ÓĞ´Ë´¦Õâ¸ö if ÅĞ¶ÏÓï¾äÊÇÎÒµÄÄÚÈİ£¬ÆäÓàÊÇ¹Ù·½´úÂë ]]
+                if slot then
+                    local olditem = self:GetItemInSlot(slot)
+                    can_use_suggested_slot = slot ~= nil
+                            and slot <= self.maxslots
+                            and (olditem == nil or (olditem and olditem.components.stackable and olditem.prefab == inst.prefab and olditem.skinname == inst.skinname))
+                            and self:CanTakeItemInSlot(inst, slot)
+                end]]
+
+        --[[ åªæœ‰æ­¤å¤„è¿™ä¸ª if åˆ¤æ–­è¯­å¥æ˜¯æˆ‘çš„å†…å®¹ï¼Œå…¶ä½™æ˜¯å®˜æ–¹ä»£ç  ]]
         if (not slot and not inst[TUNING.MONE_TUNING.IGICF_FLAG_NAME]) then
-
             local opencontainers = self.opencontainers;
 
             local vip_containers = {};
@@ -1055,24 +1046,49 @@ function API.ItemsGICF.itemsGoIntoContainersFirst2(inventory, priority)
                 ---@type Container
                 local container = c and c.components.container;
                 if container and container:IsOpen() then
-                    if container:GiveItem(inst, nil, src_pos) then
-                        -- tips: self.inst ÊÇÈËÎï£¬PushEvent ¿ÉÒÔ·¢³öÉùÒô
-                        -- self.inst:PushEvent("gotnewitem", { item = inst, slot = slot })
 
-                        if TheFocalPoint and TheFocalPoint.SoundEmitter then
-                            TheFocalPoint.SoundEmitter:PlaySound("dontstarve/HUD/collect_resource");
+                    --print(tostring(container.inst.prefab),tostring(inst.prefab));
+                    -- è¡¥ä¸ï¼ˆæ²¡æœ‰continueåªèƒ½ç”¨if elseäº†ï¼‰
+                    if container.inst.prefab == "mone_storage_bag" and inst.prefab == "hambat" then
+                        --print("", "DoNothing!");
+                        -- DoNothing
+                        -- è™½ç„¶ä¼šå¯¼è‡´ç«è…¿æ£’ä¸ä¼šè‡ªåŠ¨è¿›å…¥ä¿é²œè¢‹äº†ï¼Œä½†æ˜¯æˆ‘è§‰å¾—è¿™æ˜¯å¯ä»¥èˆå¼ƒçš„
+                        -- å› ä¸ºåœ¨è£…å¤‡è¢‹é‡Œé¢åˆ‡æ¢æ‰‹æ–å’Œç«è…¿æ£’è¿™ä¸ªåŠŸèƒ½æ›´å€¼å¾—ã€‚
+                    else
+                        if container:GiveItem(inst, nil, src_pos) then
+                            -- tips: self.inst æ˜¯äººç‰©ï¼ŒPushEvent å¯ä»¥å‘å‡ºå£°éŸ³
+                            -- self.inst:PushEvent("gotnewitem", { item = inst, slot = slot })
+
+                            -- 2023-02-16-22:44ï¼šå®¢æœºæ²¡å£°éŸ³ã€‚ã€‚ã€‚æ— è¯­ã€‚ä¸ºä»€ä¹ˆï¼Ÿ
+                            if TheFocalPoint and TheFocalPoint.SoundEmitter then
+                                TheFocalPoint.SoundEmitter:PlaySound("dontstarve/HUD/collect_resource");
+                            end
+
+                            -- è¡¥ä¸ï¼ˆç”±äºæ˜¯çŒªçŒªè¢‹ï¼Œæ‰€ä»¥owner=="player"ï¼‰
+                            if container.inst.prefab == "mone_piggybag" then
+                                local owner = container.inst.components.inventoryitem and container.inst.components.inventoryitem.owner;
+                                if owner and owner:HasTag("player") then
+                                    if inst.prefab == "mone_backpack"
+                                            or inst.prefab == "mone_candybag"
+                                            or inst.prefab == "mone_storage_bag" then
+                                        if inst.components.container then
+                                            inst.components.container:Open(owner);
+                                        end
+                                    end
+                                end
+                            end
+
+                            return true;
                         end
-                        return true;
                     end
                 end
             end
         end
-
         return old_GiveItem(self, inst, slot, src_pos);
     end
 end
 
----È«²¿ÉèÖÃÒ»¸ö±ê¼Ç£¬±íÃ÷ÒÑ¾­ÔÚÈİÆ÷ÖĞÁË¡£ÕâÑù¿ÉÒÔ±£Ö¤ shift+×ó¼ü ÄÜ¹»´ÓÈİÆ÷ÖĞ³öÈ¥¡£
+---å…¨éƒ¨è®¾ç½®ä¸€ä¸ªæ ‡è®°ï¼Œè¡¨æ˜å·²ç»åœ¨å®¹å™¨ä¸­äº†ã€‚è¿™æ ·å¯ä»¥ä¿è¯ shift+å·¦é”® èƒ½å¤Ÿä»å®¹å™¨ä¸­å‡ºå»ã€‚
 function API.ItemsGICF.redirectItemFlagAndGetTime(inst)
     if not (inst and inst.components.container) then
         return 2 ^ 31 - 1;
@@ -1101,8 +1117,8 @@ function API.ItemsGICF.clearAllFlag(inst)
     end
 end
 
----º¯Êıµ÷ÓÃÎ»ÖÃ£ºÔ¤ÖÆÎïÎÄ¼şÄ©Î²£¬ÉèÖÃÕâËÄ¸ö¼àÌıÆ÷
----×÷ÓÃ£ºÈ¡Ïû±ê¼Ç¡£±ê¼ÇµÄ×÷ÓÃ£ºÓĞÕâ¸ö±ê¼ÇµÄÔ¤ÖÆÎï£¬½«µ÷ÓÃ¹Ù·½µÄÔ­º¯Êı£¬¶ø²»ÊÇÎÒÖØĞ´µÄ²¿·Ö¡£
+---å‡½æ•°è°ƒç”¨ä½ç½®ï¼šé¢„åˆ¶ç‰©æ–‡ä»¶æœ«å°¾ï¼Œè®¾ç½®è¿™å››ä¸ªç›‘å¬å™¨
+---ä½œç”¨ï¼šå–æ¶ˆæ ‡è®°ã€‚æ ‡è®°çš„ä½œç”¨ï¼šæœ‰è¿™ä¸ªæ ‡è®°çš„é¢„åˆ¶ç‰©ï¼Œå°†è°ƒç”¨å®˜æ–¹çš„åŸå‡½æ•°ï¼Œè€Œä¸æ˜¯æˆ‘é‡å†™çš„éƒ¨åˆ†ã€‚
 function API.ItemsGICF.setListenForEvent(inst)
     inst:ListenForEvent("dropitem", function(inst, data)
         if data and data.item then

@@ -2,10 +2,10 @@
 --- @author zsh in 2023/1/31 23:30
 ---
 
--- ţ��
--- ţ�������ٿ��Ա�����󶨣�����ţ��Ч�����߲����������������ԣ�
--- ţ����Ҳ���ٻ��е�����
--- ţ������ n �츴�
+-- 牛铃
+-- 牛铃铛不再可以被解除绑定，攻击牛无效？或者不反击？不降低属性？
+-- 牛死亡也不再会有掉落物
+-- 牛死亡后 n 天复活？
 
 local assets =
 {
@@ -43,7 +43,7 @@ local function on_player_despawned(inst)
                 beef:PushEvent("despawn")
             end
         else
-            -- ���ţ�Ѿ�����
+            -- 如果牛已经死了
 
         end
     end

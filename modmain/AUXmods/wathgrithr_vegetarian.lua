@@ -15,8 +15,8 @@ env.AddPrefabPostInit("wathgrithr", function(inst)
         local vb = inst.components.mone_wathgrithr_vegetarian;
 
         vb.mone_survival_time = inst.components.age and inst.components.age:GetDisplayAgeInDays();
-        if not vb:IsTooLongToLive() then
-            vb:SetDiet({ FOODGROUP.OMNI }, { FOODTYPE.MEAT, FOODTYPE.GOODIES, FOODTYPE.VEGGIE, FOODTYPE.INSECT, FOODTYPE.SEEDS, FOODTYPE.GENERIC });
+        if not vb:IsTooLongToLive() or (config_data.wathgrithr_vegetarian == 2) then
+            vb:SetDiet({ FOODGROUP.OMNI }, { FOODGROUP.OMNI });
         elseif not (config_data.wathgrithr_vegetarian == 2) then
             vb:SetDiet({ FOODGROUP.OMNI }, { FOODTYPE.MEAT, FOODTYPE.GOODIES });
         end

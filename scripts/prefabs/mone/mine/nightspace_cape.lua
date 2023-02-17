@@ -23,7 +23,7 @@ for y = 0, 7 do
     table.insert(params.mone_nightspace_cape.widget.slotpos, Vector3(-131 + 75, -75 * y + 264, 0))
 end
 
--- ±ØĞë¼ÓÕâ¸ö£¬±£Ö¤ MAXITEMSLOTS ×ã¹»´ó£¬¶øÇÒÇë²»ÒªÓÃ inst.replica.container:WidgetSetup(nil, widgetsetup); µÄĞ´·¨£¬ÎÊÌâÌ«¶à£¡
+-- å¿…é¡»åŠ è¿™ä¸ªï¼Œä¿è¯ MAXITEMSLOTS è¶³å¤Ÿå¤§ï¼Œè€Œä¸”è¯·ä¸è¦ç”¨ inst.replica.container:WidgetSetup(nil, widgetsetup); çš„å†™æ³•ï¼Œé—®é¢˜å¤ªå¤šï¼
 for k, v in pairs(params) do
     containers.MAXITEMSLOTS = math.max(containers.MAXITEMSLOTS, v.widget.slotpos ~= nil and #v.widget.slotpos or 0)
 end
@@ -288,7 +288,7 @@ local function fn()
     inst.components.inventoryitem.atlasname = "images/inventoryimages/ndnr_armorvortexcloak.xml";
     inst.components.inventoryitem:SetOnDroppedFn(ondropped);
     --inst.components.inventoryitem:SetOnPickupFn(function(inst, pickupguy, src_pos)
-    --    --ÖØÔØÓÎÏ·Ê±£¬»áÖ´ĞĞ¸Ãº¯Êı
+    --    --é‡è½½æ¸¸æˆæ—¶ï¼Œä¼šæ‰§è¡Œè¯¥å‡½æ•°
     --    if not (inst and inst.prefab and inst.components.container and pickupguy) then
     --        return
     --    end
@@ -316,7 +316,7 @@ local function fn()
             --    local owner = inst.mone_owner;
             --    ---@type Inventory
             --    local inventory = owner.components.inventory;
-            --    -- Åå´÷ÕßÉíÉÏµÄ×°±¸Ò²È«²¿ÍÑÂä£¨ÔİÊ±ÎªÈı¼şÌ×£©
+            --    -- ä½©æˆ´è€…èº«ä¸Šçš„è£…å¤‡ä¹Ÿå…¨éƒ¨è„±è½ï¼ˆæš‚æ—¶ä¸ºä¸‰ä»¶å¥—ï¼‰
             --    local hand = inventory:GetEquippedItem(EQUIPSLOTS.HANDS);
             --    local body = inventory:GetEquippedItem(EQUIPSLOTS.BODY);
             --    local head = inventory:GetEquippedItem(EQUIPSLOTS.HEAD);
@@ -346,7 +346,7 @@ local function fn()
     inst:AddComponent("cooldown")
     inst.components.cooldown.cooldown_duration = TUNING.ARMOR_SKELETON_COOLDOWN
 
-    inst:AddTag("rechargeable"); -- emm£¬È«¿¿Õâ¸ö±êÇ©
+    inst:AddTag("rechargeable"); -- emmï¼Œå…¨é è¿™ä¸ªæ ‡ç­¾
     inst:AddComponent("mone_rechargeable");
     inst.components.rechargeable=inst.components.mone_rechargeable;
     inst.components.rechargeable:SetRechargeTime(TUNING.ARMOR_SKELETON_COOLDOWN);

@@ -48,8 +48,8 @@ API.reskin("seedpouch", "seedpouch", {
 --    });
 --end
 
--- Â·µÆÌ×Æ¤¸öÄ¢¹½µÆ»ò¾úÉ¡µÆÊÔÊÔ
--- ËãÁË£¬Òª¸Ä build °É£¡
+-- è·¯ç¯å¥—çš®ä¸ªè˜‘è‡ç¯æˆ–èŒä¼ç¯è¯•è¯•
+-- ç®—äº†ï¼Œè¦æ”¹ build å§ï¼
 --if config_data.mone_city_lamp_reskin == 1 then
 --    API.reskin("mushroom_light", "mushroom_light", {
 --        "mone_city_lamp"
@@ -61,12 +61,12 @@ API.reskin("seedpouch", "seedpouch", {
 --end
 
 
--- ²»ĞĞ£¬Èç¹ûÖ»ÊÇµ¥´¿µÄÏÔÊ¾ÌùÍ¼µ¹ÊÇÃ»É¶ÎÊÌâ¡£µ«ÊÇÈç¹ûºóÃæ²¥·Å¶¯»­£¬Ö»ÊÇÕâÑù¼òµ¥´¦ÀíÊÇ²»ĞĞµÄ£¡
+-- ä¸è¡Œï¼Œå¦‚æœåªæ˜¯å•çº¯çš„æ˜¾ç¤ºè´´å›¾å€’æ˜¯æ²¡å•¥é—®é¢˜ã€‚ä½†æ˜¯å¦‚æœåé¢æ’­æ”¾åŠ¨ç”»ï¼Œåªæ˜¯è¿™æ ·ç®€å•å¤„ç†æ˜¯ä¸è¡Œçš„ï¼
 --API.reskin2(env, "mushroom_light2", "mushroom_light2", "mushroom_light2", {
 --    "mone_city_lamp"
 --});
 
--- ok
+-- okï¼Œæ”¾åœ¨æ‰©å±•åŒ…é‡Œé¢äº†
 --API.reskin2(env, "cane", "cane", "swap_cane", {
 --    "mone_walking_stick"
 --});

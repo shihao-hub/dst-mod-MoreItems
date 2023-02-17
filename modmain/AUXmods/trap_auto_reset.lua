@@ -20,4 +20,4 @@ env.AddPrefabPostInit("trap_teeth", function(inst)
     end
 end)
 
--- ¾£¼¬ÏİÚåºÍº£ĞÇÄØ£¿
+-- è†æ£˜é™·é˜±å’Œæµ·æ˜Ÿå‘¢ï¼Ÿ

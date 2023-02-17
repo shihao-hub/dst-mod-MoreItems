@@ -631,7 +631,7 @@ Recipes[#Recipes + 1] = {
     } or {
         Ingredient("pigskin", 20), Ingredient("silk", 20), Ingredient("rope", 20)
     },
-    tech = TECH.MAGIC_THREE,
+    tech = TECH.SCIENCE_TWO,
     config = {
         placer = nil,
         min_spacing = nil,
@@ -640,6 +640,40 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
         atlas = "images/inventoryimages.xml",
         image = "piggyback.tex"
+    },
+    filters = {
+        "MONE_MORE_ITEMS2"
+    }
+};
+
+Recipes_Locate["mone_candybag"] = true;
+Recipes[#Recipes + 1] = {
+    CanMake = env.GetModConfigData("__candybag") ~= false,
+    name = "mone_candybag",
+    ingredients = BALANCE and {
+        Ingredient("cutgrass", 10),
+        Ingredient("twigs", 10),
+        Ingredient("flint", 10),
+        Ingredient("rocks", 10),
+        Ingredient("goldnugget", 4),
+        Ingredient("log", 10),
+    } or {
+        Ingredient("cutgrass", 10),
+        Ingredient("twigs", 10),
+        Ingredient("flint", 10),
+        Ingredient("rocks", 10),
+        Ingredient("goldnugget", 2),
+        Ingredient("log", 10),
+    },
+    tech = TECH.SCIENCE_ONE,
+    config = {
+        placer = nil,
+        min_spacing = nil,
+        nounlock = nil,
+        numtogive = nil,
+        builder_tag = nil,
+        atlas = "images/inventoryimages.xml",
+        image = "candybag.tex"
     },
     filters = {
         "MONE_MORE_ITEMS2"
@@ -961,6 +995,28 @@ Recipes[#Recipes + 1] = {
         builder_tag = nil,
         atlas = "images/foodimages/mone_lifeinjector_vb.xml",
         image = "mone_lifeinjector_vb.tex"
+    },
+    filters = {
+        "MONE_MORE_ITEMS3"
+    }
+};
+
+Recipes_Locate["mone_guacamole"] = true;
+Recipes[#Recipes + 1] = {
+    CanMake = env.GetModConfigData("__mone_guacamole") ~= false,
+    name = "mone_guacamole",
+    ingredients = {
+        Ingredient("mole", 1), Ingredient("lightbulb", 10)
+    },
+    tech = TECH.NONE,
+    config = {
+        placer = nil,
+        min_spacing = nil,
+        nounlock = nil,
+        numtogive = 2,
+        builder_tag = nil,
+        atlas = "images/inventoryimages.xml",
+        image = "guacamole.tex"
     },
     filters = {
         "MONE_MORE_ITEMS3"

@@ -3,7 +3,7 @@
 ---
 
 
--- 随便改了改，保证一直处在满月的动画效果 (202301202325)
+-- 闅忎究鏀逛簡鏀癸紝淇濊瘉涓�鐩村鍦ㄦ弧鏈堢殑鍔ㄧ敾鏁堟灉 (202301202325)
 
 require("stategraphs/commonstates")
 
@@ -47,7 +47,7 @@ local states = {
             --else
             --    inst.SoundEmitter:KillSound("loop")
             --end
-            -- 不应注释，但我觉得太吵了
+            -- 涓嶅簲娉ㄩ噴锛屼絾鎴戣寰楀お鍚典簡
             --inst.SoundEmitter:PlaySound("dontstarve/common/together/moondial/full_LP", "loop") -- chang
         end,
 
@@ -65,7 +65,7 @@ local states = {
 
         timeline = {
             TimeEvent(4 * FRAMES, function(inst)
-                -- 不应注释，但我觉得太吵了
+                -- 涓嶅簲娉ㄩ噴锛屼絾鎴戣寰楀お鍚典簡
                 --inst.SoundEmitter:PlaySound("dontstarve/common/together/moondial/fill")
             end),
         },
@@ -88,7 +88,7 @@ local states = {
 
         timeline = {
             TimeEvent(9 * FRAMES, function(inst)
-                -- 不应注释，但我觉得太吵了
+                -- 涓嶅簲娉ㄩ噴锛屼絾鎴戣寰楀お鍚典簡
                 --inst.SoundEmitter:PlaySound("dontstarve/common/together/moondial/water_movement")
             end),
         },
@@ -117,7 +117,7 @@ local states = {
                 --if TheWorld.state.moonphase ~= "new" then
                 --    inst.SoundEmitter:PlaySound("dontstarve/common/together/moondial/water_movement")
                 --end
-                -- 不应注释，但我觉得太吵了
+                -- 涓嶅簲娉ㄩ噴锛屼絾鎴戣寰楀お鍚典簡
                 --inst.SoundEmitter:PlaySound("dontstarve/common/together/moondial/water_movement") -- chang
             end),
         },
@@ -152,14 +152,14 @@ local states = {
             end),
             TimeEvent(20 * FRAMES, function(inst)
                 if not inst.sg.statemem.from_fullmoon then
-                    -- 不应注释，但我觉得太吵了
+                    -- 涓嶅簲娉ㄩ噴锛屼絾鎴戣寰楀お鍚典簡
                     --inst.SoundEmitter:PlaySound("dontstarve/common/together/moondial/water_movement")
                 end
             end),
 
             TimeEvent(8 * FRAMES, function(inst)
                 if inst.sg.statemem.from_fullmoon then
-                    -- 不应注释，但我觉得太吵了
+                    -- 涓嶅簲娉ㄩ噴锛屼絾鎴戣寰楀お鍚典簡
                     --inst.SoundEmitter:PlaySound("dontstarve/common/together/moondial/water_movement")
                 end
             end),
@@ -182,7 +182,7 @@ local states = {
                 inst.GoToState("glassed_pst")
             else
                 inst.AnimState:PlayAnimation("glassed", true)
-                -- 不应注释，但我觉得太吵了
+                -- 涓嶅簲娉ㄩ噴锛屼絾鎴戣寰楀お鍚典簡
                 --inst.SoundEmitter:PlaySound("dontstarve/common/together/moondial/full_LP", "loop")
             end
         end,

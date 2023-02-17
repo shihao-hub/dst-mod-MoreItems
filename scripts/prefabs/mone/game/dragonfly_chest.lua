@@ -101,6 +101,6 @@ local function fn()
     return inst
 end
 
--- ÁúÁÛ±¦Ïä
+-- é¾™é³å®ç®±
 return Prefab("mone_dragonflychest", fn, assets),
 MakePlacer("mone_dragonflychest_placer", "dragonfly_chest", "dragonfly_chest", "closed")

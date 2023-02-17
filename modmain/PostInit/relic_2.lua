@@ -3,8 +3,8 @@
 ---
 
 
--- ¸øÓµÓĞ fueled¡¢finiteuses¡¢armor¡¢perishable µÄÔ¤ÖÆÎïÌí¼ÓÒ»¸ö¼àÌıÒÔ¼°´æÖµµÄ±äÁ¿
--- Í¬Ê±ÄØ£¿Èç¹ûÍ¬Ê±ÓµÓĞ¶àÖÖ×é¼ş£¬ÄÇÃ´Æ½·ÖÈ¨ÖØ£¿ËãÁËÏÈÕâÑù°É¡£
+-- ç»™æ‹¥æœ‰ fueledã€finiteusesã€armorã€perishable çš„é¢„åˆ¶ç‰©æ·»åŠ ä¸€ä¸ªç›‘å¬ä»¥åŠå­˜å€¼çš„å˜é‡
+-- åŒæ—¶å‘¢ï¼Ÿå¦‚æœåŒæ—¶æ‹¥æœ‰å¤šç§ç»„ä»¶ï¼Œé‚£ä¹ˆå¹³åˆ†æƒé‡ï¼Ÿç®—äº†å…ˆè¿™æ ·å§ã€‚
 --for _, v in ipairs({ "fueled", "finiteuses", "armor", "perishable" }) do
 --    env.AddComponentPostInit(v, function(self)
 --
@@ -27,7 +27,7 @@
 --                end
 --            end
 --
---            -- ×¢Òâ¸Ã¼àÌıÖØÆôÊ±²¢²»»áÖ´ĞĞ
+--            -- æ³¨æ„è¯¥ç›‘å¬é‡å¯æ—¶å¹¶ä¸ä¼šæ‰§è¡Œ
 --            inst:ListenForEvent("percentusedchange", function(inst, data)
 --                local percent = data and data.percent;
 --                if percent then

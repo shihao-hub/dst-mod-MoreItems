@@ -18,14 +18,14 @@ local prefabs = {
     "ash",
 }
 
-local function onequip(inst, owner)
-    owner.AnimState:OverrideSymbol("backpack", "swap_backpack", "backpack")
-    owner.AnimState:OverrideSymbol("swap_body", "swap_backpack", "swap_body")
-
-    if inst.components.container ~= nil then
-        inst.components.container:Open(owner)
-    end
-end
+--local function onequip(inst, owner)
+--    owner.AnimState:OverrideSymbol("backpack", "swap_backpack", "backpack")
+--    owner.AnimState:OverrideSymbol("swap_body", "swap_backpack", "swap_body")
+--
+--    if inst.components.container ~= nil then
+--        inst.components.container:Open(owner)
+--    end
+--end
 
 local function ondropped(inst)
     if inst.components.container then
@@ -34,43 +34,43 @@ local function ondropped(inst)
 end
 
 local function onpickupfn(inst, pickupguy, src_pos)
-    --������Ϸʱ����ִ�иú���
+    --重载游戏时，会执行该函数
     if not (inst and inst.prefab and inst.components.container and pickupguy) then
         return
     end
     inst.components.container:Open(pickupguy)
 end
 
-local function onunequip(inst, owner)
-    owner.AnimState:ClearOverrideSymbol("swap_body")
-    owner.AnimState:ClearOverrideSymbol("backpack")
-    if inst.components.container ~= nil then
-        inst.components.container:Close(owner)
-    end
-end
-
-local function onburnt(inst)
-    if inst.components.container ~= nil then
-        inst.components.container:DropEverything()
-        inst.components.container:Close()
-    end
-
-    SpawnPrefab("ash").Transform:SetPosition(inst.Transform:GetWorldPosition())
-
-    inst:Remove()
-end
-
-local function onignite(inst)
-    if inst.components.container ~= nil then
-        inst.components.container.canbeopened = false
-    end
-end
-
-local function onextinguish(inst)
-    if inst.components.container ~= nil then
-        inst.components.container.canbeopened = true
-    end
-end
+--local function onunequip(inst, owner)
+--    owner.AnimState:ClearOverrideSymbol("swap_body")
+--    owner.AnimState:ClearOverrideSymbol("backpack")
+--    if inst.components.container ~= nil then
+--        inst.components.container:Close(owner)
+--    end
+--end
+--
+--local function onburnt(inst)
+--    if inst.components.container ~= nil then
+--        inst.components.container:DropEverything()
+--        inst.components.container:Close()
+--    end
+--
+--    SpawnPrefab("ash").Transform:SetPosition(inst.Transform:GetWorldPosition())
+--
+--    inst:Remove()
+--end
+--
+--local function onignite(inst)
+--    if inst.components.container ~= nil then
+--        inst.components.container.canbeopened = false
+--    end
+--end
+--
+--local function onextinguish(inst)
+--    if inst.components.container ~= nil then
+--        inst.components.container.canbeopened = true
+--    end
+--end
 
 local function fn()
     local inst = CreateEntity()
@@ -114,7 +114,7 @@ local function fn()
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.canonlygoinpocket = true;
+    inst.components.inventoryitem.canonlygoinpocket = true; -- 注意此处在其他地方被我改成 false 了！
     inst.components.inventoryitem:ChangeImageName("backpack");
     inst.components.inventoryitem:SetOnDroppedFn(ondropped);
     inst.components.inventoryitem:SetOnPickupFn(onpickupfn);
@@ -129,11 +129,11 @@ local function fn()
     inst.components.container.skipclosesnd = true
     inst.components.container.skipopensnd = true
 
-    MakeSmallBurnable(inst)
-    MakeSmallPropagator(inst)
-    inst.components.burnable:SetOnBurntFn(onburnt)
-    inst.components.burnable:SetOnIgniteFn(onignite)
-    inst.components.burnable:SetOnExtinguishFn(onextinguish)
+    --MakeSmallBurnable(inst)
+    --MakeSmallPropagator(inst)
+    --inst.components.burnable:SetOnBurntFn(onburnt)
+    --inst.components.burnable:SetOnIgniteFn(onignite)
+    --inst.components.burnable:SetOnExtinguishFn(onextinguish)
 
     MakeHauntableLaunchAndDropFirstItem(inst)
 

@@ -2,14 +2,14 @@
 --- @author zsh in 2023/1/8 18:43
 ---
 
--- µ¼Èë¹Ù·½µÄ²»ÓÃÀ¨ºÅ£¬µ¼Èë×Ô¼ºµÄÓÃÀ¨ºÅ¡£±ê¼ÇÒ»ÏÂ£¡
+-- å¯¼å…¥å®˜æ–¹çš„ä¸ç”¨æ‹¬å·ï¼Œå¯¼å…¥è‡ªå·±çš„ç”¨æ‹¬å·ã€‚æ ‡è®°ä¸€ä¸‹ï¼
 local Widget = require "widgets/widget";
 local Text = require 'widgets/text';
 
 local Agency = {
     ["TextTime"] = setmetatable({
         font = NUMBERFONT, -- fonts.lua
-        size = 20, -- 18 ¸Ğ¾õĞ¡ÁËµã£¬24 Ì«´óÁË
+        size = 20, -- 18 æ„Ÿè§‰å°äº†ç‚¹ï¼Œ24 å¤ªå¤§äº†
         text = '00:00:00',
         colour = { 255, 255, 255, 1 }
     }, {
@@ -21,7 +21,7 @@ local Agency = {
 
 ---@class CurrentDate
 local CurrentDate = Class(Widget, function(self, owner)
-    Widget._ctor(self, 'mone_CurrentDate'); -- µ÷ÓÃ¸¸ÀàµÄ³õÊ¼»¯º¯Êı£¬super(...)
+    Widget._ctor(self, 'mone_CurrentDate'); -- è°ƒç”¨çˆ¶ç±»çš„åˆå§‹åŒ–å‡½æ•°ï¼Œsuper(...)
 
     self:SetScale(2, 2);
 
@@ -43,8 +43,8 @@ env.AddClassPostConstruct('widgets/controls', function(self, owner)
     do
         local currentdate = self.mone_currentdate;
 
-        currentdate:SetHAnchor(0); -- x  1,0,2 ´ú±í£º×óÖĞÓÒ
-        currentdate:SetVAnchor(1); -- y  1,0,2 ´ú±í£ºÉÏÖĞÏÂ
+        currentdate:SetHAnchor(0); -- x  1,0,2 ä»£è¡¨ï¼šå·¦ä¸­å³
+        currentdate:SetVAnchor(1); -- y  1,0,2 ä»£è¡¨ï¼šä¸Šä¸­ä¸‹
         --currentdate:SetPosition(150, -200);
         currentdate:SetPosition(0, -20);
 

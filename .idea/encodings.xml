@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" defaultCharsetForPropertiesFiles="GBK">
-    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/modinfo.lua" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/modmain/actions.lua" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/components/mie_beef_bell_self.lua" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/hodgepodge/mie/container_ui.lua" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/prefabs/mie/game/bundle.lua" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/prefabs/mie/game/waterpump.lua" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/prefabs/mie/mine/icemaker.lua" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/prefabs/mie/mine/relic_2.lua" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/modinfo.lua" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/modinfo_202302101007.lua" charset="UTF-8" />
-    <file url="PROJECT" charset="GBK" />
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../MoreItems Expansion" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/plans.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/scripts/mie/青木新字典.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/../MoreItems Expansion/updatelog.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/notes.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plans.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/questions.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scripts/chang_mone/GemCore/gemscripts/gemrun.lua" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/scripts/chang_mone/GemCore/hao-notes.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/scripts/chang_mone/lua_modules/_Tool.lua" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/scripts/definitions/mone/containers_ui.lua" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/updatelog.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../PetsEnhancement" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../PetsEnhancement/plans.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../PetsEnhancement/updatelog.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../UzumakiNaruto" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../huge_box" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../huge_box/scripts/huge_box/API.lua" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

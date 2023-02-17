@@ -13,7 +13,7 @@ local function OnPhaseChange(inst, phase)
     inst.Light:Enable(false);
 end
 
--- ºÃÏñ²»ĞèÒª Network£¿
+-- å¥½åƒä¸éœ€è¦ Networkï¼Ÿ
 local function fn()
     local inst = CreateEntity()
 
@@ -23,11 +23,11 @@ local function fn()
     inst.entity:AddSoundEmitter()
 
     inst.entity:AddLight()
-    inst.Light:SetIntensity(0.5) -- ÌáµÆ[0.4,0.6]
-    --inst.Light:SetColour(200 / 255, 200 / 255, 200 / 255) -- Ñ©°×£¿
-    inst.Light:SetColour(180 / 255, 195 / 255, 150 / 255) -- ÌáµÆ
-    inst.Light:SetFalloff(.9)  -- ÌáµÆ
-    inst.Light:SetRadius(4) -- ÌáµÆ[3,5]
+    inst.Light:SetIntensity(0.5) -- æç¯[0.4,0.6]
+    --inst.Light:SetColour(200 / 255, 200 / 255, 200 / 255) -- é›ªç™½ï¼Ÿ
+    inst.Light:SetColour(180 / 255, 195 / 255, 150 / 255) -- æç¯
+    inst.Light:SetFalloff(.9)  -- æç¯
+    inst.Light:SetRadius(4) -- æç¯[3,5]
 
     inst:AddTag("FX")
 
@@ -43,7 +43,7 @@ local function fn()
 
     --inst.OnPhaseChange = OnPhaseChange;
 
-    -- Ö´ĞĞÒ»´Î
+    -- æ‰§è¡Œä¸€æ¬¡
     inst:DoTaskInTime(0, function(inst)
         OnPhaseChange(inst, TheWorld.state.phase);
     end);

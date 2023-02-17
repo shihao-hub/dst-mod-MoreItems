@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/10 4:52
 ---
 
-
+-- NOTE: æœ‰æœºä¼šå…¼å®¹ä¸€ä¸‹å±å¹•å¤§å°å˜æ¢å¯¹åº”çš„ä½ç½®å˜æ¢ï¼
 
 local API = require("chang_mone.dsts.API");
 local TEXT = require("languages.mone.loc");
@@ -22,7 +22,7 @@ end
 local containers = require("containers");
 local params = containers.params;
 
--- Ïä×Ó
+-- ç®±å­
 --params.mone_treasurechest = {
 --    widget = {
 --        slotpos = {},
@@ -44,7 +44,7 @@ local params = containers.params;
 --    end
 --end
 
--- ÁúÁÛ±¦Ïä
+-- é¾™é³å®ç®±
 if TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA.mone_chests_boxs_capability then
     params.mone_dragonflychest = {
         widget = {
@@ -91,7 +91,7 @@ else
     end
 end
 
--- ĞŞ¸Ä£¡
+-- ä¿®æ”¹ï¼
 params.mone_treasurechest = deepcopy(params.mone_dragonflychest);
 params.mone_icebox = deepcopy(params.mone_dragonflychest);
 params.mone_saltbox = deepcopy(params.mone_dragonflychest);
@@ -137,7 +137,7 @@ params.mone_waterchest = {
         pos = Vector3(0, 0 + 100, 0),
         buttoninfo = {
             text = TEXT.TIDY,
-            position = Vector3(-5, 193, 0), --Êı×Ö¹îÒìÒòÎª±³¾°Í¼µ÷µÄ²»ºÃ
+            position = Vector3(-5, 193, 0), --æ•°å­—è¯¡å¼‚å› ä¸ºèƒŒæ™¯å›¾è°ƒçš„ä¸å¥½
             fn = fn,
             validfn = validfn
         }
@@ -154,7 +154,7 @@ params.mone_waterchest = {
     end
 }
 
-local spacer = 30 --¼ä¾à
+local spacer = 30 --é—´è·
 local posX = nil --x
 local posY = nil --y
 for z = 0, 2 do
@@ -172,7 +172,7 @@ for z = 0, 2 do
     end
 end
 
--- ĞŞ¸Ä£¡
+-- ä¿®æ”¹ï¼
 params.mone_minotaurchest = deepcopy(params.mone_waterchest);
 
 local GetNumSlots = 40
@@ -217,7 +217,7 @@ elseif GetNumSlots == 80 and true then
     my_storeroom_posY = 42
     my_storeroom_button_pos = Vector3(80 * my_storeroom_X / 2 - 346 * 2 + my_storeroom_posX, 80 * 0 - 100 * 2 + my_storeroom_posY - 53, 0)
 end
---´¢²ØÊÒ
+--å‚¨è—å®¤
 params.mone_terrariumchest = {
     widget = {
         slotpos = {},
@@ -245,9 +245,9 @@ for y = my_storeroom_Y, 0, -1 do
     end
 end
 
--- ĞŞ¸Ä£¡
+-- ä¿®æ”¹ï¼
 --params.mone_piggyback = deepcopy(params.mone_terrariumchest);
---params.mone_piggyback.widget.type = "mone_piggyback"; --??? ²»ĞĞ£¿
+--params.mone_piggyback.widget.type = "mone_piggyback"; --??? ä¸è¡Œï¼Ÿ
 params.mone_piggyback = {
     widget = {
         slotpos = {},
@@ -277,7 +277,7 @@ for y = my_storeroom_Y, 0, -1 do
 end
 
 
--- ĞŞ¸Ä£¡½ø½×Ñ©Çò·¢ÉäÆ÷
+-- ä¿®æ”¹ï¼è¿›é˜¶é›ªçƒå‘å°„å™¨
 params.mone_firesuppressor = {
     widget = {
         slotpos = {},
@@ -430,7 +430,7 @@ params.mone_backpack = {
         side_align_tip = 160,
         buttoninfo = {
             text = TEXT.TIDY,
-            position = Vector3(-125, -270 + 80 + 8 + 3 + 3, 0), -- È·¶¨ÁË£¬ÊÇµÚÒ»ÏóÏŞ£¡
+            position = Vector3(-125, -270 + 80 + 8 + 3 + 3, 0), -- ç¡®å®šäº†ï¼Œæ˜¯ç¬¬ä¸€è±¡é™ï¼
             fn = function(inst, doer)
                 if inst.components.container ~= nil then
                     API.arrangeContainer(inst);
@@ -471,9 +471,15 @@ params.mone_piggybag = {
         if item.prefab == "mone_piggybag" then
             return false;
         end
+        --if item.prefab == "mie_book_silviculture" then
+        --    return false;
+        --end
         if item:HasTag("_container") or item:HasTag("mone_piggybag_itemtesttag") then
             return true;
         end
+        --if item:HasTag("battlesong") then
+        --    return true;
+        --end
         return false;
     end
 }
@@ -515,11 +521,11 @@ params.mone_wathgrithr_box = {
         slotpos = {},
         animbank = "ui_backpack_2x4",
         animbuild = "ui_backpack_2x4",
-        pos = Vector3(275 + 100 + 150 + 150 + 5 + 2 - 30 - 60 - 40, -60 - 10 + 3 + 3 - 5, 0),
+        pos = Vector3(275 + 100 + 150 + 150 + 5 + 2 - 30 - 60 - 40, -60 - 10 + 3 + 3 - 5 - 3, 0),
         side_align_tip = 160,
         buttoninfo = {
             text = TEXT.TIDY,
-            position = Vector3(-125, -270 + 80 + 8 + 3 + 3, 0), -- È·¶¨ÁË£¬ÊÇµÚÒ»ÏóÏŞ£¡
+            position = Vector3(-125, -270 + 80 + 8 + 3 + 3 + 2, 0), -- ç¡®å®šäº†ï¼Œæ˜¯ç¬¬ä¸€è±¡é™ï¼
             fn = function(inst, doer)
                 if inst.components.container ~= nil then
                     API.arrangeContainer(inst);
@@ -553,7 +559,7 @@ params.mone_wanda_box = {
         side_align_tip = 160,
         buttoninfo = {
             text = TEXT.TIDY,
-            position = Vector3(-125, -270 + 80 + 8 + 3 + 3, 0), -- È·¶¨ÁË£¬ÊÇµÚÒ»ÏóÏŞ£¡
+            position = Vector3(-125, -270 + 80 + 8 + 3 + 3, 0), -- ç¡®å®šäº†ï¼Œæ˜¯ç¬¬ä¸€è±¡é™ï¼
             fn = function(inst, doer)
                 if inst.components.container ~= nil then
                     API.arrangeContainer(inst);
@@ -577,6 +583,53 @@ for y = 0, 3 do
     table.insert(params.mone_wanda_box.widget.slotpos, Vector3(-162 + 75, -75 * y + 114, 0))
 end
 
+params.mone_candybag = {
+    widget = {
+        slotpos = {},
+        animbank = "ui_tacklecontainer_3x2",
+        animbuild = "ui_tacklecontainer_3x2",
+        pos = Vector3(0 + 800 - 200 + 90 - 10, 200 - 90 + 10 - 5, 0),
+        side_align_tip = 160,
+        -- æ²¡å•¥å¿…è¦åŠ è¿™ä¸ªæŒ‰é’®äº†ï¼
+        --[[        buttoninfo = {
+                    text = TEXT.TIDY,
+                    position = Vector3(0, 0 - 75 - 30, 0), -- ç¡®å®šäº†ï¼Œæ˜¯ç¬¬ä¸€è±¡é™ï¼
+                    fn = function(inst, doer)
+                        if inst.components.container ~= nil then
+                            API.arrangeContainer(inst);
+                        elseif inst.replica.container ~= nil and not inst.replica.container:IsBusy() then
+                            SendRPCToServer(RPC.DoWidgetButtonAction, nil, inst, nil)
+                        end
+                    end,
+                    validfn = function(inst)
+                        return inst.replica.container ~= nil and not inst.replica.container:IsEmpty()
+                    end
+                }]]
+    },
+    type = "mone_candybag",
+    itemtestfn = function(container, item, slot)
+        for _, v in ipairs({
+            "cutgrass", -- è‰
+            "twigs", -- æ ‘æ
+            "flint", -- ç‡§çŸ³
+            "rocks", -- çŸ³å¤´
+            "goldnugget", -- é‡‘å­
+            "log", -- æœ¨å¤´
+        }) do
+            if item.prefab == v then
+                return true;
+            end
+        end
+        return false;
+    end
+}
+
+for y = 1, 0, -1 do
+    for x = 0, 2 do
+        table.insert(params.mone_candybag.widget.slotpos, Vector3(80 * x - 80 * 2 + 80, 80 * y - 80 * 2 + 120, 0))
+    end
+end
+
 params.mone_seedpouch = {
     widget = {
         slotpos = {},
@@ -591,7 +644,7 @@ params.mone_seedpouch = {
     type = "pack",
     openlimit = 1,
     itemtestfn = function(container, item, slot)
-        return item:HasTag("deployedfarmplant"); -- Ö»ÄÜ·ÅÖÖ×Ó
+        return item:HasTag("deployedfarmplant"); -- åªèƒ½æ”¾ç§å­
     end
 }
 for y = 0, 9 do
@@ -634,7 +687,7 @@ params.mone_relic_2 = {
 }
 
 
--- ±ØĞë¼ÓÕâ¸ö£¬±£Ö¤ MAXITEMSLOTS ×ã¹»´ó£¬¶øÇÒÇë²»ÒªÓÃ inst.replica.container:WidgetSetup(nil, widgetsetup); µÄĞ´·¨£¬ÎÊÌâÌ«¶à£¡
+-- å¿…é¡»åŠ è¿™ä¸ªï¼Œä¿è¯ MAXITEMSLOTS è¶³å¤Ÿå¤§ï¼Œè€Œä¸”è¯·ä¸è¦ç”¨ inst.replica.container:WidgetSetup(nil, widgetsetup); çš„å†™æ³•ï¼Œé—®é¢˜å¤ªå¤šï¼
 for k, v in pairs(params) do
     containers.MAXITEMSLOTS = math.max(containers.MAXITEMSLOTS, v.widget.slotpos ~= nil and #v.widget.slotpos or 0)
 end

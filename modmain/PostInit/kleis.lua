@@ -6,7 +6,7 @@ local config_data = TUNING.MONE_TUNING.GET_MOD_CONFIG_DATA;
 
 do
     if config_data.workable_meatrack_hermit_beebox_hermit then
-        -- ´Ë´¦¾Í´Ëover£¬½öÕâÁ½¸ö¼´¿É¡£
+        -- æ­¤å¤„å°±æ­¤overï¼Œä»…è¿™ä¸¤ä¸ªå³å¯ã€‚
         local prefabs = {};
         if config_data.meatrack_hermit then
             table.insert(prefabs, "meatrack_hermit");

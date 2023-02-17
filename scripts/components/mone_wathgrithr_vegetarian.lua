@@ -2,7 +2,7 @@
 --- @author zsh in 2023/1/22 23:31
 ---
 
---[[ Å®ÎäÉñ¿ÉÒÔ³ÔËØ£¬µ«ÊÇÉú´æÌìÊý³¬¹ýÒ»¶¨ÌìÊýºó¾Í²»ÄÜÔÙ³ÔËØÁË ]]
+--[[ å¥³æ­¦ç¥žå¯ä»¥åƒç´ ï¼Œä½†æ˜¯ç”Ÿå­˜å¤©æ•°è¶…è¿‡ä¸€å®šå¤©æ•°åŽå°±ä¸èƒ½å†åƒç´ äº† ]]
 
 local VB = Class(function(self, inst)
     self.inst = inst;

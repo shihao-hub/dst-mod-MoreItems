@@ -4,7 +4,7 @@
 
 local API = require("chang_mone.dsts.API");
 
---[[ �Ṧˮ��Ư ]]
+--[[ 轻功水上漂 ]]
 env.AddPrefabPostInit("mone_nightspace_cape", function(inst)
 
     if not TheWorld.ismastersim then

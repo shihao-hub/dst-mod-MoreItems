@@ -2,10 +2,10 @@
 --- @author zsh in 2023/1/30 11:03
 ---
 
--- function ËäÈ»ÓĞ¹¦ÄÜµÄÒâË¼£¬µ«ÊÇµÚÒ»¸Ğ¾õ¶¼ÊÇº¯Êı¡£ËäÈ» method µÚÒ»¸Ğ¾õÒ²ÊÇº¯Êı¡£¡£¡£
--- common methods: ³£ÓÃ¹¦ÄÜ
+-- function è™½ç„¶æœ‰åŠŸèƒ½çš„æ„æ€ï¼Œä½†æ˜¯ç¬¬ä¸€æ„Ÿè§‰éƒ½æ˜¯å‡½æ•°ã€‚è™½ç„¶ method ç¬¬ä¸€æ„Ÿè§‰ä¹Ÿæ˜¯å‡½æ•°ã€‚ã€‚ã€‚
+-- common methods: å¸¸ç”¨åŠŸèƒ½
 
--------------------------------************* ¾Ö²¿»¯ ************--------------------------
+-------------------------------************* å±€éƒ¨åŒ– ************--------------------------
 local _G = GLOBAL
 local Point, Vector3, type, tostring, tonumber, GetTime, pairs, ipairs, SpawnPrefab, TheSim, FRAMES, pcall, TheWorld, jsbao, jsjie = Point, Vector3, type, tostring, tonumber, GetTime, pairs, ipairs, SpawnPrefab, TheSim, FRAMES, pcall, TheWorld, json.encode, json.decode
 local Point, Vector3, type, tostring, tonumber, GetTime, pairs, ipairs = _G.Point, _G.Vector3, type, _G.tostring, _G.tonumber, _G.GetTime, pairs, ipairs
